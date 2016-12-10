@@ -26,7 +26,7 @@ namespace IrrationalNumbers.Logic.Expansions
         {
             RemainderResult remainderResult = EvaluateN(wantedRemainder, x);
 
-            double result = 1;
+            double result = remainderResult.Remainder + 1;
             for (int i = 1; i <= remainderResult.RemainderOrder; ++i)
                 result += (Math.Pow(x, i) / Utils.CalculateFactorial(i));
 

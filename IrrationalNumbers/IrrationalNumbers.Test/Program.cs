@@ -9,21 +9,26 @@ namespace IrrationalNumbers.Test
     {
         private static void Main(string[] args)
         {
-            var parser = new MathParser();
+            //var parser = new MathParser();
 
-            parser.LocalFunctions.Add("CustomFn", decimals => decimals[0] + 1);
-            parser.LocalFunctions.Add("Custom", decimals => decimals[0] + 1);
-            parser.LocalFunctions.Add("SuperCustom", decimals => decimals[0] + 1);
+            //parser.LocalFunctions.Add("CustomFn", decimals => decimals[0] + 1);
+            //parser.LocalFunctions.Add("Custom", decimals => decimals[0] + 1);
+            //parser.LocalFunctions.Add("SuperCustom", decimals => decimals[0] + 1);
 
-            parser.LocalFunctions["sin"] = decimals => 1;
+            //parser.LocalFunctions["sin"] = decimals => 1;
 
-            var result = parser.Parse("sin(1)");
+            //var result = parser.Parse("sin(1)");
 
-            var result2 = parser.Parse("CustomFn(Custom(SuperCustom(1)))");
+            //var result2 = parser.Parse("CustomFn(Custom(SuperCustom(1)))");
 
-            Console.WriteLine("Result 1 is: " + result);
-            Console.WriteLine("Result 2 is: " + result2);
-            
+            //Console.WriteLine("Result 1 is: " + result);
+            //Console.WriteLine("Result 2 is: " + result2);
+
+            IBasicFunctionExpansion expansion = new ExponentTaylorExpansion();
+
+            Console.WriteLine(Math.Abs(Math.Exp(2) - expansion.ExpandFunction(-100,2)));
+            Console.ReadKey();
+
         }
     }
 }
