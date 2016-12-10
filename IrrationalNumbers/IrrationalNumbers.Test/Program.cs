@@ -1,6 +1,8 @@
 ﻿using IrrationalNumbers.Logic;
 using IrrationalNumbers.Logic.Expansions;
 using System;
+using System.Numerics;
+using IrrationalNumbers.Core;
 using Mathos.Parser;
 
 namespace IrrationalNumbers.Test
@@ -23,12 +25,19 @@ namespace IrrationalNumbers.Test
 
             //Console.WriteLine("Result 1 is: " + result);
             //Console.WriteLine("Result 2 is: " + result2);
+            BigDecimal x1 = new BigDecimal(new BigInteger(200855259503435478344512630226915941201655487369773084059d),-55);
+            var x2 = new BigDecimal(1, -4);
+            BigDecimal s = 0.0000000000000000000000000000000000000000000000000012;
+            BigDecimal d = 0.0000000000000000000000000000000000000000000000000013;
+            Console.WriteLine(s < d);
 
             IBasicFunctionExpansion expansion = new ExponentTaylorExpansion();
 
-            Console.WriteLine(Math.Abs(Math.Exp(2) - expansion.ExpandFunction(-100,2)));
-            Console.ReadKey();
+            //Console.REa
+            Console.WriteLine(expansion.ExpandFunction(-100,2) - Math.Exp(2));
 
+
+            Console.ReadKey();
         }
     }
 }

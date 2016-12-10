@@ -1,5 +1,4 @@
-﻿
-using IrrationalNumbers.Core;
+﻿using IrrationalNumbers.Core;
 
 namespace IrrationalNumbers.Logic
 {

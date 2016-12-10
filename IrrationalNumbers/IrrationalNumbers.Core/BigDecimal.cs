@@ -270,6 +270,13 @@ namespace IrrationalNumbers.Core
             return tmp * Math.Exp(exponent);
         }
 
+        public static BigDecimal Abs(BigDecimal bigDecimal)
+        {
+            if (bigDecimal < 0)
+                return -bigDecimal;
+            return bigDecimal;
+        }
+
         public static BigDecimal Pow(double basis, double exponent)
         {
             var tmp = (BigDecimal)1;
