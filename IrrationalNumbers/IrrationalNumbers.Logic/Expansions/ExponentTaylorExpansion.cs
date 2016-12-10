@@ -1,4 +1,5 @@
 ﻿using System;
+using IrrationalNumbers.Core;
 
 
 namespace IrrationalNumbers.Logic.Expansions
@@ -11,9 +12,9 @@ namespace IrrationalNumbers.Logic.Expansions
 
             for (int i = 1; ; ++i)
             {
-                double possibleRemainder = Math.Pow(3, c) / Utils.CalculateFactorial(i + 1) * Math.Pow(x, i + 1);
+                BigDecimal possibleRemainder = Math.Pow(3, c) / Utils.CalculateFactorial(i + 1) * Math.Pow(x, i + 1);
 
-                if (Math.Abs(possibleRemainder) < Math.Pow(10, wantedRemainder))
+                if (BigDecimal.Abs(possibleRemainder) < Math.Pow(10, wantedRemainder))
                     return new RemainderResult()
                     {
                         Remainder = possibleRemainder,
@@ -22,13 +23,15 @@ namespace IrrationalNumbers.Logic.Expansions
             }
         }
 
-        public double ExpandFunction(int wantedRemainder, double x)
+        public BigDecimal ExpandFunction(int wantedRemainder, double x)
         {
             RemainderResult remainderResult = EvaluateN(wantedRemainder, x);
 
-            double result = remainderResult.Remainder + 1;
+            BigDecimal result = Math.Pow(10,200);
             for (int i = 1; i <= remainderResult.RemainderOrder; ++i)
-                result += (Math.Pow(x, i) / Utils.CalculateFactorial(i));
+            {
+                result = Math.Pow(x,i) / Utils.CalculateFactorial(i);
+            }
 
             return result;
         }

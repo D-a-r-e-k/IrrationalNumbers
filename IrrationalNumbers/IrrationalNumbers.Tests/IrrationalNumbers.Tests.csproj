@@ -40,6 +40,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Numerics" />
   </ItemGroup>
   <Choose>
     <When Condition="('$(VisualStudioVersion)' == '10.0' or '$(VisualStudioVersion)' == '') and '$(TargetFrameworkVersion)' == 'v3.5'">
@@ -58,6 +59,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\IrrationalNumbers.Core\IrrationalNumbers.Core.csproj">
+      <Project>{0104b64f-bf46-444f-92cc-b08947f73fc9}</Project>
+      <Name>IrrationalNumbers.Core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\IrrationalNumbers.Logic\IrrationalNumbers.Logic.csproj">
       <Project>{98cc9f7e-270e-4761-82f4-49b0da1ef811}</Project>
       <Name>IrrationalNumbers.Logic</Name>

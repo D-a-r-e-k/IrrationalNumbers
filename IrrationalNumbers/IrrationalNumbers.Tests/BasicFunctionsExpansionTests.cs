@@ -1,5 +1,7 @@
 ﻿
 using System;
+using System.Numerics;
+using IrrationalNumbers.Core;
 using IrrationalNumbers.Logic;
 using IrrationalNumbers.Logic.Expansions;
 using NUnit.Framework;
