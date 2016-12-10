@@ -49,6 +49,12 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\IrrationalNumbers.Logic\IrrationalNumbers.Logic.csproj">
+      <Project>{98cc9f7e-270e-4761-82f4-49b0da1ef811}</Project>
+      <Name>IrrationalNumbers.Logic</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
