@@ -1,19 +1,29 @@
 ﻿using IrrationalNumbers.Logic;
 using IrrationalNumbers.Logic.Expansions;
 using System;
+using Mathos.Parser;
 
 namespace IrrationalNumbers.Test
 {
     class Program
     {
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
-            IBasicFunctionExpansion expansion = new ExponentTaylorExpansion();
+            var parser = new MathParser();
 
-            Console.WriteLine(Math.Exp(2));
-            Console.WriteLine(Math.Abs(expansion.ExpandFunction(-100, 2) - Math.Exp(2)));
+            parser.LocalFunctions.Add("CustomFn", decimals => decimals[0] + 1);
+            parser.LocalFunctions.Add("Custom", decimals => decimals[0] + 1);
+            parser.LocalFunctions.Add("SuperCustom", decimals => decimals[0] + 1);
 
-            Console.ReadKey();
+            parser.LocalFunctions["sin"] = decimals => 1;
+
+            var result = parser.Parse("sin(1)");
+
+            var result2 = parser.Parse("CustomFn(Custom(SuperCustom(1)))");
+
+            Console.WriteLine("Result 1 is: " + result);
+            Console.WriteLine("Result 2 is: " + result2);
+            
         }
     }
 }
