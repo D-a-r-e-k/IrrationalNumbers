@@ -25,10 +25,10 @@ namespace IrrationalNumbers.Test
 
             //Console.WriteLine("Result 1 is: " + result);
             //Console.WriteLine("Result 2 is: " + result2);
-            BigDecimal x1 = new BigDecimal(new BigInteger(200855259503435478344512630226915941201655487369773084059d),-55);
-            var x2 = new BigDecimal(1, -4);
-            BigDecimal s = 0.0000000000000000000000000000000000000000000000000012;
-            BigDecimal d = 0.0000000000000000000000000000000000000000000000000013;
+            BigFloat x1 = new BigFloat(new BigInteger(200855259503435478344512630226915941201655487369773084059d),-55);
+            var x2 = new BigFloat(1, -4);
+            BigFloat s = 0.0000000000000000000000000000000000000000000000000012;
+            BigFloat d = 0.0000000000000000000000000000000000000000000000000013;
             Console.WriteLine(x1 < x2);
 
             IBasicFunctionExpansion expansion = new ExponentTaylorExpansion();

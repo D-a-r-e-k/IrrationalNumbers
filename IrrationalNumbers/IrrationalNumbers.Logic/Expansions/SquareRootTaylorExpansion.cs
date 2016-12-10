@@ -5,9 +5,9 @@ namespace IrrationalNumbers.Logic.Expansions
 {
     public class SquareRootTaylorExpansion: IBasicFunctionExpansion
     {
-        private BigDecimal FinalMultiplier { get; set; } = 1;
+        private BigFloat FinalMultiplier { get; set; } = 1;
        
-            public BigDecimal ExpandFunction(int wantedRemainder, double x)
+            public BigFloat ExpandFunction(int wantedRemainder, double x)
         {
             throw new System.NotImplementedException();
         }
@@ -18,7 +18,7 @@ namespace IrrationalNumbers.Logic.Expansions
         /// </summary>
         /// <param name="parameter"></param>
         /// <returns></returns>
-        private BigDecimal NormalizeParameter(BigDecimal parameter)
+        private BigFloat NormalizeParameter(BigFloat parameter)
         {
             var half = parameter/2;
             var quarter = parameter/4;

@@ -6,7 +6,7 @@ using System.Text;
 namespace IrrationalNumbers.Core
 {
     [Serializable]
-    class BigFloat : IComparable, IComparable<BigFloat>, IEquatable<BigFloat>
+    public class BigFloat : IComparable, IComparable<BigFloat>, IEquatable<BigFloat>
     {
         private BigInteger numerator;
         private BigInteger denominator;
