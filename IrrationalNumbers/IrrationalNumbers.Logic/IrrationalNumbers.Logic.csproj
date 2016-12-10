@@ -42,8 +42,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Expansions\ExponentTaylorExpansion.cs" />
-    <Compile Include="Expansions\SinTaylorExpansion.cs" />
     <Compile Include="Expansions\SquareRootTaylorExpansion.cs" />
+    <Compile Include="Expansions\SinTaylorExpansion.cs" />
     <Compile Include="IBasicFunctionExpansion.cs" />
     <Compile Include="Expansions\CosTaylorExpansion.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
