@@ -20,10 +20,15 @@ namespace IrrationalNumbers.Tests
         {
             IBasicFunctionExpansion expansion = new ExponentTaylorExpansion();
 
-            BigDecimal calculatedValue = BigDecimal.Abs(expansion.ExpandFunction(wantedRemainder, x) - Math.Exp(x));
-            BigDecimal remainder = Math.Pow(10, wantedRemainder);
-            Assert.That(calculatedValue
-                < remainder, Is.EqualTo(true));
+            Assert.That(Math.Abs(expansion.ExpandFunction(wantedRemainder, x) - Math.Exp(x)) <
+                        Math.Pow(10, wantedRemainder));
+        }
+        public void CosExpansion_RemainderGiven_ResultDoesNotExceedRemainder(int wantedRemainder, double x)
+        {
+            IBasicFunctionExpansion expansion = new CosTaylorExpansion();
+
+            Assert.That(Math.Abs(expansion.ExpandFunction(wantedRemainder, x) - Math.Cos(x)) <
+                        Math.Pow(10, wantedRemainder));
         }
     }
 }

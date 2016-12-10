@@ -1,17 +1,16 @@
 ﻿
 using System;
-using IrrationalNumbers.Core;
 
 namespace IrrationalNumbers.Logic
 {
-    public class CosTaylorExpansion : IBasicFunctionExpansion
+    public class SinTaylorExpansion : IBasicFunctionExpansion
     {
 
         public RemainderResult EvaluateN(int wantedRemainder, double x)
         {
             for (int i = 1; ; ++i)
             {
-                double possibleRemainder = Math.Pow(x, 2*i + 1) / Utils.CalculateFactorial(2*i + 1);
+                double possibleRemainder = Math.Pow(x, 2 * i) / Utils.CalculateFactorial(2 * i);
 
                 if (Math.Abs(possibleRemainder) < Math.Pow(10, wantedRemainder))
                     return new RemainderResult()
@@ -28,7 +27,7 @@ namespace IrrationalNumbers.Logic
 
             double result = remainderResult.Remainder + 1;
             for (int i = 1; i <= remainderResult.RemainderOrder; ++i)
-                result += Math.Pow(-1, i)*Math.Pow(x, 2*i)/Utils.CalculateFactorial(2*i);
+                result += Math.Pow(-1, i-1) * Math.Pow(x, 2 * i) / Utils.CalculateFactorial(2 * i);
 
             return result;
         }
