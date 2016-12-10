@@ -29,7 +29,7 @@ namespace IrrationalNumbers.Test
             var x2 = new BigDecimal(1, -4);
             BigDecimal s = 0.0000000000000000000000000000000000000000000000000012;
             BigDecimal d = 0.0000000000000000000000000000000000000000000000000013;
-            Console.WriteLine(s < d);
+            Console.WriteLine(x1 < x2);
 
             IBasicFunctionExpansion expansion = new ExponentTaylorExpansion();
 
