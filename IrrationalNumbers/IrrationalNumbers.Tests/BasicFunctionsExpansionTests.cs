@@ -18,7 +18,15 @@ namespace IrrationalNumbers.Tests
         {
             IBasicFunctionExpansion expansion = new ExponentTaylorExpansion();
 
-            Assert.That(Math.Abs(expansion.ExpandFunction(wantedRemainder, x) - Math.Exp(x)) < Math.Pow(10, wantedRemainder));
+            Assert.That(Math.Abs(expansion.ExpandFunction(wantedRemainder, x) - Math.Exp(x)) <
+                        Math.Pow(10, wantedRemainder));
+        }
+        public void CosExpansion_RemainderGiven_ResultDoesNotExceedRemainder(int wantedRemainder, double x)
+        {
+            IBasicFunctionExpansion expansion = new CosTaylorExpansion();
+
+            Assert.That(Math.Abs(expansion.ExpandFunction(wantedRemainder, x) - Math.Cos(x)) <
+                        Math.Pow(10, wantedRemainder));
         }
     }
 }
