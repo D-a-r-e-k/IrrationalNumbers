@@ -1,4 +1,6 @@
 ﻿
+using System;
+
 namespace IrrationalNumbers.Logic
 {
     public class CosTaylorExpansion : IBasicFunctionExpansion
@@ -6,12 +8,17 @@ namespace IrrationalNumbers.Logic
 
         private double CalculateHigherOrderDerivative(int n)
         {
+            if (n == 1)
+                return -1;
 
             return 0.0f;
         }
 
-        public int EvaluateRemainder()
+        public int EvaluateRemainder(int wantedRemainder)
         {
+
+
+
             return 0;
         }
 
@@ -21,6 +28,11 @@ namespace IrrationalNumbers.Logic
 
 
             return 0.0;
+        }
+
+        public double ExpandFunction(int wantedRemainder, double x)
+        {
+            throw new NotImplementedException();
         }
     }
 }

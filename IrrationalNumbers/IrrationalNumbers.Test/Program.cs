@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using IrrationalNumbers.Logic;
+using IrrationalNumbers.Logic.Expansions;
+using System;
 
 namespace IrrationalNumbers.Test
 {
@@ -10,6 +8,12 @@ namespace IrrationalNumbers.Test
     {
         static void Main(string[] args)
         {
+            IBasicFunctionExpansion expansion = new ExponentTaylorExpansion();
+
+            Console.WriteLine(Math.Exp(2));
+            Console.WriteLine(Math.Abs(expansion.ExpandFunction(-100, 2) - Math.Exp(2)));
+
+            Console.ReadKey();
         }
     }
 }
