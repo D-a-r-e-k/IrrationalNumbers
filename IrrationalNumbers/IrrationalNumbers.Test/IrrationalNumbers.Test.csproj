@@ -39,6 +39,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Numerics" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -55,6 +56,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\IrrationalNumbers.Core\IrrationalNumbers.Core.csproj">
+      <Project>{0104b64f-bf46-444f-92cc-b08947f73fc9}</Project>
+      <Name>IrrationalNumbers.Core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\IrrationalNumbers.Logic\IrrationalNumbers.Logic.csproj">
       <Project>{98cc9f7e-270e-4761-82f4-49b0da1ef811}</Project>
       <Name>IrrationalNumbers.Logic</Name>

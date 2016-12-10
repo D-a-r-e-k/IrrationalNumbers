@@ -1,5 +1,6 @@
 ﻿
 using System;
+using IrrationalNumbers.Core;
 
 namespace IrrationalNumbers.Logic
 {
@@ -30,7 +31,7 @@ namespace IrrationalNumbers.Logic
             return 0.0;
         }
 
-        public double ExpandFunction(int wantedRemainder, double x)
+        public BigDecimal ExpandFunction(int wantedRemainder, double x)
         {
             throw new NotImplementedException();
         }
