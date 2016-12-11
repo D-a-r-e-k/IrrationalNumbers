@@ -35,6 +35,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Deveel.Math, Version=1.6.1.88, Culture=neutral, processorArchitecture=AMD64">
+      <HintPath>..\packages\dmath-x64.1.6.1.88\lib\net20\Deveel.Math.pdb\Deveel.Math.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="MathParser, Version=1.0.10.1, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\MathosParser.1.0.10.1\lib\MathParser.dll</HintPath>
       <Private>True</Private>

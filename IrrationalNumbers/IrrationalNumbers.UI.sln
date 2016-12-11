@@ -1,13 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.24720.0
+VisualStudioVersion = 14.0.25123.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IrrationalNumbers.UI", "IrrationalNumbers.UI\IrrationalNumbers.UI.csproj", "{6AA447B4-6D78-4FB4-A95B-F76359674A7D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IrrationalNumbers.Logic", "IrrationalNumbers.Logic\IrrationalNumbers.Logic.csproj", "{98CC9F7E-270E-4761-82F4-49B0DA1EF811}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IrrationalNumbers.Test", "IrrationalNumbers.Test\IrrationalNumbers.Test.csproj", "{4442F06D-3B64-419B-98FA-B9D23868ED0F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IrrationalNumbers.TestConsole", "IrrationalNumbers.Test\IrrationalNumbers.TestConsole.csproj", "{4442F06D-3B64-419B-98FA-B9D23868ED0F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IrrationalNumbers.Tests", "IrrationalNumbers.Tests\IrrationalNumbers.Tests.csproj", "{2393CB33-0985-4CDC-8E7C-0C5E1868C0D7}"
 EndProject

@@ -1,12 +1,18 @@
-﻿using IrrationalNumbers.Core;
-
-namespace IrrationalNumbers.Logic
+﻿namespace IrrationalNumbers.Logic
 {
     public static class Utils
     {
-        public static BigFloat CalculateFactorial(int n)
+        public static double CalculateFactorial(int n)
         {
-            BigFloat result = 1;
+            double result = 1;
+            for (int i = 1; i <= n; ++i)
+                result *= i;
+            return result;
+        }
+
+        public static BigDecimal CalculateBigDecimalFactorial(int n)
+        {
+            BigDecimal result = 1;
             for (int i = 1; i <= n; ++i)
                 result *= i;
             return result;
