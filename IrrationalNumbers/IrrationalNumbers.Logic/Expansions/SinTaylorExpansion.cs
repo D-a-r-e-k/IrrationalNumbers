@@ -1,7 +1,5 @@
 ﻿
-using System;
-
-namespace IrrationalNumbers.Logic
+namespace IrrationalNumbers.Logic.Expansions
 {
     public class SinTaylorExpansion //: IBasicFunctionExpansion
     {
