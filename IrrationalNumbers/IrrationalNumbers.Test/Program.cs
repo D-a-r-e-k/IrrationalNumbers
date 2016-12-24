@@ -25,7 +25,8 @@ namespace IrrationalNumbers.Test
             //Console.WriteLine("Result 1 is: " + result);
             //Console.WriteLine("Result 2 is: " + result2);
 
-            IBasicFunctionExpansion expansion = new ExponentTaylorExpansion();
+            IBasicFunctionExpansion expansion = new HyperbolicSineExpansion();
+            Console.WriteLine(expansion.ExpandFunction(-4,2));
 
             Console.ReadKey();
         }
