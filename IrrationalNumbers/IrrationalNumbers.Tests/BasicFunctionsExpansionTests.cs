@@ -151,6 +151,21 @@ namespace IrrationalNumbers.Tests
                         BigDecimal.PowBig(10, wantedRemainder));
         }
 
+        // (x)^alpha
+
+        [Test]
+        [TestCase(-3, 5, 1 / 2)]
+        public void BinomicalExpansion_ResultDoesNotExceedGivenRemainder(int wantedRemainder, float x, float alpha)
+        {
+            IBasicFunctionExpansion expansion = new BinomicalMaclaurinExpansion(alpha, x);
+
+            var expectedAnswer = Math.Sqrt(x);
+
+            Assert.That(BigDecimal.Abs(expansion.ExpandFunction(wantedRemainder, x) - expectedAnswer) <
+                        BigDecimal.PowBig(10, wantedRemainder));
+        }
+
+
         // cos(x)
 
         //public void CosExpansion_RemainderGiven_ResultDoesNotExceedRemainder(int wantedRemainder, double x)

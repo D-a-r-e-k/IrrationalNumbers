@@ -1,32 +1,56 @@
 ﻿
+using System;
+
 namespace IrrationalNumbers.Logic.Expansions
 {
-    public class SquareRootTaylorExpansion//: IBasicFunctionExpansion
+    /// <summary>
+    /// Apima visus case'us, kur f-ja yra tokios israiskos: (1+x)^a, kur x less than 1 ir a priklauso R.
+    /// </summary>
+    public class BinomicalMaclaurinExpansion: IBasicFunctionExpansion
     {
-        //private BigDecimal FinalMultiplier { get; set; } = 1;
-       
-        //    public BigDecimal ExpandFunction(int wantedRemainder, double x)
-        //{
-        //    throw new System.NotImplementedException();
-        //}
+        private float _alpha;
+        private float _x;
 
-        ///// <summary>
-        /////Metodas, kuris pavercia bet koki saknies parametra i israiska 1 + x. 
-        /////Pvz : 100 = (1 + 1/3) * 75
-        ///// </summary>
-        ///// <param name="parameter"></param>
-        ///// <returns></returns>
-        //private BigDecimal NormalizeParameter(BigDecimal parameter)
-        //{
-        //    var half = parameter/2;
-        //    var quarter = parameter/4;
+        private ParameterNormalizationResult _normalizationResult;
 
-        //    var divideBy = half + quarter;
+        public BinomicalMaclaurinExpansion(float alpha, float x)
+        {
+            _alpha = alpha;
+            _x = x;
 
-        //    var divisionResult = parameter/divideBy;
-        //    FinalMultiplier = divideBy;
+            _normalizationResult = Utils.NormalizeParameter(x);
+        }
 
-        //    return divisionResult - 1;
-        //}
+        private RemainderResult EvaluateN(float normParameter, int wantedRemainder)
+        {
+            double c = 1 + normParameter;
+
+            for (int i = 1; ; ++i)
+            {
+                if (Math.Pow(c, _alpha - i + 1) * Math.Pow(normParameter, i + 1) * Utils.CalculateFactorial(_alpha, i + 1) < Utils.CalculateFactorial(i + 1) * Math.Pow(10, wantedRemainder))
+                    return new RemainderResult()
+                    {
+                        Remainder = Math.Pow(c, _alpha - i + 1) * Math.Pow(normParameter, i + 1) * Utils.CalculateFactorial(_alpha, i + 1) / Utils.CalculateFactorial(_alpha, i + 1),
+                        RemainderOrder = i
+                    };
+            }
+        }
+
+
+        public BigDecimal ExpandFunction(int wantedRemainder, double x)
+        {
+            RemainderResult remainderResult = EvaluateN(wantedRemainder,(int) x);
+
+            BigDecimal result = 1;
+            for (int i = 1; i <= remainderResult.RemainderOrder; ++i)
+            {
+                BigDecimal ithCoeficientBig = BigDecimal.PowBig(x, i) * Utils.CalculateFactorial(_alpha, i) / Utils.CalculateBigDecimalFactorial(i);
+                result += ithCoeficientBig;
+            }
+
+            return result;
+        }
+
+
     }
 }
