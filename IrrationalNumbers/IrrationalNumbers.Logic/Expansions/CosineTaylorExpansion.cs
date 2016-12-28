@@ -2,7 +2,7 @@
 
 namespace IrrationalNumbers.Logic.Expansions
 {
-    public class CosTaylorExpansion : IBasicFunctionExpansion
+    public class CosineTaylorExpansion : IBasicFunctionExpansion
     {
         public RemainderResult EvaluateN(int wantedRemainder, double x)
         {

@@ -50,9 +50,10 @@
     <Compile Include="Expansions\HyperbolicTangentExpansion.cs" />
     <Compile Include="Expansions\NaturalLogarithmExpansion.cs" />
     <Compile Include="Expansions\SquareRootTaylorExpansion.cs" />
-    <Compile Include="Expansions\SinTaylorExpansion.cs" />
+    <Compile Include="Expansions\SineTaylorExpansion.cs" />
+    <Compile Include="Expansions\TangentTaylorExpansion.cs" />
     <Compile Include="IBasicFunctionExpansion.cs" />
-    <Compile Include="Expansions\CosTaylorExpansion.cs" />
+    <Compile Include="Expansions\CosineTaylorExpansion.cs" />
     <Compile Include="ParameterNormalizationResult.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RemainderResult.cs" />

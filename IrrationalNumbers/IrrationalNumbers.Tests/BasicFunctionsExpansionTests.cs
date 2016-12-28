@@ -173,7 +173,7 @@ namespace IrrationalNumbers.Tests
         [TestCase(-10, 2.2)]
         public void CosineExpansion_SmallerCases_ResultDoesNotExceedGivenRemainder(int wantedRemainder, double x)
         {
-            IBasicFunctionExpansion expansion = new CosTaylorExpansion();
+            IBasicFunctionExpansion expansion = new CosineTaylorExpansion();
 
             var expectedAnswer = Math.Cos(x);
 
@@ -187,7 +187,7 @@ namespace IrrationalNumbers.Tests
         public void CosineExpansion_BiggerCases_ResultDoesNotExceedGivenRemainder(int wantedRemainder, double x, string mantissa, int exponent)
         {
 
-            IBasicFunctionExpansion expansion = new CosTaylorExpansion();
+            IBasicFunctionExpansion expansion = new CosineTaylorExpansion();
 
             BigInteger mantissaBigInteger = BigInteger.Parse(mantissa);
             var expectedAnswer = new BigDecimal(mantissaBigInteger, exponent);
