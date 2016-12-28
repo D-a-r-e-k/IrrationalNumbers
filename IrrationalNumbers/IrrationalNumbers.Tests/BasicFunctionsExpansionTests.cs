@@ -212,6 +212,23 @@ namespace IrrationalNumbers.Tests
                         BigDecimal.PowBig(10, wantedRemainder));
         }
 
+        [Test]
+        [TestCase(-100, 30.13, "34055213531422098669201939336109935963480873422234707618889750306553843667667027816737199427377733853389068629235544877121147178088828868449616500527881809364123725263155542108001842477734974091439046646439450096553362007479686", -226)]
+        [TestCase(-30, 8, "20794415416798359282516963643745297042265004030807657623620400284801808659090841468175899809892560626260044430617120572010565607072743916710980122549052278857921827124851143055709211158716750204133700503460934938657173614255180", -226)]
+        public void NaturalLogarithmExpansion_BiggerCases_ResultDoesNotExceedGivenRemainder(int wantedRemainder, double x, string mantissa, int exponent)
+        {
+            IBasicFunctionExpansion expansion = new NaturalLogarithmExpansion();
+
+            BigInteger mantissaBigInteger = BigInteger.Parse(mantissa);
+            var expectedAnswer = new BigDecimal(mantissaBigInteger, exponent);
+            var actualAnswer = expansion.ExpandFunction(wantedRemainder, x);
+
+            Assert.That(BigDecimal.Abs(actualAnswer - expectedAnswer) <
+                        BigDecimal.PowBig(10, wantedRemainder));
+        }
+
+        
+
         /*[Test]
         [TestCase(-4, 3)]
         [TestCase(-6, -2)]

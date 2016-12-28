@@ -4,6 +4,13 @@ namespace IrrationalNumbers.Logic.Expansions
 {
     public class NaturalLogarithmExpansion : IBasicFunctionExpansion
     {
+        private IBasicFunctionExpansion _exponentExpansion;
+
+        public NaturalLogarithmExpansion()
+        {
+            _exponentExpansion = new ExponentTaylorExpansion();
+        }
+
         public RemainderResult EvaluateN(int wantedRemainder, BigDecimal x)
         {
             for (int i = 1; ; ++i)
@@ -19,7 +26,7 @@ namespace IrrationalNumbers.Logic.Expansions
 
         public BigDecimal ExpandFunction(int wantedRemainder, double x)
         {
-            var transformedX = TransformParameter(x);
+            var transformedX = TransformParameter(x, wantedRemainder);
 
             RemainderResult remainderResult = EvaluateN(wantedRemainder, transformedX.Remainder);
 
@@ -33,14 +40,16 @@ namespace IrrationalNumbers.Logic.Expansions
             return (BigDecimal) transformedX.RemainderOrder + result;
         }
 
-        private RemainderResult TransformParameter(BigDecimal x)
+        private RemainderResult TransformParameter(BigDecimal x, int wantedRemainder)
         {
+            BigDecimal expandedE = _exponentExpansion.ExpandFunction(wantedRemainder, 1);
+
             int d = 1;
-            while (BigDecimal.PowBig(Math.E, d) < x) d++;
+            while (BigDecimal.PowBig(expandedE, d) < x) d++;
 
             return new RemainderResult()
             {
-                Remainder = x / BigDecimal.PowBig(Math.E,d) - 1,
+                Remainder = x / BigDecimal.PowBig(expandedE, d) - 1,
                 RemainderOrder = d
             };
         }
