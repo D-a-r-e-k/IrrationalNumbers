@@ -27,7 +27,7 @@ namespace IrrationalNumbers.Test
 
             IBasicFunctionExpansion expansion = new HyperbolicSineExpansion();
             Console.WriteLine(expansion.ExpandFunction(-4,2));
-
+            Console.WriteLine(new CosTaylorExpansion().ExpandFunction(-3, 5));
             Console.ReadKey();
         }
     }

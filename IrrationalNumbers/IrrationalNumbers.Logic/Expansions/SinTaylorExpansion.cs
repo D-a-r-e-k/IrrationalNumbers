@@ -1,7 +1,7 @@
 ﻿
 namespace IrrationalNumbers.Logic.Expansions
 {
-    public class SinTaylorExpansion //: IBasicFunctionExpansion
+    public class SinTaylorExpansion: IBasicFunctionExpansion
     {
 
         //public RemainderResult EvaluateN(int wantedRemainder, double x)
@@ -19,15 +19,16 @@ namespace IrrationalNumbers.Logic.Expansions
         //    }
         //}
 
-        //public double ExpandFunction(int wantedRemainder, double x)
-        //{
-        //    RemainderResult remainderResult = EvaluateN(wantedRemainder, x);
+        public BigDecimal ExpandFunction(int wantedRemainder, double x)
+        {
+            //    RemainderResult remainderResult = EvaluateN(wantedRemainder, x);
 
-        //    double result = remainderResult.Remainder + 1;
-        //    for (int i = 1; i <= remainderResult.RemainderOrder; ++i)
-        //        result += Math.Pow(-1, i-1) * Math.Pow(x, 2 * i) / Utils.CalculateFactorial(2 * i);
+            //    double result = remainderResult.Remainder + 1;
+            //    for (int i = 1; i <= remainderResult.RemainderOrder; ++i)
+            //        result += Math.Pow(-1, i-1) * Math.Pow(x, 2 * i) / Utils.CalculateFactorial(2 * i);
 
-        //    return result;
-        //}
+            //    return result;
+            return 0.0;
+        }
     }
 }

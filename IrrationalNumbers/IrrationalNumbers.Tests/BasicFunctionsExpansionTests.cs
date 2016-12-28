@@ -165,9 +165,20 @@ namespace IrrationalNumbers.Tests
                         BigDecimal.PowBig(10, wantedRemainder));
         }
 
-
         // cos(x)
 
+
+        [Test]
+        [TestCase(-100, 30.13)]
+        public void CosExpansion_ResultDoesNotExceedGivenRemainder(int wantedRemainder, double x)
+        {
+            IBasicFunctionExpansion expansion = new CosTaylorExpansion();
+
+            var expectedAnswer = Math.Cos(x);
+
+            Assert.That(BigDecimal.Abs(expansion.ExpandFunction(wantedRemainder, x) - expectedAnswer) <
+                        BigDecimal.PowBig(10, wantedRemainder));
+        }
         //public void CosExpansion_RemainderGiven_ResultDoesNotExceedRemainder(int wantedRemainder, double x)
         //{
         //IBasicFunctionExpansion expansion = new CosTaylorExpansion();
