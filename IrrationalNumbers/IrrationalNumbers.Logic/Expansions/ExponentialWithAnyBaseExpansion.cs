@@ -4,17 +4,27 @@ namespace IrrationalNumbers.Logic.Expansions
 {
     public class ExponentialWithAnyBaseExpansion : IBasicFunctionExpansion
     {
-        public RemainderResult EvaluateN(int wantedRemainder, double x)
-        {
-            double c = Math.Max(x, 0);
-            double absX = Math.Abs(x);
+        private readonly IBasicFunctionExpansion _naturalLogarithmExpansion;
+        private readonly double _exponentBase;
 
+        public ExponentialWithAnyBaseExpansion(double exponentBase)
+        {
+            _naturalLogarithmExpansion = new NaturalLogarithmExpansion();
+            _exponentBase = exponentBase;
+        }
+
+        public RemainderResult EvaluateN(int wantedRemainder, BigDecimal x)
+        {
             for (int i = 1; ; ++i)
             {
-                if (Math.Pow(3, c) * Math.Pow(absX, i + 1) < Utils.CalculateFactorial(i + 1) * Math.Pow(10, wantedRemainder))
+                BigDecimal expandedLn = _naturalLogarithmExpansion.ExpandFunction(wantedRemainder, (double) _exponentBase);
+
+                if (BigDecimal.PowBig(x, i) * BigDecimal.PowBig(expandedLn, i) 
+                     < Math.Pow(10, wantedRemainder) * Utils.CalculateBigDecimalFactorial(i))
                     return new RemainderResult()
                     {
-                        Remainder = Math.Pow(3, c) / Utils.CalculateFactorial(i + 1) * Math.Pow(x, i + 1),
+                        Remainder = BigDecimal.PowBig(x, i) * BigDecimal.PowBig(expandedLn, i) / 
+                            Utils.CalculateBigDecimalFactorial(i),
                         RemainderOrder = i
                     };
             }
@@ -27,7 +37,11 @@ namespace IrrationalNumbers.Logic.Expansions
             BigDecimal result = 1;
             for (int i = 1; i <= remainderResult.RemainderOrder; ++i)
             {
-                BigDecimal ithCoeficientBig = BigDecimal.PowBig(x, i) / Utils.CalculateBigDecimalFactorial(i);
+                BigDecimal expandedLn = _naturalLogarithmExpansion.ExpandFunction(wantedRemainder, (double)_exponentBase);
+
+                BigDecimal ithCoeficientBig = BigDecimal.PowBig(x, i) * BigDecimal.PowBig(expandedLn, i) /
+                            Utils.CalculateBigDecimalFactorial(i);
+
                 result += ithCoeficientBig;
             }
 

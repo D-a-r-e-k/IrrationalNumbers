@@ -36,6 +36,13 @@ namespace IrrationalNumbers.Test
             Console.WriteLine(expectedAnswer);
             Console.WriteLine(actualAnswer);
 
+            double a = 3;
+
+            double result = 1;
+            for (int i = 0; i < 30; ++i)
+                result += Math.Pow(x, i + 1)*Math.Pow(Math.Log(a, Math.E), i + 1)/Utils.CalculateFactorial(i + 1);
+            //Console.WriteLine(1 + x * Math.Log(a, Math.E) + x*x*Math.Log(a, Math.E) *Math.Log(a, Math.E) / 2.0 + x*x*x*Math.Log(a, Math.E)*Math.Log(a, Math.E) *Math.Log(a, Math.E)/ 6.0);
+            Console.WriteLine(result);
             Console.ReadKey();
         }
     }

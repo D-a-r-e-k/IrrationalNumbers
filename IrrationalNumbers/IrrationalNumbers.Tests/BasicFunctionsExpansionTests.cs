@@ -259,6 +259,24 @@ namespace IrrationalNumbers.Tests
                         BigDecimal.PowBig(10, wantedRemainder));
         }
 
+        // a^x
+
+        [Test]
+        [TestCase(-4, 1, 2)]
+        [TestCase(-6, 4, 8)]
+        [TestCase(-10, 2.2, 10.1)]
+        public void ExponentWithAnyPowerExpansion_SmallerCases_ResultDoesNotExceedGivenRemainder(int wantedRemainder, double x, double logBase)
+        {
+            IBasicFunctionExpansion expansion = new ExponentialWithAnyBaseExpansion(logBase);
+
+            var expectedAnswer = Math.Pow(logBase, x);
+            var actualAnswer = expansion.ExpandFunction(wantedRemainder, x);
+
+            Assert.That(BigDecimal.Abs(actualAnswer - expectedAnswer) <
+                        BigDecimal.PowBig(10, wantedRemainder));
+        }
+
+
         /*[Test]
         [TestCase(-4, 3)]
         [TestCase(-6, -2)]
