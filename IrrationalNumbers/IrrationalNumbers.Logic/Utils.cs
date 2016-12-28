@@ -31,7 +31,7 @@
         /// </summary>
         /// <param name="parameter">Duotas parametras (pvz. x = 100)</param>
         /// <returns></returns>
-        public static ParameterNormalizationResult NormalizeParameter(float parameter)
+        public static ParameterNormalizationResult NormalizeParameter(double parameter)
         {
             var divideBy = parameter * 3 / 4;
 

@@ -182,8 +182,8 @@ namespace IrrationalNumbers.Tests
         }
 
         [Test]
-        [TestCase(-18, 30.13, "2810324922292073549811034530452090091804488850340468477039882872655945835951296706427481137651071706598893269637477936117962417583151412132757965755233599046019911395519692728069048568956740366464531033234834895135603571993305", -227)]
-        [TestCase(-100, 2, "416146836547142386997568229500762189766000771075544890755149973781964936124079169074531777860169140367366791365215728559288656399891172385683442074019964695321532618247978386250585148546251586628021039179201508829008648012", -223)]
+        [TestCase(-60, 17, "-0275163338051596922220342656551862898596973688298596247753093776293238002659315593011297790450826030423348946965030952890732597213692355119314036778396099956400567381815209850082787850418057450690691761418933028290735420999", -222)]
+        [TestCase(-100, 2, "-0416146836547142386997568229500762189766000771075544890755149973781964936124079169074531777860169140367366791365215728559288656399891172385683442074019964695321532618247978386250585148546251586628021039179201508829008648012", -222)]
         public void CosineExpansion_BiggerCases_ResultDoesNotExceedGivenRemainder(int wantedRemainder, double x, string mantissa, int exponent)
         {
 
@@ -194,6 +194,21 @@ namespace IrrationalNumbers.Tests
             //var expectedAnswer = Math.Cos(x);
             var exp = expansion.ExpandFunction(wantedRemainder, x);
             Assert.That(BigDecimal.Abs(expansion.ExpandFunction(wantedRemainder, x) - expectedAnswer) <
+                        BigDecimal.PowBig(10, wantedRemainder));
+        }
+
+        [Test]
+        [TestCase(-4, 1)]
+        [TestCase(-6, 4)]
+        [TestCase(-10, 2.2)]
+        public void NaturalLogarithmExpansion_SmallerCases_ResultDoesNotExceedGivenRemainder(int wantedRemainder, double x)
+        {
+            IBasicFunctionExpansion expansion = new NaturalLogarithmExpansion();
+
+            var expectedAnswer = Math.Log(x, Math.E);
+            var actualAnswer = expansion.ExpandFunction(wantedRemainder, x);
+
+            Assert.That(BigDecimal.Abs(actualAnswer - expectedAnswer) <
                         BigDecimal.PowBig(10, wantedRemainder));
         }
 

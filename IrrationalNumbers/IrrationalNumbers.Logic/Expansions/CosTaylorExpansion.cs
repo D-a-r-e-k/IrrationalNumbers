@@ -8,8 +8,8 @@ namespace IrrationalNumbers.Logic.Expansions
         {
             for (int i = 1; ; ++i)
             {
-                double possibleRemainder = Math.Pow(x, 2*i + 1) / Utils.CalculateFactorial(2*i + 1);
-                if (Math.Abs(possibleRemainder) < Math.Pow(10, wantedRemainder))
+                BigDecimal possibleRemainder = BigDecimal.PowBig(x, 2*i + 1) / Utils.CalculateBigDecimalFactorial(2*i + 1);
+                if (BigDecimal.Abs(possibleRemainder) < BigDecimal.PowBig(10, wantedRemainder))
                     return new RemainderResult()
                     {
                         Remainder = possibleRemainder,
@@ -21,10 +21,10 @@ namespace IrrationalNumbers.Logic.Expansions
         public BigDecimal ExpandFunction(int wantedRemainder, double x)
         {
             RemainderResult remainderResult = EvaluateN(wantedRemainder, x);
-            BigDecimal result = remainderResult.Remainder + 1;
+            BigDecimal result = 1;
             for (int i = 1; i <= remainderResult.RemainderOrder; ++i)
             {
-                BigDecimal ithElement = BigDecimal.PowBig(-1, i)*BigDecimal.PowBig(x, 2*i)/
+                BigDecimal ithElement = BigDecimal.PowBig(-1, i) * BigDecimal.PowBig(x, 2*i) /
                                         Utils.CalculateBigDecimalFactorial(2*i);
 
                 result += ithElement;

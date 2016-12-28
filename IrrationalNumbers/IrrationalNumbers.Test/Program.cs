@@ -25,9 +25,17 @@ namespace IrrationalNumbers.Test
             //Console.WriteLine("Result 1 is: " + result);
             //Console.WriteLine("Result 2 is: " + result2);
 
-            IBasicFunctionExpansion expansion = new HyperbolicSineExpansion();
-            Console.WriteLine(expansion.ExpandFunction(-4,2));
-            Console.WriteLine(new CosTaylorExpansion().ExpandFunction(-3, 5));
+            IBasicFunctionExpansion expansion = new NaturalLogarithmExpansion();
+
+            int wantedRemainder = -2;
+            double x = 2;
+
+            var expectedAnswer = Math.Log(x, Math.E);
+            var actualAnswer = expansion.ExpandFunction(wantedRemainder, x);
+
+            Console.WriteLine(expectedAnswer);
+            Console.WriteLine(actualAnswer);
+
             Console.ReadKey();
         }
     }
