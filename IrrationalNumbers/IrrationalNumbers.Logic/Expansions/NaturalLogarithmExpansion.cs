@@ -4,17 +4,14 @@ namespace IrrationalNumbers.Logic.Expansions
 {
     public class NaturalLogarithmExpansion : IBasicFunctionExpansion
     {
-
-        public RemainderResult EvaluateN(int wantedRemainder, double x)
+        public RemainderResult EvaluateN(int wantedRemainder, BigDecimal x)
         {
-            //double c = Math.Max(x, 0);
-
             for (int i = 1; ; ++i)
             {
-                if (1 / ((double) (i + 1)) < Math.Pow(10, wantedRemainder))
+                if (BigDecimal.Abs(BigDecimal.PowBig(x, i) / (BigDecimal)i) < BigDecimal.PowBig(10, wantedRemainder))
                     return new RemainderResult()
                     {
-                        Remainder = 1 / (i + 1),
+                        Remainder = BigDecimal.Abs(BigDecimal.PowBig(x, i) / (BigDecimal)i),
                         RemainderOrder = i
                     };
             }
@@ -22,17 +19,30 @@ namespace IrrationalNumbers.Logic.Expansions
 
         public BigDecimal ExpandFunction(int wantedRemainder, double x)
         {
-            //ParameterNormalizationResult xNormalized = Utils.NormalizeParameter(x);
-            RemainderResult remainderResult = EvaluateN(wantedRemainder, x);
+            var transformedX = TransformParameter(x);
 
-            BigDecimal result = x;
+            RemainderResult remainderResult = EvaluateN(wantedRemainder, transformedX.Remainder);
+
+            BigDecimal result = transformedX.Remainder;
             for (int i = 1; i <= remainderResult.RemainderOrder; ++i)
             {
-                BigDecimal ithCoeficientBig = BigDecimal.PowBig(-1, i) * BigDecimal.PowBig(x, i + 1)/ (BigDecimal)(i + 1);
+                BigDecimal ithCoeficientBig = BigDecimal.PowBig(-1, i) * BigDecimal.PowBig(transformedX.Remainder, i + 1)/ (BigDecimal)(i + 1);
                 result += ithCoeficientBig;
             }
 
-            return (BigDecimal)  result;
+            return (BigDecimal) transformedX.RemainderOrder + result;
+        }
+
+        private RemainderResult TransformParameter(BigDecimal x)
+        {
+            int d = 1;
+            while (BigDecimal.PowBig(Math.E, d) < x) d++;
+
+            return new RemainderResult()
+            {
+                Remainder = x / BigDecimal.PowBig(Math.E,d) - 1,
+                RemainderOrder = d
+            };
         }
     }
 }
