@@ -186,16 +186,16 @@ namespace IrrationalNumbers.Tests
         [TestCase(-100, 2, "-0416146836547142386997568229500762189766000771075544890755149973781964936124079169074531777860169140367366791365215728559288656399891172385683442074019964695321532618247978386250585148546251586628021039179201508829008648012", -222)]
         public void CosineExpansion_BiggerCases_ResultDoesNotExceedGivenRemainder(int wantedRemainder, double x, string mantissa, int exponent)
         {
-
             IBasicFunctionExpansion expansion = new CosineTaylorExpansion();
 
             BigInteger mantissaBigInteger = BigInteger.Parse(mantissa);
             var expectedAnswer = new BigDecimal(mantissaBigInteger, exponent);
-            //var expectedAnswer = Math.Cos(x);
-            var exp = expansion.ExpandFunction(wantedRemainder, x);
+
             Assert.That(BigDecimal.Abs(expansion.ExpandFunction(wantedRemainder, x) - expectedAnswer) <
                         BigDecimal.PowBig(10, wantedRemainder));
         }
+
+        // ln(x)
 
         [Test]
         [TestCase(-4, 1)]
@@ -227,7 +227,37 @@ namespace IrrationalNumbers.Tests
                         BigDecimal.PowBig(10, wantedRemainder));
         }
 
-        
+        // log(x)
+
+        [Test]
+        [TestCase(-4, 1, 2)]
+        [TestCase(-6, 4, 8)]
+        [TestCase(-10, 2.2, 10.1)]
+        public void LogarithmExpansion_SmallerCases_ResultDoesNotExceedGivenRemainder(int wantedRemainder, double x, double logBase)
+        {
+            IBasicFunctionExpansion expansion = new LogarithmExpansion(logBase);
+
+            var expectedAnswer = Math.Log(x, logBase);
+            var actualAnswer = expansion.ExpandFunction(wantedRemainder, x);
+
+            Assert.That(BigDecimal.Abs(actualAnswer - expectedAnswer) <
+                        BigDecimal.PowBig(10, wantedRemainder));
+        }
+
+        [Test]
+        [TestCase(-100, 30.13, 4, "24565643839098692277855520446699519478212670024205625182277228395120156440347897729660158177498673823756267998075667961880286413701863203567284077852295371249469236475460902514636914739526960013445212825451947471393416064299965", -226)]
+        [TestCase(-50, 1, 3, "0", 0)]
+        public void LogarithmExpansion_BiggerCases_ResultDoesNotExceedGivenRemainder(int wantedRemainder, double x, double logBase, string mantissa, int exponent)
+        {
+            IBasicFunctionExpansion expansion = new LogarithmExpansion(logBase);
+
+            BigInteger mantissaBigInteger = BigInteger.Parse(mantissa);
+            var expectedAnswer = new BigDecimal(mantissaBigInteger, exponent);
+            var actualAnswer = expansion.ExpandFunction(wantedRemainder, x);
+
+            Assert.That(BigDecimal.Abs(actualAnswer - expectedAnswer) <
+                        BigDecimal.PowBig(10, wantedRemainder));
+        }
 
         /*[Test]
         [TestCase(-4, 3)]

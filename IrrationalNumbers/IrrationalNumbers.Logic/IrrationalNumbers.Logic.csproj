@@ -48,6 +48,7 @@
     <Compile Include="Expansions\HyperbolicCotangentExpansion.cs" />
     <Compile Include="Expansions\HyperbolicSineExpansion.cs" />
     <Compile Include="Expansions\HyperbolicTangentExpansion.cs" />
+    <Compile Include="Expansions\LogarithmExpansion.cs" />
     <Compile Include="Expansions\NaturalLogarithmExpansion.cs" />
     <Compile Include="Expansions\SquareRootTaylorExpansion.cs" />
     <Compile Include="Expansions\SineTaylorExpansion.cs" />
