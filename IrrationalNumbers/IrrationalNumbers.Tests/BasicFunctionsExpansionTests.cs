@@ -169,7 +169,8 @@ namespace IrrationalNumbers.Tests
 
 
         [Test]
-        [TestCase(-100, 30.13)]
+        [TestCase(-10, 30.2)]
+        [TestCase(-2, 2.21)]
         public void CosExpansion_ResultDoesNotExceedGivenRemainder(int wantedRemainder, double x)
         {
             IBasicFunctionExpansion expansion = new CosTaylorExpansion();

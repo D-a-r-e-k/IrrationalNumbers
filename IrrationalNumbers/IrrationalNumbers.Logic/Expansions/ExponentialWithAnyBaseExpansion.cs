@@ -2,7 +2,7 @@
 
 namespace IrrationalNumbers.Logic.Expansions
 {
-    public class ExponentTaylorExpansion : IBasicFunctionExpansion
+    public class ExponentialWithAnyBaseExpansion : IBasicFunctionExpansion
     {
         public RemainderResult EvaluateN(int wantedRemainder, double x)
         {
@@ -27,7 +27,7 @@ namespace IrrationalNumbers.Logic.Expansions
             BigDecimal result = 1;
             for (int i = 1; i <= remainderResult.RemainderOrder; ++i)
             {
-                BigDecimal ithCoeficientBig = BigDecimal.PowBig(x,i) / Utils.CalculateBigDecimalFactorial(i);
+                BigDecimal ithCoeficientBig = BigDecimal.PowBig(x, i) / Utils.CalculateBigDecimalFactorial(i);
                 result += ithCoeficientBig;
             }
 
