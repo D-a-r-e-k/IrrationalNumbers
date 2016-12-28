@@ -17,7 +17,7 @@ namespace IrrationalNumbers.Logic.Expansions
         {
             for (int i = 1; ; ++i)
             {
-                BigDecimal expandedLn = _naturalLogarithmExpansion.ExpandFunction(wantedRemainder, (double) _exponentBase);
+                BigDecimal expandedLn = _naturalLogarithmExpansion.ExpandFunction(wantedRemainder * 2, (double) _exponentBase);
 
                 if (BigDecimal.PowBig(x, i) * BigDecimal.PowBig(expandedLn, i) 
                      < Math.Pow(10, wantedRemainder) * Utils.CalculateBigDecimalFactorial(i))
@@ -35,9 +35,9 @@ namespace IrrationalNumbers.Logic.Expansions
             RemainderResult remainderResult = EvaluateN(wantedRemainder, x);
 
             BigDecimal result = 1;
-            for (int i = 1; i <= remainderResult.RemainderOrder; ++i)
+            for (int i = 1; i <= remainderResult.RemainderOrder + 1; ++i)
             {
-                BigDecimal expandedLn = _naturalLogarithmExpansion.ExpandFunction(wantedRemainder, (double)_exponentBase);
+                BigDecimal expandedLn = _naturalLogarithmExpansion.ExpandFunction(wantedRemainder * 2, (double)_exponentBase);
 
                 BigDecimal ithCoeficientBig = BigDecimal.PowBig(x, i) * BigDecimal.PowBig(expandedLn, i) /
                             Utils.CalculateBigDecimalFactorial(i);
