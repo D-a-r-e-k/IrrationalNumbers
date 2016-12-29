@@ -42,6 +42,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Expansions\CotangentTaylorExpansion.cs" />
     <Compile Include="Expansions\ExponentialWithAnyBaseExpansion.cs" />
     <Compile Include="Expansions\ExponentTaylorExpansion.cs" />
     <Compile Include="Expansions\HyperbolicCosineExpansion.cs" />
