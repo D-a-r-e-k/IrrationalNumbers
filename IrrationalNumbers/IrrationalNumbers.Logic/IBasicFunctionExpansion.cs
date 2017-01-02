@@ -1,7 +1,4 @@
 ﻿
-
-
-
 namespace IrrationalNumbers.Logic
 {
     public interface IBasicFunctionExpansion

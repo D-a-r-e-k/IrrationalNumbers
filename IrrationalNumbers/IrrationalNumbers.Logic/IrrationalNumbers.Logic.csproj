@@ -42,15 +42,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Expansions\CotangentTaylorExpansion.cs" />
+    <Compile Include="Expansions\ExponentialWithAnyBaseExpansion.cs" />
     <Compile Include="Expansions\ExponentTaylorExpansion.cs" />
     <Compile Include="Expansions\HyperbolicCosineExpansion.cs" />
     <Compile Include="Expansions\HyperbolicCotangentExpansion.cs" />
     <Compile Include="Expansions\HyperbolicSineExpansion.cs" />
     <Compile Include="Expansions\HyperbolicTangentExpansion.cs" />
+    <Compile Include="Expansions\LogarithmExpansion.cs" />
+    <Compile Include="Expansions\NaturalLogarithmExpansion.cs" />
     <Compile Include="Expansions\SquareRootTaylorExpansion.cs" />
-    <Compile Include="Expansions\SinTaylorExpansion.cs" />
+    <Compile Include="Expansions\SineTaylorExpansion.cs" />
+    <Compile Include="Expansions\TangentTaylorExpansion.cs" />
     <Compile Include="IBasicFunctionExpansion.cs" />
-    <Compile Include="Expansions\CosTaylorExpansion.cs" />
+    <Compile Include="Expansions\CosineTaylorExpansion.cs" />
     <Compile Include="ParameterNormalizationResult.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RemainderResult.cs" />
