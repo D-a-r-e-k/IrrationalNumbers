@@ -153,17 +153,38 @@ namespace IrrationalNumbers.Tests
 
         // (x)^alpha
 
-        [Test]
-        [TestCase(-5, 5, 0.5)]
+       [Test]
+       [TestCase(-12, 7, 0.5)]
+       [TestCase(-10, 1.5325, 1/3d)]
+       [TestCase(-10, 5, 1 / 3d)]
+
         public void BinomicalExpansion_ResultDoesNotExceedGivenRemainder(int wantedRemainder, double x, double alpha)
         {
             IBasicFunctionExpansion expansion = new BinomicalMaclaurinExpansion(alpha, x);
 
-            var expectedAnswer = Math.Sqrt(x);
+            var expectedAnswer = Math.Pow(x,alpha);
 
-            var answer = expansion.ExpandFunction(wantedRemainder, x);
+            var answer = expansion.ExpandFunction(wantedRemainder - 1, x);
 
             Assert.That(BigDecimal.Abs(answer - expectedAnswer) <
+                        BigDecimal.PowBig(10, wantedRemainder));
+        }
+
+        
+
+        [Test]
+        [TestCase(-97, 7, 0.5d, "264575131106459059050161575363926042571025918308245018036833445920106882323028362776039288647454361", -98)]
+        //[TestCase(-100, 2, "10373147207275480958778097647678207116623912692491946035699817338445187575192564330668133815772665086843487323876994489760693526504445981561333042115804699343375852664379146597293287070471644501324038728366521090056064455419389775115609300562338133640494712991862376811503450739216970299399434472802027383401789583133145676184198699961549634507263255850226407021189688993308848314433966906548831003619962145169201943850330075384604033004009102811197955069", -454)]
+        public void Binomial_BiggerCases_ResultDoesNotExceedGivenRemainder(int wantedRemainder, double x, double alpha, string mantissa, int exponent)
+        {
+            IBasicFunctionExpansion expansion = new BinomicalMaclaurinExpansion(alpha, x);
+
+            BigInteger mantissaBigInteger = BigInteger.Parse(mantissa);
+            var expectedAnswer = new BigDecimal(mantissaBigInteger, exponent);
+
+            var result = expansion.ExpandFunction(wantedRemainder - 2, x);
+
+            Assert.That(BigDecimal.Abs(result - expectedAnswer) <
                         BigDecimal.PowBig(10, wantedRemainder));
         }
 
@@ -264,9 +285,11 @@ namespace IrrationalNumbers.Tests
         // a^x
 
         [Test]
-        [TestCase(-4, 1, 2)]
-        [TestCase(-6, 4, 8)]
-        [TestCase(-10, 2.2, 10.1)]
+        //[TestCase(-4, 1, 2)]
+        //[TestCase(-6, 4, 8)]
+        //[TestCase(-10, 2.2, 10.1)]
+        //[TestCase(-5, -2/3d, -3/8d)]
+
         public void ExponentWithAnyPowerExpansion_SmallerCases_ResultDoesNotExceedGivenRemainder(int wantedRemainder, double x, double logBase)
         {
             IBasicFunctionExpansion expansion = new ExponentialWithAnyBaseExpansion(logBase);

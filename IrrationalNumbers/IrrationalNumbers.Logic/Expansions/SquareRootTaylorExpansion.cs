@@ -9,29 +9,35 @@ namespace IrrationalNumbers.Logic.Expansions
     public class BinomicalMaclaurinExpansion: IBasicFunctionExpansion
     {
         private readonly double _alpha;
-        private double _x;
+
+        private IBasicFunctionExpansion expansion;
+
 
         private readonly ParameterNormalizationResult _normalizationResult;
 
         public BinomicalMaclaurinExpansion(double alpha, double x)
         {
             _alpha = alpha;
-            _x = x;
-
             _normalizationResult = Utils.NormalizeParameter(x, alpha);
         }
 
         private RemainderResult EvaluateN(BigDecimal normParameter, int wantedRemainder)
         {
-            var c = (normParameter > 0 ? normParameter: 0) + 1;
-            
+           // var c = (normParameter > 0 ? normParameter: 0) + 1;
+            var c = normParameter  + 1;
+
+            var exponentExpansion = new ExponentialWithAnyBaseExpansion(c);
+
             for (int i = 1; ; ++i)
             {
-                var der = (Utils.CalculateBigDecimalFactorial(new BigDecimal(_alpha), i)* Math.Pow(c, _alpha - i));
+               // var powRational = Math.Pow(c, _alpha - i);
+                var powRational = exponentExpansion.ExpandFunction(wantedRemainder, _alpha - i);
+
+                var der = (Utils.CalculateBigDecimalFactorial(new BigDecimal(_alpha), i)* powRational);
                 var derivative = der >= 0? der: der *-1;
 
                 var xpow = BigDecimal.PowBig(normParameter, i + 1);
-                var xPowerNth = xpow >= 0? xpow: xpow * -1;
+                var xPowerNth = xpow >= 0 ? xpow : xpow * -1;
 
                 var inequalityRightSide = Utils.CalculateBigDecimalFactorial(i + 1) * BigDecimal.PowBig(10, wantedRemainder);
 
@@ -46,15 +52,21 @@ namespace IrrationalNumbers.Logic.Expansions
 
         public BigDecimal ExpandFunction(int wantedRemainder, double x)
         {
-
-            RemainderResult remainderResult = EvaluateN(_normalizationResult.NormalizedParameter, wantedRemainder);
-
             BigDecimal result = 1;
-            for (int i = 1; i <= remainderResult.RemainderOrder; ++i)
+            var remainder = BigDecimal.PowBig(10, wantedRemainder);
+            for (int i = 1;; ++i)
             {
-                BigDecimal ithCoeficientBig = BigDecimal.PowBig(_normalizationResult.NormalizedParameter, i) * Utils.CalculateBigDecimalFactorial(_alpha, i) / Utils.CalculateBigDecimalFactorial(i);
-               // BigDecimal ithCoeficientBig = Utils.nCr(_alpha,i)
-                result += ithCoeficientBig;
+                var ith = BigDecimal.PowBig(_normalizationResult.NormalizedParameter, i) * Utils.CalculateBigDecimalFactorial(_alpha, i) / Utils.CalculateBigDecimalFactorial(i);
+                BigDecimal ithCoeficientBig = BigDecimal.Abs(ith);
+
+                if (ithCoeficientBig <= remainder)
+                {
+                    break;
+                }
+                result += ith;
+
+                if (i%40 == 0)
+                    result = result.Truncate();
             }
 
             return _normalizationResult.FinalMultiplier * result;

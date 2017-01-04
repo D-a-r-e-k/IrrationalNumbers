@@ -1,4 +1,5 @@
 ﻿using System;
+using IrrationalNumbers.Logic.Expansions;
 
 namespace IrrationalNumbers.Logic
 {
@@ -54,20 +55,49 @@ namespace IrrationalNumbers.Logic
             };
         }
 
-        public static ParameterNormalizationResult NormalizeParameter(double parameter, double alpha)
+        public static ParameterNormalizationResult NormalizeParameter(BigDecimal parameter, double alpha)
         {
             var result = new ParameterNormalizationResult();
             var reciprocal = 1/alpha;
+            var exponentWithAnyBase = new ExponentialWithAnyBaseExpansion(0);
+
+            if (parameter < 2)
+            {
+                if (parameter > 1)
+                {
+                    result.NormalizedParameter = parameter - 1;
+                    result.FinalMultiplier = 1;
+                }
+                else
+                {
+                    result.NormalizedParameter = parameter - 1;
+                    result.FinalMultiplier = 1;
+                }
+                return result;
+            }
+
 
             if (alpha < 1 && alpha > 0)
             {
-                for (int i = 2;; i++)
+                for (int i = 2;; i+=10)
                 {
-                    var powed = Math.Pow(i, reciprocal);
-                    if (parameter/powed > 1 && parameter/powed < 2)
+                    exponentWithAnyBase.SetBase(i);
+                    var powed = Math.Pow(i, Math.Floor(reciprocal));
+
+                    var parameterDivided = parameter/powed;
+
+                    if (parameterDivided < 2)
                     {
+                        if (parameterDivided < 1)
+                        {
+                            var complementToOne = 1 - parameterDivided;
+                            result.NormalizedParameter = -complementToOne;
+                        }
+                        else
+                        {
+                            result.NormalizedParameter = parameterDivided - 1;
+                        }
                         result.FinalMultiplier = i;
-                        result.NormalizedParameter = parameter/powed - 1;
                         break;
                     }
 
@@ -78,7 +108,9 @@ namespace IrrationalNumbers.Logic
                 var divideBy = parameter * 3 / 4;
                 var divisionResult = parameter / divideBy;
 
-                result.FinalMultiplier = Math.Pow(divideBy, alpha);
+                exponentWithAnyBase.SetBase(divideBy);
+                result.FinalMultiplier = exponentWithAnyBase.ExpandFunction(-7, alpha);
+                //result.FinalMultiplier = Math.Pow(divideBy, alpha);
                 result.NormalizedParameter = divisionResult - 1;
             }
 

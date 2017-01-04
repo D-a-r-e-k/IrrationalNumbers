@@ -5,9 +5,13 @@ namespace IrrationalNumbers.Logic.Expansions
     public class ExponentialWithAnyBaseExpansion : IBasicFunctionExpansion
     {
         private readonly IBasicFunctionExpansion _naturalLogarithmExpansion;
-        private readonly double _exponentBase;
+        private BigDecimal _exponentBase;
 
-        public ExponentialWithAnyBaseExpansion(double exponentBase)
+        public void SetBase(BigDecimal exponentBase)
+        {
+            _exponentBase = exponentBase;
+        }
+        public ExponentialWithAnyBaseExpansion(BigDecimal exponentBase)
         {
             _naturalLogarithmExpansion = new NaturalLogarithmExpansion();
             _exponentBase = exponentBase;
