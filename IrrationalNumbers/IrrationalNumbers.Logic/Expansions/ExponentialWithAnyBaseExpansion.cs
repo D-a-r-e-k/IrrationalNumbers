@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 
 namespace IrrationalNumbers.Logic.Expansions
 {
@@ -36,14 +37,16 @@ namespace IrrationalNumbers.Logic.Expansions
 
             BigDecimal expandedLn = _naturalLogarithmExpansion.ExpandFunction(wantedRemainder * 2, (double)_exponentBase);
 
-            BigDecimal result = 1;
-            for (int i = 1; i <= remainderResult.RemainderOrder + 1; ++i)
+            BigDecimal [] preCalculation = new BigDecimal[remainderResult.RemainderOrder + 1];
+            Parallel.For(1, remainderResult.RemainderOrder + 1, i =>
             {
-                BigDecimal ithCoeficientBig = BigDecimal.PowBig(x, i) * BigDecimal.PowBig(expandedLn, i) /
+                preCalculation[i] = BigDecimal.PowBig(x, i) * BigDecimal.PowBig(expandedLn, i) /
                             Utils.CalculateBigDecimalFactorial(i);
+            });
 
-                result += ithCoeficientBig;
-            }
+            BigDecimal result = 1;
+            for (int i = 1; i <= remainderResult.RemainderOrder; ++i)
+                result += preCalculation[i];
 
             return result;
         }
