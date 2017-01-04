@@ -27,7 +27,8 @@ namespace IrrationalNumbers.Logic.Expansions
             
             for (int i = 1; ; ++i)
             {
-                var der = (Utils.CalculateBigDecimalFactorial(new BigDecimal(_alpha), i)* Math.Pow(c, _alpha - i));
+                var der = 1;
+                //var der = (Utils.CalculateBigDecimalFactorial(new BigDecimal(_alpha), i)* BigDecimal.PowBig(c, _alpha - i));
                 var derivative = der >= 0? der: der *-1;
 
                 var xpow = BigDecimal.PowBig(normParameter, i + 1);

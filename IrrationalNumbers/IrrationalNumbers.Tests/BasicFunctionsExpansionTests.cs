@@ -345,9 +345,10 @@ namespace IrrationalNumbers.Tests
         {
             IBasicFunctionExpansion expansion = new CotangentTaylorExpansion();
 
+            var actualAnswer = expansion.ExpandFunction(wantedRemainder, x);
             var expectedAnswer = Math.Cos(x)/Math.Sin(x);
 
-            Assert.That(BigDecimal.Abs(expansion.ExpandFunction(wantedRemainder, x) - expectedAnswer) <
+            Assert.That(BigDecimal.Abs(actualAnswer - expectedAnswer) <
                         BigDecimal.PowBig(10, wantedRemainder));
         }
 
