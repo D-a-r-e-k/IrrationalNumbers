@@ -154,14 +154,16 @@ namespace IrrationalNumbers.Tests
         // (x)^alpha
 
         [Test]
-        [TestCase(-3, 5, 1 / 2)]
-        public void BinomicalExpansion_ResultDoesNotExceedGivenRemainder(int wantedRemainder, float x, float alpha)
+        [TestCase(-5, 5, 0.5)]
+        public void BinomicalExpansion_ResultDoesNotExceedGivenRemainder(int wantedRemainder, double x, double alpha)
         {
             IBasicFunctionExpansion expansion = new BinomicalMaclaurinExpansion(alpha, x);
 
             var expectedAnswer = Math.Sqrt(x);
 
-            Assert.That(BigDecimal.Abs(expansion.ExpandFunction(wantedRemainder, x) - expectedAnswer) <
+            var answer = expansion.ExpandFunction(wantedRemainder, x);
+
+            Assert.That(BigDecimal.Abs(answer - expectedAnswer) <
                         BigDecimal.PowBig(10, wantedRemainder));
         }
 
@@ -343,9 +345,10 @@ namespace IrrationalNumbers.Tests
         {
             IBasicFunctionExpansion expansion = new CotangentTaylorExpansion();
 
+            var actualAnswer = expansion.ExpandFunction(wantedRemainder, x);
             var expectedAnswer = Math.Cos(x)/Math.Sin(x);
 
-            Assert.That(BigDecimal.Abs(expansion.ExpandFunction(wantedRemainder, x) - expectedAnswer) <
+            Assert.That(BigDecimal.Abs(actualAnswer - expectedAnswer) <
                         BigDecimal.PowBig(10, wantedRemainder));
         }
 

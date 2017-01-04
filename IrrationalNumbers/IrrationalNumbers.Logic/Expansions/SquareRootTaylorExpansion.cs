@@ -8,29 +8,37 @@ namespace IrrationalNumbers.Logic.Expansions
     /// </summary>
     public class BinomicalMaclaurinExpansion: IBasicFunctionExpansion
     {
-        private float _alpha;
-        private float _x;
+        private readonly double _alpha;
+        private double _x;
 
-        private ParameterNormalizationResult _normalizationResult;
+        private readonly ParameterNormalizationResult _normalizationResult;
 
-        public BinomicalMaclaurinExpansion(float alpha, float x)
+        public BinomicalMaclaurinExpansion(double alpha, double x)
         {
             _alpha = alpha;
             _x = x;
 
-            _normalizationResult = Utils.NormalizeParameter(x);
+            _normalizationResult = Utils.NormalizeParameter(x, alpha);
         }
 
-        private RemainderResult EvaluateN(float normParameter, int wantedRemainder)
+        private RemainderResult EvaluateN(BigDecimal normParameter, int wantedRemainder)
         {
-            double c = 1 + normParameter;
-
+            var c = (normParameter > 0 ? normParameter: 0) + 1;
+            
             for (int i = 1; ; ++i)
             {
-                if (Math.Pow(c, _alpha - i + 1) * Math.Pow(normParameter, i + 1) * Utils.CalculateFactorial(_alpha, i + 1) < Utils.CalculateFactorial(i + 1) * Math.Pow(10, wantedRemainder))
+                var der = 1;
+                //var der = (Utils.CalculateBigDecimalFactorial(new BigDecimal(_alpha), i)* BigDecimal.PowBig(c, _alpha - i));
+                var derivative = der >= 0? der: der *-1;
+
+                var xpow = BigDecimal.PowBig(normParameter, i + 1);
+                var xPowerNth = xpow >= 0? xpow: xpow * -1;
+
+                var inequalityRightSide = Utils.CalculateBigDecimalFactorial(i + 1) * BigDecimal.PowBig(10, wantedRemainder);
+
+                if (derivative * xPowerNth < inequalityRightSide)
                     return new RemainderResult()
                     {
-                        Remainder = Math.Pow(c, _alpha - i + 1) * Math.Pow(normParameter, i + 1) * Utils.CalculateFactorial(_alpha, i + 1) / Utils.CalculateFactorial(_alpha, i + 1),
                         RemainderOrder = i
                     };
             }
@@ -39,16 +47,18 @@ namespace IrrationalNumbers.Logic.Expansions
 
         public BigDecimal ExpandFunction(int wantedRemainder, double x)
         {
-            RemainderResult remainderResult = EvaluateN(wantedRemainder,(int) x);
+
+            RemainderResult remainderResult = EvaluateN(_normalizationResult.NormalizedParameter, wantedRemainder);
 
             BigDecimal result = 1;
             for (int i = 1; i <= remainderResult.RemainderOrder; ++i)
             {
-                BigDecimal ithCoeficientBig = BigDecimal.PowBig(x, i) * Utils.CalculateFactorial(_alpha, i) / Utils.CalculateBigDecimalFactorial(i);
+                BigDecimal ithCoeficientBig = BigDecimal.PowBig(_normalizationResult.NormalizedParameter, i) * Utils.CalculateBigDecimalFactorial(_alpha, i) / Utils.CalculateBigDecimalFactorial(i);
+               // BigDecimal ithCoeficientBig = Utils.nCr(_alpha,i)
                 result += ithCoeficientBig;
             }
 
-            return result;
+            return _normalizationResult.FinalMultiplier * result;
         }
 
 
