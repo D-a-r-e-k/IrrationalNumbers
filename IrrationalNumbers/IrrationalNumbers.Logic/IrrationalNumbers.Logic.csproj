@@ -42,6 +42,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Expansions\ArccosineTaylorExpansion.cs" />
+    <Compile Include="Expansions\ArccotangentTaylorExpansion.cs" />
+    <Compile Include="Expansions\ArcsineTaylorExpansion.cs" />
+    <Compile Include="Expansions\ArctangentTaylorExpansion.cs" />
     <Compile Include="Expansions\CotangentTaylorExpansion.cs" />
     <Compile Include="Expansions\ExponentialWithAnyBaseExpansion.cs" />
     <Compile Include="Expansions\ExponentTaylorExpansion.cs" />
@@ -51,6 +55,7 @@
     <Compile Include="Expansions\HyperbolicTangentExpansion.cs" />
     <Compile Include="Expansions\LogarithmExpansion.cs" />
     <Compile Include="Expansions\NaturalLogarithmExpansion.cs" />
+    <Compile Include="Expansions\PiTaylorExpansion.cs" />
     <Compile Include="Expansions\SquareRootTaylorExpansion.cs" />
     <Compile Include="Expansions\SineTaylorExpansion.cs" />
     <Compile Include="Expansions\TangentTaylorExpansion.cs" />
