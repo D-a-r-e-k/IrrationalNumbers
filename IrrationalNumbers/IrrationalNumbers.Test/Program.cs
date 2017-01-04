@@ -1,5 +1,4 @@
-﻿using IrrationalNumbers.Logic;
-using IrrationalNumbers.Logic.Expansions;
+﻿using IrrationalNumbers.Logic.Expansions;
 using System;
 
 using Mathos.Parser;
@@ -10,40 +9,66 @@ namespace IrrationalNumbers.Test
     {
         private static void Main(string[] args)
         {
-            //var parser = new MathParser();
+            do
+            {
+                Console.Write("Please type expression for estimation (exit - to exit the program): ");
+                string expressionToBeEstimated = Console.ReadLine();
 
-            //parser.LocalFunctions.Add("CustomFn", decimals => decimals[0] + 1);
-            //parser.LocalFunctions.Add("Custom", decimals => decimals[0] + 1);
-            //parser.LocalFunctions.Add("SuperCustom", decimals => decimals[0] + 1);
+                if (expressionToBeEstimated == "exit")
+                    break;
 
-            //parser.LocalFunctions["sin"] = decimals => 1;
+                if (string.IsNullOrEmpty(expressionToBeEstimated))
+                {
+                    Console.WriteLine("Type valid expression");
+                    continue;
+                }
 
-            //var result = parser.Parse("sin(1)");
+                Console.Write("Please type acceptable error (in format 1 / 10^x where x should be provided): ");
+                var remainder = Console.ReadLine();
+                int remainderParsed;
+                if (!int.TryParse(remainder, out remainderParsed))
+                    Console.WriteLine("Acceptable error was provided not in correct format.");
 
-            //var result2 = parser.Parse("CustomFn(Custom(SuperCustom(1)))");
+                var parser = new MathParser();
 
-            //Console.WriteLine("Result 1 is: " + result);
-            //Console.WriteLine("Result 2 is: " + result2);
+                parser.LocalFunctions.Add("CustomFn", decimals => decimals[0] + 1);
+                parser.LocalFunctions.Add("Custom", decimals => decimals[0] + 1);
+                parser.LocalFunctions.Add("SuperCustom", decimals => decimals[0] + 1);
 
-            IBasicFunctionExpansion expansion = new ExponentialWithAnyBaseExpansion(8);
+                //parser.LocalFunctions["sin"] = new SineTaylorExpansion().ExpandFunction()
 
-            int wantedRemainder = -6;
-            double x = 4;
+                var result = parser.Parse("sin(1)");
 
-            var expectedAnswer = Math.Pow(8, x);
-            var actualAnswer = expansion.ExpandFunction(wantedRemainder, x);
+                var result2 = parser.Parse("CustomFn(Custom(SuperCustom(1)))");
 
-            Console.WriteLine(expectedAnswer);
-            Console.WriteLine(actualAnswer);
+                Console.WriteLine("Result 1 is: " + result);
+                Console.WriteLine("Result 2 is: " + result2);
 
-            double a = 8;
+                Console.ReadKey();
 
-            double result = 1;
-            for (int i = 0; i < 33; ++i)
-                result += Math.Pow(x, i + 1)*Math.Pow(Math.Log(a, Math.E), i + 1)/Utils.CalculateFactorial(i + 1);
-            //Console.WriteLine(1 + x * Math.Log(a, Math.E) + x*x*Math.Log(a, Math.E) *Math.Log(a, Math.E) / 2.0 + x*x*x*Math.Log(a, Math.E)*Math.Log(a, Math.E) *Math.Log(a, Math.E)/ 6.0);
-            Console.WriteLine(result);
-            Console.ReadKey();
+            } while (true);
+
+            
+
+            //IBasicFunctionExpansion expansion = new ExponentialWithAnyBaseExpansion(8);
+
+            //int wantedRemainder = -6;
+            //double x = 4;
+
+            //var expectedAnswer = Math.Pow(8, x);
+            //var actualAnswer = expansion.ExpandFunction(wantedRemainder, x);
+
+            //Console.WriteLine(expectedAnswer);
+            //Console.WriteLine(actualAnswer);
+
+            //double a = 8;
+
+            //double result = 1;
+            //for (int i = 0; i < 33; ++i)
+            //    result += Math.Pow(x, i + 1)*Math.Pow(Math.Log(a, Math.E), i + 1)/Utils.CalculateFactorial(i + 1);
+            ////Console.WriteLine(1 + x * Math.Log(a, Math.E) + x*x*Math.Log(a, Math.E) *Math.Log(a, Math.E) / 2.0 + x*x*x*Math.Log(a, Math.E)*Math.Log(a, Math.E) *Math.Log(a, Math.E)/ 6.0);
+            //Console.WriteLine(result);
+            //Console.ReadKey();
         }
     }
 }

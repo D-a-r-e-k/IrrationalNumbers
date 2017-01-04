@@ -31,6 +31,14 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Mathos, Version=1.0.5.1, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Mathos.1.0.5.1\lib\Mathos.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="MathPlusLib.Desktop, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MathPlus.Desktop.0.2.0\lib\MathPlusLib.Desktop.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Numerics" />
@@ -42,6 +50,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Expansions\ArccosineTaylorExpansion.cs" />
+    <Compile Include="Expansions\ArccotangentTaylorExpansion.cs" />
+    <Compile Include="Expansions\ArcsineTaylorExpansion.cs" />
+    <Compile Include="Expansions\ArctangentTaylorExpansion.cs" />
     <Compile Include="Expansions\CotangentTaylorExpansion.cs" />
     <Compile Include="Expansions\ExponentialWithAnyBaseExpansion.cs" />
     <Compile Include="Expansions\ExponentTaylorExpansion.cs" />
@@ -51,6 +63,7 @@
     <Compile Include="Expansions\HyperbolicTangentExpansion.cs" />
     <Compile Include="Expansions\LogarithmExpansion.cs" />
     <Compile Include="Expansions\NaturalLogarithmExpansion.cs" />
+    <Compile Include="Expansions\PiTaylorExpansion.cs" />
     <Compile Include="Expansions\SquareRootTaylorExpansion.cs" />
     <Compile Include="Expansions\SineTaylorExpansion.cs" />
     <Compile Include="Expansions\TangentTaylorExpansion.cs" />
@@ -69,6 +82,9 @@
       <Project>{0104b64f-bf46-444f-92cc-b08947f73fc9}</Project>
       <Name>IrrationalNumbers.Core</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="ExpressionParser\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

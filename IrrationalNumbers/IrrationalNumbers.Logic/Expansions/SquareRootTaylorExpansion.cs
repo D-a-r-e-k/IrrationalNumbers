@@ -27,7 +27,7 @@ namespace IrrationalNumbers.Logic.Expansions
             var c = normParameter  + 1;
 
             var exponentExpansion = new ExponentialWithAnyBaseExpansion(c);
-
+            
             for (int i = 1; ; ++i)
             {
                // var powRational = Math.Pow(c, _alpha - i);
