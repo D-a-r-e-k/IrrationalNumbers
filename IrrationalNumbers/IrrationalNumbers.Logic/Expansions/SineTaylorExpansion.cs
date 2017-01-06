@@ -1,7 +1,4 @@
-﻿
-using System;
-
-namespace IrrationalNumbers.Logic.Expansions
+﻿namespace IrrationalNumbers.Logic.Expansions
 {
     public class SineTaylorExpansion : IBasicFunctionExpansion
     {
@@ -9,9 +6,9 @@ namespace IrrationalNumbers.Logic.Expansions
         {
             for (int i = 1;; ++i)
             {
-                double possibleRemainder = Math.Pow(x, 2*i)/Utils.CalculateFactorial(2*i);
+                BigDecimal possibleRemainder = BigDecimal.PowBig(x, 2*i)/Utils.CalculateBigDecimalFactorial(2*i);
 
-                if (Math.Abs(possibleRemainder) < Math.Pow(10, wantedRemainder))
+                if (BigDecimal.Abs(possibleRemainder) < BigDecimal.PowBig(10, wantedRemainder))
                     return new RemainderResult()
                     {
                         Remainder = possibleRemainder,
@@ -23,7 +20,7 @@ namespace IrrationalNumbers.Logic.Expansions
         public BigDecimal ExpandFunction(int wantedRemainder, double x)
         {
             RemainderResult remainderResult = EvaluateN(wantedRemainder, x);
-            BigDecimal result = remainderResult.Remainder;
+            BigDecimal result = 0;
             for (int i = 1; i <= remainderResult.RemainderOrder; ++i)
             {
                 BigDecimal ithElement = BigDecimal.PowBig(-1, i - 1)*BigDecimal.PowBig(x, 2*i-1)/

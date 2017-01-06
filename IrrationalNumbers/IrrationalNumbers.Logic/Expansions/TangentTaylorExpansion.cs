@@ -10,11 +10,10 @@ namespace IrrationalNumbers.Logic.Expansions
     {
         public BigDecimal ExpandFunction(int wantedRemainder, double x)
         {
-            BigDecimal result;
             SineTaylorExpansion sine = new SineTaylorExpansion();
             CosineTaylorExpansion cosine = new CosineTaylorExpansion();
 
-            result = sine.ExpandFunction(wantedRemainder, x)/cosine.ExpandFunction(wantedRemainder, x);
+            var result = sine.ExpandFunction(wantedRemainder - 1, x)/cosine.ExpandFunction(wantedRemainder - 1, x);
             return result;
         }
     }
