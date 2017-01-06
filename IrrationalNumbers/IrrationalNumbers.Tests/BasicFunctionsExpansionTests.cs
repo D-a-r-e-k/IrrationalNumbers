@@ -452,5 +452,17 @@ namespace IrrationalNumbers.Tests
                         BigDecimal.PowBig(10, wantedRemainder));
         }
 
+        [Test]
+        [TestCase(-100, 0.2, "02013579207903307914551255522176234102400380814022283862572512434556093746288518503758449300903999368468197981871177783716618053879201548755015088525757557506850470374629855344264455564668551866642602236049772202001236611979700", -226)]
+        public void ArcSineExpansion_BiggerCases_ResultDoesNotExceedGivenRemainder(int wantedRemainder, double x, string mantissa, int exponent)
+        {
+            IBasicFunctionExpansion expansion = new ArcsineTaylorExpansion();
+
+            BigInteger mantissaBigInteger = BigInteger.Parse(mantissa);
+            var expectedAnswer = new BigDecimal(mantissaBigInteger, exponent);
+
+            Assert.That(BigDecimal.Abs(expansion.ExpandFunction(wantedRemainder, x) - expectedAnswer) <
+                        BigDecimal.PowBig(10, wantedRemainder));
+        }
     }
 }
