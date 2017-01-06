@@ -4,14 +4,11 @@ using System;
 namespace IrrationalNumbers.Logic.Expansions
 {
     /// <summary>
-    /// Apima visus case'us, kur f-ja yra tokios israiskos: (1+x)^a, kur x less than 1 ir a priklauso R.
+    /// Covers cases when function f is in the form: (1+x)^a where x less than 1 and a belongs to R.
     /// </summary>
     public class BinomicalMaclaurinExpansion: IBasicFunctionExpansion
     {
         private readonly double _alpha;
-
-        private IBasicFunctionExpansion expansion;
-
 
         private readonly ParameterNormalizationResult _normalizationResult;
 
@@ -71,7 +68,5 @@ namespace IrrationalNumbers.Logic.Expansions
 
             return _normalizationResult.FinalMultiplier * result;
         }
-
-
     }
 }

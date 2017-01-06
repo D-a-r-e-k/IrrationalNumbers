@@ -285,9 +285,9 @@ namespace IrrationalNumbers.Tests
         // a^x
 
         [Test]
-        //[TestCase(-4, 1, 2)]
-        //[TestCase(-6, 4, 8)]
-        //[TestCase(-10, 2.2, 10.1)]
+        [TestCase(-4, 1, 2)]
+        [TestCase(-6, 4, 8)]
+        [TestCase(-10, 2.2, 10.1)]
         //[TestCase(-5, -2/3d, -3/8d)]
 
         public void ExponentWithAnyPowerExpansion_SmallerCases_ResultDoesNotExceedGivenRemainder(int wantedRemainder, double x, double logBase)
@@ -300,6 +300,8 @@ namespace IrrationalNumbers.Tests
             Assert.That(BigDecimal.Abs(actualAnswer - expectedAnswer) <
                         BigDecimal.PowBig(10, wantedRemainder));
         }
+
+        // sin(x)
 
         [Test]
         [TestCase(-4, 3)]
@@ -329,6 +331,8 @@ namespace IrrationalNumbers.Tests
             Assert.That(BigDecimal.Abs(expansion.ExpandFunction(wantedRemainder, x) - expectedAnswer) <
                         BigDecimal.PowBig(10, wantedRemainder));
         }
+
+        // tan(x)
 
         [Test]
         [TestCase(-4, 3)]
@@ -360,6 +364,8 @@ namespace IrrationalNumbers.Tests
                         BigDecimal.PowBig(10, wantedRemainder));
         }
 
+        // ctg(x)
+
         [Test]
         [TestCase(-4, 3)]
         [TestCase(-6, -2)]
@@ -390,6 +396,9 @@ namespace IrrationalNumbers.Tests
             Assert.That(BigDecimal.Abs(expansion.ExpandFunction(wantedRemainder, x) - expectedAnswer) <
                         BigDecimal.PowBig(10, wantedRemainder));
         }
+
+        // pi
+
         [Test]
         [TestCase(-16, 1)]
         [TestCase(-6, 1)]
@@ -403,6 +412,8 @@ namespace IrrationalNumbers.Tests
             Assert.That(BigDecimal.Abs(result - expectedAnswer) <
                         BigDecimal.PowBig(10, wantedRemainder));
         }
+
+        // arctg(x)
 
         [Test]
         [TestCase(-4, 3)]
@@ -421,5 +432,25 @@ namespace IrrationalNumbers.Tests
             Assert.That(BigDecimal.Abs(expansion.ExpandFunction(wantedRemainder, x) - expectedAnswer) <
                         BigDecimal.PowBig(10, wantedRemainder));
         }
+
+        // arcsin(x)
+        [Test]
+        [TestCase(-4, 0)]
+        [TestCase(-5, 1)]
+        [TestCase(-6, -0.2)]
+        [TestCase(-10, 0.2)]
+        [TestCase(-6, -1)]
+        [TestCase(-5, 0.98)]
+        public void ArcSineExpansion_SmallerCases_ResultDoesNotExceedGivenRemainder(int wantedRemainder, double x)
+        {
+            IBasicFunctionExpansion expansion = new ArcsineTaylorExpansion();
+
+            var expectedAnswer = Math.Asin(x);
+            var actualAnswer = expansion.ExpandFunction(wantedRemainder, x);
+
+            Assert.That(BigDecimal.Abs(actualAnswer - expectedAnswer) <
+                        BigDecimal.PowBig(10, wantedRemainder));
+        }
+
     }
 }

@@ -5,7 +5,6 @@ namespace IrrationalNumbers.Logic.Expansions
 {
     public class SineTaylorExpansion : IBasicFunctionExpansion
     {
-
         public RemainderResult EvaluateN(int wantedRemainder, double x)
         {
             for (int i = 1;; ++i)
