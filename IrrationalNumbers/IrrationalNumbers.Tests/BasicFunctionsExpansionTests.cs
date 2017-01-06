@@ -410,7 +410,22 @@ namespace IrrationalNumbers.Tests
             Assert.That(BigDecimal.Abs(result - expectedAnswer) <
                         BigDecimal.PowBig(10, wantedRemainder));
         }
+        [Test]
+        [TestCase(-30, 1, "3141592653589793238462643383279502884197169399375105820974944592307816406286208998628034825342117067982148086513282306647093844609550582231725359408128481117450284102701938521105559644622948954930381964428810975665933446128475648233786783165271201909145648566923460348610454326648213393607260249141", -297)]
+        [TestCase(-70, 1, "3141592653589793238462643383279502884197169399375105820974944592307816406286208998628034825342117067982148086513282306647093844609550582231725359408128481117450284102701938521105559644622948954930381964428810975665933446128475648233786783165271201909145648566923460348610454326648213393607260249141", -297)]
+        [TestCase(-90, 1, "3141592653589793238462643383279502884197169399375105820974944592307816406286208998628034825342117067982148086513282306647093844609550582231725359408128481117450284102701938521105559644622948954930381964428810975665933446128475648233786783165271201909145648566923460348610454326648213393607260249141", -297)]
+        public void PiExpansion_BiggerCases_ResultDoesNotExceedGivenRemainder(int wantedRemainder, double x, string mantissa, int exponent)
+        {
 
+            IBasicFunctionExpansion expansion = new PiTaylorExpansion();
+
+            BigInteger mantissaBigInteger = BigInteger.Parse(mantissa);
+            var expectedAnswer = new BigDecimal(mantissaBigInteger, exponent);
+            //var expectedAnswer = Math.Pi;
+            //var exp = expansion.ExpandFunction(wantedRemainder, x);
+            Assert.That(BigDecimal.Abs(expansion.ExpandFunction(wantedRemainder + 20, x) - expectedAnswer) <
+                        BigDecimal.PowBig(10, wantedRemainder));
+        }
         // arctg(x)
 
         [Test]
@@ -431,6 +446,20 @@ namespace IrrationalNumbers.Tests
                         BigDecimal.PowBig(10, wantedRemainder));
         }
 
+        [Test]
+        [TestCase(-100, 0.2, "01973955598498807583700497651947902934475851037878521015176889402410339699782437857326978280372880441126281180736913601044564798867942393557475654952163032700522107470015645015560061286185526633257318692806643896806189528405825", -226)]
+        [TestCase(-80, 2, "11071487177940905030170654601785370400700476454014326466765392074337103389773627940134171286861706414345441910054503158100411041231502799603911491341201349380058057851860891590202770663235486719483370930469272505464279291462253", -226)]
+        [TestCase(-90, 1, "07853981633974483096156608458198757210492923498437764552437361480769541015715522496570087063355292669955370216283205766617734611523876455579313398520321202793625710256754846302763899111557372387325954911072027439164833615321189", -226)]
+        public void ArctangentExpansion_BiggerCases_ResultDoesNotExceedGivenRemainder(int wantedRemainder, double x, string mantissa, int exponent)
+        {
+            IBasicFunctionExpansion expansion = new ArctangentTaylorExpansion();
+
+            BigInteger mantissaBigInteger = BigInteger.Parse(mantissa);
+            var expectedAnswer = new BigDecimal(mantissaBigInteger, exponent);
+
+            Assert.That(BigDecimal.Abs(expansion.ExpandFunction(wantedRemainder, x) - expectedAnswer) <
+                        BigDecimal.PowBig(10, wantedRemainder));
+        }
         // arcsin(x)
 
         [Test]
@@ -453,9 +482,43 @@ namespace IrrationalNumbers.Tests
 
         [Test]
         [TestCase(-100, 0.2, "02013579207903307914551255522176234102400380814022283862572512434556093746288518503758449300903999368468197981871177783716618053879201548755015088525757557506850470374629855344264455564668551866642602236049772202001236611979700", -226)]
+        [TestCase(-90, 1, "15707963267948966192313216916397514420985846996875529104874722961539082031431044993140174126710585339910740432566411533235469223047752911158626797040642405587251420513509692605527798223114744774651909822144054878329667230642378", -226)]
         public void ArcSineExpansion_BiggerCases_ResultDoesNotExceedGivenRemainder(int wantedRemainder, double x, string mantissa, int exponent)
         {
             IBasicFunctionExpansion expansion = new ArcsineTaylorExpansion();
+
+            BigInteger mantissaBigInteger = BigInteger.Parse(mantissa);
+            var expectedAnswer = new BigDecimal(mantissaBigInteger, exponent);
+
+            Assert.That(BigDecimal.Abs(expansion.ExpandFunction(wantedRemainder, x) - expectedAnswer) <
+                        BigDecimal.PowBig(10, wantedRemainder));
+        }
+
+        [Test]
+        [TestCase(-4, 3)]
+        [TestCase(-5, 1.01)]
+        [TestCase(-6, -0.2)]
+        [TestCase(-10, 0.2)]
+        [TestCase(-6, -10)]
+        [TestCase(-5, 0.95)]
+        [TestCase(-4, 1)]
+        public void ArccotangentExpansion_SmallerCases_ResultDoesNotExceedGivenRemainder(int wantedRemainder, double x)
+        {
+            IBasicFunctionExpansion expansion = new ArccotangentTaylorExpansion();
+
+            var expectedAnswer = Math.PI / 2 - Math.Atan(x);
+
+            Assert.That(BigDecimal.Abs(expansion.ExpandFunction(wantedRemainder, x) - expectedAnswer) <
+                        BigDecimal.PowBig(10, wantedRemainder));
+        }
+
+        [Test]
+        [TestCase(-100, -0.2, "-1373400766945015860861271926444961148650999595899700808969783355912874233164860713581319584633770489878445925182949793219090442417981051760115114208847937288672931304349404758996773693692921814139459112933741098152347770223", -226)]
+        [TestCase(-80, 2, "04636476090008061162142562314612144020285370542861202638109330887201978641657417053006002839848878925565298522511908375135058181816250111554715305699441056207193362661648801015325027559879258055168538891674782372865387939180125", -226)]
+        [TestCase(-90, 1, "07853981633974483096156608458198757210492923498437764552437361480769541015715522496570087063355292669955370216283205766617734611523876455579313398520321202793625710256754846302763899111557372387325954911072027439164833615321189", -226)]
+        public void ArccotangentExpansion_BiggerCases_ResultDoesNotExceedGivenRemainder(int wantedRemainder, double x, string mantissa, int exponent)
+        {
+            IBasicFunctionExpansion expansion = new ArccotangentTaylorExpansion();
 
             BigInteger mantissaBigInteger = BigInteger.Parse(mantissa);
             var expectedAnswer = new BigDecimal(mantissaBigInteger, exponent);
