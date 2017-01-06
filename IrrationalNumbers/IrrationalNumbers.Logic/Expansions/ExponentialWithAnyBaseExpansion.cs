@@ -37,6 +37,14 @@ namespace IrrationalNumbers.Logic.Expansions
 
         public BigDecimal ExpandFunction(int wantedRemainder, double x)
         {
+            BigDecimal minus = 1;
+            if (x < 0)
+            {
+                minus = new BinomicalMaclaurinExpansion(x, -1).ExpandFunction(wantedRemainder, -1);
+
+                x = Math.Abs(x);
+            }
+
             RemainderResult remainderResult = EvaluateN(wantedRemainder, x);
 
             BigDecimal expandedLn = _naturalLogarithmExpansion.ExpandFunction(wantedRemainder * 2, (double)_exponentBase);
@@ -52,7 +60,7 @@ namespace IrrationalNumbers.Logic.Expansions
             for (int i = 1; i <= remainderResult.RemainderOrder; ++i)
                 result += preCalculation[i];
 
-            return result;
+            return result * minus;
         }
     }
 }

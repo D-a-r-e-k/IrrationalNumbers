@@ -157,6 +157,9 @@ namespace IrrationalNumbers.Tests
        [TestCase(-12, 7, 0.5)]
        [TestCase(-10, 1.5325, 1/3d)]
        [TestCase(-10, 5, 1 / 3d)]
+       [TestCase(-3, -1, 2)]
+       [TestCase(-3, -1, -2)]
+       [TestCase(-3, -1, (-2/3d))]
         public void BinomicalExpansion_ResultDoesNotExceedGivenRemainder(int wantedRemainder, double x, double alpha)
         {
             IBasicFunctionExpansion expansion = new BinomicalMaclaurinExpansion(alpha, x);
@@ -284,8 +287,9 @@ namespace IrrationalNumbers.Tests
         [TestCase(-4, 1, 2)]
         [TestCase(-6, 4, 8)]
         [TestCase(-10, 2.2, 10.1)]
-        //[TestCase(-5, -2/3d, -3/8d)]
-
+        //[TestCase(-3, -1, 2)]
+        //[TestCase(-5, -1, -1)]
+        //[TestCase(-3, -2/3d, -3/8d)]
         public void ExponentWithAnyPowerExpansion_SmallerCases_ResultDoesNotExceedGivenRemainder(int wantedRemainder, double x, double logBase)
         {
             IBasicFunctionExpansion expansion = new ExponentialWithAnyBaseExpansion(logBase);
@@ -428,6 +432,7 @@ namespace IrrationalNumbers.Tests
         }
 
         // arcsin(x)
+
         [Test]
         [TestCase(-4, 0)]
         [TestCase(-5, 1)]

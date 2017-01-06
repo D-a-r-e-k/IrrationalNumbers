@@ -8,44 +8,22 @@ namespace IrrationalNumbers.Logic.Expansions
     /// </summary>
     public class BinomicalMaclaurinExpansion: IBasicFunctionExpansion
     {
+        private readonly bool _isNegativeAlpha = false;
         private readonly double _alpha;
 
         private readonly ParameterNormalizationResult _normalizationResult;
 
         public BinomicalMaclaurinExpansion(double alpha, double x)
         {
-            _alpha = alpha;
-            _normalizationResult = Utils.NormalizeParameter(x, alpha);
-        }
-
-        private RemainderResult EvaluateN(BigDecimal normParameter, int wantedRemainder)
-        {
-           // var c = (normParameter > 0 ? normParameter: 0) + 1;
-            var c = normParameter  + 1;
-
-            var exponentExpansion = new ExponentialWithAnyBaseExpansion(c);
-            
-            for (int i = 1; ; ++i)
+            if (alpha < 0)
             {
-               // var powRational = Math.Pow(c, _alpha - i);
-                var powRational = exponentExpansion.ExpandFunction(wantedRemainder, _alpha - i);
-
-                var der = (Utils.CalculateBigDecimalFactorial(new BigDecimal(_alpha), i)* powRational);
-                var derivative = der >= 0? der: der *-1;
-
-                var xpow = BigDecimal.PowBig(normParameter, i + 1);
-                var xPowerNth = xpow >= 0 ? xpow : xpow * -1;
-
-                var inequalityRightSide = Utils.CalculateBigDecimalFactorial(i + 1) * BigDecimal.PowBig(10, wantedRemainder);
-
-                if (derivative * xPowerNth < inequalityRightSide)
-                    return new RemainderResult()
-                    {
-                        RemainderOrder = i
-                    };
+                _isNegativeAlpha = true;
+                alpha = Math.Abs(alpha);
             }
-        }
 
+            _alpha = alpha;
+            _normalizationResult = Utils.NormalizeParameter(x, _alpha);
+        }
 
         public BigDecimal ExpandFunction(int wantedRemainder, double x)
         {
@@ -62,11 +40,14 @@ namespace IrrationalNumbers.Logic.Expansions
                 }
                 result += ith;
 
-                if (i%40 == 0)
+                if (i % 40 == 0)
                     result = result.Truncate();
             }
 
-            return _normalizationResult.FinalMultiplier * result;
+            if (_isNegativeAlpha)
+                return 1 / _normalizationResult.FinalMultiplier * result;
+
+            return _normalizationResult.FinalMultiplier* result;
         }
     }
 }
