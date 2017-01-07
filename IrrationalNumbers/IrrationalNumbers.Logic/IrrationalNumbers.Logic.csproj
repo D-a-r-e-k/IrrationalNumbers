@@ -35,6 +35,10 @@
       <HintPath>..\packages\Mathos.1.0.5.1\lib\Mathos.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="MathParser, Version=1.0.10.1, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MathosParser.1.0.10.1\lib\MathParser.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="MathPlusLib.Desktop, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\MathPlus.Desktop.0.2.0\lib\MathPlusLib.Desktop.dll</HintPath>
       <Private>True</Private>
@@ -67,6 +71,7 @@
     <Compile Include="Expansions\SquareRootTaylorExpansion.cs" />
     <Compile Include="Expansions\SineTaylorExpansion.cs" />
     <Compile Include="Expansions\TangentTaylorExpansion.cs" />
+    <Compile Include="ExpressionParser\Parser.cs" />
     <Compile Include="IBasicFunctionExpansion.cs" />
     <Compile Include="Expansions\CosineTaylorExpansion.cs" />
     <Compile Include="ParameterNormalizationResult.cs" />
@@ -83,9 +88,7 @@
       <Name>IrrationalNumbers.Core</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="ExpressionParser\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

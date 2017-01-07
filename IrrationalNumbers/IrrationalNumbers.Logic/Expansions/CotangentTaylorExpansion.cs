@@ -3,7 +3,7 @@ namespace IrrationalNumbers.Logic.Expansions
 {
     public class CotangentTaylorExpansion : IBasicFunctionExpansion
     {
-        public BigDecimal ExpandFunction(int wantedRemainder, double x)
+        public BigDecimal ExpandFunction(int wantedRemainder, BigDecimal x)
         {
             SineTaylorExpansion sine = new SineTaylorExpansion();
             CosineTaylorExpansion cosine = new CosineTaylorExpansion();

@@ -10,7 +10,7 @@ namespace IrrationalNumbers.Logic.Expansions
             _exponentExpansion = new ExponentTaylorExpansion();
         }
 
-        public BigDecimal ExpandFunction(int wantedRemainder, double x)
+        public BigDecimal ExpandFunction(int wantedRemainder, BigDecimal x)
         {
             var upperPart = _exponentExpansion.ExpandFunction(wantedRemainder, x) + 
                             _exponentExpansion.ExpandFunction(wantedRemainder, -x);

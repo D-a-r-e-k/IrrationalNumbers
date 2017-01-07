@@ -1,14 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace IrrationalNumbers.Logic.Expansions
 {
     public class ArctangentTaylorExpansion : IBasicFunctionExpansion
     {
-        public RemainderResult EvaluateN(int wantedRemainder, double x)
+        public RemainderResult EvaluateN(int wantedRemainder, BigDecimal x)
         {
             if (BigDecimal.Abs(x) < 1)
             {
@@ -39,20 +35,20 @@ namespace IrrationalNumbers.Logic.Expansions
             return null;
         }
 
-        public BigDecimal ExpandFunction(int wantedRemainder, double x)
-        {
-            
+        public BigDecimal ExpandFunction(int wantedRemainder, BigDecimal x)
+        {           
             RemainderResult remainderResult = EvaluateN(wantedRemainder, x);
             BigDecimal result = new BigDecimal(0);
             IBasicFunctionExpansion pi_expansion = new PiTaylorExpansion();
-            if (Math.Abs(x) < 1)
+
+            if (BigDecimal.Abs(x) < 1)
                 for (int i = 1; i <= remainderResult.RemainderOrder; ++i)
                 {
                     var ithElement = BigDecimal.PowBig(-1, i+1) * BigDecimal.PowBig(x, 2 * i - 1) / (2 * i - 1);
 
                     result += ithElement;
                 }
-            else if (Math.Abs(x) > 1)
+            else if (BigDecimal.Abs(x) > 1)
             {
                 var pi = pi_expansion.ExpandFunction(wantedRemainder, 0);
                 var minusPlus = 1;

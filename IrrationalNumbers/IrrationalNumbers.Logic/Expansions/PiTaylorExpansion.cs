@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace IrrationalNumbers.Logic.Expansions
+﻿namespace IrrationalNumbers.Logic.Expansions
 {
     public class PiTaylorExpansion : IBasicFunctionExpansion
     {
@@ -22,20 +16,11 @@ namespace IrrationalNumbers.Logic.Expansions
             }
         }
 
-        public BigDecimal ExpandFunction(int wantedRemainder, double x = 0)
+        public BigDecimal ExpandFunction(int wantedRemainder, BigDecimal x)
         {
-            ArctangentTaylorExpansion tangent = new ArctangentTaylorExpansion();
-            return 20*tangent.ExpandFunction(-20, 1.0/7) + 8*tangent.ExpandFunction(-20, 3.0/79);
-            /*RemainderResult remainderResult = EvaluateN(wantedRemainder);
-            //BigDecimal result = 0;
-            for (int i = 1; i <= remainderResult.RemainderOrder; ++i)
-            {
-                var ithElement = BigDecimal.PowBig(-1, i + 1) /
-                                        Utils.CalculateBigDecimalFactorial(2 * i - 1);
+            var tangent = new ArctangentTaylorExpansion();
 
-                result += ithElement;
-            }
-            return result * 4;*/
+            return 20*tangent.ExpandFunction(wantedRemainder-1, (BigDecimal)1.0 / (BigDecimal)7) + 8*tangent.ExpandFunction(wantedRemainder-1, (BigDecimal)3.0/(BigDecimal)79);
         }
     }
 }
