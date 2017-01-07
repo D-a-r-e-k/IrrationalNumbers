@@ -12,27 +12,39 @@ namespace IrrationalNumbers.Logic.Expansions
         {
             _exponentBase = exponentBase;
         }
+
         public ExponentialWithAnyBaseExpansion(BigDecimal exponentBase)
         {
             _naturalLogarithmExpansion = new NaturalLogarithmExpansion();
             _exponentBase = exponentBase;
         }
 
-        public RemainderResult EvaluateN(int wantedRemainder, BigDecimal x)
+        public RemainderResult EvaluateN(int wantedRemainder, BigDecimal x, BigDecimal expandedLn)
         {
-            BigDecimal expandedLn = _naturalLogarithmExpansion.ExpandFunction(wantedRemainder * 2, (double)_exponentBase);
+            BigDecimal calculatedWantedRemainder = BigDecimal.PowBig(10, wantedRemainder);
 
-            for (int i = 1; ; ++i)
+            int lo = 1;
+            int hi = 1000;
+
+            while (lo < hi)
             {
-                if (BigDecimal.PowBig(x, i) * BigDecimal.PowBig(expandedLn, i) 
-                     < Math.Pow(10, wantedRemainder) * Utils.CalculateBigDecimalFactorial(i))
-                    return new RemainderResult()
-                    {
-                        Remainder = BigDecimal.PowBig(x, i) * BigDecimal.PowBig(expandedLn, i) / 
-                            Utils.CalculateBigDecimalFactorial(i),
-                        RemainderOrder = i
-                    };
+                int mid = (lo + hi) / 2;
+
+                BigDecimal candidate = BigDecimal.PowBig(x, mid) * BigDecimal.PowBig(expandedLn, mid) / Utils.CalculateBigDecimalFactorial(mid);
+                if (candidate < calculatedWantedRemainder)
+                    hi = mid;
+                else
+                    lo = mid + 1;
             }
+
+            if (BigDecimal.PowBig(x, hi) * BigDecimal.PowBig(expandedLn, hi) / Utils.CalculateBigDecimalFactorial(hi) < calculatedWantedRemainder)
+                return new RemainderResult()
+                {
+                    Remainder = BigDecimal.PowBig(x, hi) * BigDecimal.PowBig(expandedLn, hi) / Utils.CalculateBigDecimalFactorial(hi),
+                    RemainderOrder = hi
+                };
+
+            throw new Exception("Unsupported precision was provided.");
         }
 
         public BigDecimal ExpandFunction(int wantedRemainder, BigDecimal x)
@@ -45,10 +57,9 @@ namespace IrrationalNumbers.Logic.Expansions
                 x = BigDecimal.Abs(x);
             }
 
-            RemainderResult remainderResult = EvaluateN(wantedRemainder, x);
-
-            BigDecimal expandedLn = _naturalLogarithmExpansion.ExpandFunction(wantedRemainder * 2, (double)_exponentBase);
-
+            BigDecimal expandedLn = _naturalLogarithmExpansion.ExpandFunction(wantedRemainder * 2, _exponentBase);
+            RemainderResult remainderResult = EvaluateN(wantedRemainder, x, expandedLn);
+           
             BigDecimal [] preCalculation = new BigDecimal[remainderResult.RemainderOrder + 1];
             Parallel.For(1, remainderResult.RemainderOrder + 1, i =>
             {

@@ -1,10 +1,11 @@
 ﻿using System;
+using System.Threading.Tasks;
 
 namespace IrrationalNumbers.Logic.Expansions
 {
     public class NaturalLogarithmExpansion : IBasicFunctionExpansion
     {
-        private IBasicFunctionExpansion _exponentExpansion;
+        private readonly IBasicFunctionExpansion _exponentExpansion;
 
         public NaturalLogarithmExpansion()
         {
@@ -13,15 +14,30 @@ namespace IrrationalNumbers.Logic.Expansions
 
         public RemainderResult EvaluateN(int wantedRemainder, BigDecimal x)
         {
-            for (int i = 1; ; ++i)
+            BigDecimal calculatedWantedRemainder = BigDecimal.PowBig(10, wantedRemainder);
+
+            int lo = 1;
+            int hi = 1000;
+
+            while (lo < hi)
             {
-                if (BigDecimal.Abs(BigDecimal.PowBig(x, i) / (BigDecimal)i) < BigDecimal.PowBig(10, wantedRemainder))
-                    return new RemainderResult()
-                    {
-                        Remainder = BigDecimal.Abs(BigDecimal.PowBig(x, i) / (BigDecimal)i),
-                        RemainderOrder = i
-                    };
+                int mid = (lo + hi)/2;
+
+                BigDecimal candidate = BigDecimal.Abs(BigDecimal.PowBig(x, mid) / (BigDecimal) mid);
+                if (candidate < calculatedWantedRemainder)
+                    hi = mid;
+                else
+                    lo = mid + 1;
             }
+
+            if (BigDecimal.Abs(BigDecimal.PowBig(x, hi) / (BigDecimal)hi) < calculatedWantedRemainder)
+                return new RemainderResult()
+                {
+                    Remainder = BigDecimal.Abs(BigDecimal.PowBig(x, hi) / (BigDecimal)hi),
+                    RemainderOrder = hi
+                };
+            
+            throw new Exception("Unsupported precision was provided.");
         }
 
         public BigDecimal ExpandFunction(int wantedRemainder, BigDecimal x)
@@ -31,11 +47,14 @@ namespace IrrationalNumbers.Logic.Expansions
             RemainderResult remainderResult = EvaluateN(wantedRemainder, transformedX.Remainder);
 
             BigDecimal result = transformedX.Remainder;
-            for (int i = 1; i <= remainderResult.RemainderOrder; ++i)
+            BigDecimal [] resultParts = new BigDecimal[remainderResult.RemainderOrder + 1];
+            Parallel.For(1, remainderResult.RemainderOrder + 1, i =>
             {
-                BigDecimal ithCoeficientBig = BigDecimal.PowBig(-1, i) * BigDecimal.PowBig(transformedX.Remainder, i + 1)/ (BigDecimal)(i + 1);
-                result += ithCoeficientBig;
-            }
+                resultParts[i] = BigDecimal.PowBig(-1, i) * BigDecimal.PowBig(transformedX.Remainder, i + 1) / (BigDecimal)(i + 1);
+            });
+
+            for (int i = 1; i <= remainderResult.RemainderOrder; ++i)
+                result += resultParts[i];
 
             return (BigDecimal) transformedX.RemainderOrder + result;
         }

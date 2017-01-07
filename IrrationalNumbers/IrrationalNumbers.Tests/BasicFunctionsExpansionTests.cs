@@ -398,7 +398,7 @@ namespace IrrationalNumbers.Tests
         // pi
 
         [Test]
-        [TestCase(-16, 1)]
+        [TestCase(-14, 1)]
         [TestCase(-6, 1)]
         [TestCase(-10, 1)]
         public void PiExpansion_SmallerCases_ResultDoesNotExceedGivenRemainder(int wantedRemainder, double x)
@@ -410,22 +410,22 @@ namespace IrrationalNumbers.Tests
             Assert.That(BigDecimal.Abs(result - expectedAnswer) <
                         BigDecimal.PowBig(10, wantedRemainder));
         }
+
         [Test]
         [TestCase(-30, 1, "3141592653589793238462643383279502884197169399375105820974944592307816406286208998628034825342117067982148086513282306647093844609550582231725359408128481117450284102701938521105559644622948954930381964428810975665933446128475648233786783165271201909145648566923460348610454326648213393607260249141", -297)]
         [TestCase(-70, 1, "3141592653589793238462643383279502884197169399375105820974944592307816406286208998628034825342117067982148086513282306647093844609550582231725359408128481117450284102701938521105559644622948954930381964428810975665933446128475648233786783165271201909145648566923460348610454326648213393607260249141", -297)]
         [TestCase(-90, 1, "3141592653589793238462643383279502884197169399375105820974944592307816406286208998628034825342117067982148086513282306647093844609550582231725359408128481117450284102701938521105559644622948954930381964428810975665933446128475648233786783165271201909145648566923460348610454326648213393607260249141", -297)]
         public void PiExpansion_BiggerCases_ResultDoesNotExceedGivenRemainder(int wantedRemainder, double x, string mantissa, int exponent)
         {
-
             IBasicFunctionExpansion expansion = new PiTaylorExpansion();
 
             BigInteger mantissaBigInteger = BigInteger.Parse(mantissa);
             var expectedAnswer = new BigDecimal(mantissaBigInteger, exponent);
-            //var expectedAnswer = Math.Pi;
-            var exp = expansion.ExpandFunction(wantedRemainder, x);
+
             Assert.That(BigDecimal.Abs(expansion.ExpandFunction(wantedRemainder, x) - expectedAnswer) <
                         BigDecimal.PowBig(10, wantedRemainder));
         }
+
         // arctg(x)
 
         [Test]
@@ -460,6 +460,7 @@ namespace IrrationalNumbers.Tests
             Assert.That(BigDecimal.Abs(expansion.ExpandFunction(wantedRemainder, x) - expectedAnswer) <
                         BigDecimal.PowBig(10, wantedRemainder));
         }
+
         // arcsin(x)
 
         [Test]

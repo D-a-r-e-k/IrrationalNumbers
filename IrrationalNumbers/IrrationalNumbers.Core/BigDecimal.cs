@@ -322,6 +322,7 @@ public struct BigDecimal : IComparable, IComparable<BigDecimal>
         for (int i = 1; i <= absExp; ++i)
         {
             result *= basis;
+            result = result.Truncate();
         }
 
         if (exponent < 0)
