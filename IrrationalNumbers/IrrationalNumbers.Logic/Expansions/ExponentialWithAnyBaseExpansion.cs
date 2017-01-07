@@ -35,14 +35,14 @@ namespace IrrationalNumbers.Logic.Expansions
             }
         }
 
-        public BigDecimal ExpandFunction(int wantedRemainder, double x)
+        public BigDecimal ExpandFunction(int wantedRemainder, BigDecimal x)
         {
             BigDecimal minus = 1;
             if (x < 0)
             {
                 minus = new BinomicalMaclaurinExpansion(x, -1).ExpandFunction(wantedRemainder, -1);
 
-                x = Math.Abs(x);
+                x = BigDecimal.Abs(x);
             }
 
             RemainderResult remainderResult = EvaluateN(wantedRemainder, x);

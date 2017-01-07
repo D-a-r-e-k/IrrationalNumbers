@@ -9,23 +9,23 @@ namespace IrrationalNumbers.Logic.Expansions
     public class BinomicalMaclaurinExpansion: IBasicFunctionExpansion
     {
         private readonly bool _isNegativeAlpha = false;
-        private readonly double _alpha;
+        private readonly BigDecimal _alpha;
 
         private readonly ParameterNormalizationResult _normalizationResult;
 
-        public BinomicalMaclaurinExpansion(double alpha, double x)
+        public BinomicalMaclaurinExpansion(BigDecimal alpha, BigDecimal x)
         {
             if (alpha < 0)
             {
                 _isNegativeAlpha = true;
-                alpha = Math.Abs(alpha);
+                alpha = BigDecimal.Abs(alpha);
             }
 
             _alpha = alpha;
             _normalizationResult = Utils.NormalizeParameter(x, _alpha);
         }
 
-        public BigDecimal ExpandFunction(int wantedRemainder, double x)
+        public BigDecimal ExpandFunction(int wantedRemainder, BigDecimal x)
         {
             BigDecimal result = 1;
             var remainder = BigDecimal.PowBig(10, wantedRemainder);

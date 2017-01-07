@@ -13,14 +13,6 @@ namespace IrrationalNumbers.Logic
             return result;
         }
 
-        public static double CalculateFactorial(double start, int n)
-        {
-            double result = start;
-            for (int i = 1; i < n; ++i)
-                result *= start - i;
-            return result;
-        }
-
         public static BigDecimal CalculateBigDecimalFactorial(BigDecimal start, int n)
         {
             var result = start;
@@ -36,26 +28,8 @@ namespace IrrationalNumbers.Logic
                 result *= i;
             return result;
         }
-        /// <summary>
-        ///Metodas, kuris pavercia bet koki saknies parametra i israiska 1 + x. kur |x| maziau uz 1
-        ///Pvz : 100 = (1 + 1/3) * 75
-        /// </summary>
-        /// <param name="parameter">Duotas parametras (pvz. x = 100)</param>
-        /// <returns></returns>
-        public static ParameterNormalizationResult NormalizeParameter(double parameter)
-        {
-            var divideBy = parameter * 3 / 4;
 
-            var divisionResult = parameter / divideBy;
-
-            return new ParameterNormalizationResult()
-            {
-                FinalMultiplier = divideBy,
-                NormalizedParameter = divisionResult - 1
-            };
-        }
-
-        public static ParameterNormalizationResult NormalizeParameter(BigDecimal parameter, double alpha)
+        public static ParameterNormalizationResult NormalizeParameter(BigDecimal parameter, BigDecimal alpha)
         {
             var result = new ParameterNormalizationResult();
             var reciprocal = 1/alpha;
@@ -82,7 +56,7 @@ namespace IrrationalNumbers.Logic
                 for (int i = 2;; i+=10)
                 {
                     exponentWithAnyBase.SetBase(i);
-                    var powed = Math.Pow(i, Math.Floor(reciprocal));
+                    var powed = Math.Pow(i, Math.Floor((double)reciprocal)); // TODO: think about floor for BigDecimal
 
                     var parameterDivided = parameter/powed;
 

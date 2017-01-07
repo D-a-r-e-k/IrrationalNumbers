@@ -4,7 +4,7 @@ namespace IrrationalNumbers.Logic.Expansions
 {
     public class CosineTaylorExpansion : IBasicFunctionExpansion
     {
-        public RemainderResult EvaluateN(int wantedRemainder, double x)
+        public RemainderResult EvaluateN(int wantedRemainder, BigDecimal x)
         {
             for (int i = 1; ; ++i)
             {
@@ -18,7 +18,7 @@ namespace IrrationalNumbers.Logic.Expansions
             }
         }
 
-        public BigDecimal ExpandFunction(int wantedRemainder, double x)
+        public BigDecimal ExpandFunction(int wantedRemainder, BigDecimal x)
         {
             RemainderResult remainderResult = EvaluateN(wantedRemainder, x);
             BigDecimal result = 1;

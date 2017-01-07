@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿
 namespace IrrationalNumbers.Logic.Expansions
 {
     public class ArccotangentTaylorExpansion : IBasicFunctionExpansion
     {
-        public BigDecimal ExpandFunction(int wantedRemainder, double x)
+        public BigDecimal ExpandFunction(int wantedRemainder, BigDecimal x)
         {
             IBasicFunctionExpansion arctan = new ArctangentTaylorExpansion();
             IBasicFunctionExpansion pi = new PiTaylorExpansion();
