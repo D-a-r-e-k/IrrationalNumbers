@@ -21,7 +21,8 @@ namespace IrrationalNumbers.Logic.Expansions
         public BigDecimal ExpandFunction(int wantedRemainder, double x = 0)
         {
             ArctangentTaylorExpansion tangent = new ArctangentTaylorExpansion();
-            return 20*tangent.ExpandFunction(-20, 1.0/7) + 8*tangent.ExpandFunction(-20, 3.0/79);
+            return 20*tangent.ExpandFunction(wantedRemainder+1, 1.0/7) + 8*tangent.ExpandFunction(wantedRemainder+1, 3.0/79);
+            //return 176 * tangent.ExpandFunction(wantedRemainder+1, 74684.0 / 14967113) + 556 * tangent.ExpandFunction(wantedRemainder + 1, 1.0 / 239) - 48 * tangent.ExpandFunction(wantedRemainder + 1, 20138.0/15351991);
         }
     }
 }
