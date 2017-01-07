@@ -2,7 +2,7 @@
 {
     public class SineTaylorExpansion : IBasicFunctionExpansion
     {
-        public RemainderResult EvaluateN(int wantedRemainder, double x)
+        public RemainderResult EvaluateN(int wantedRemainder, BigDecimal x)
         {
             for (int i = 1;; ++i)
             {
@@ -17,7 +17,7 @@
             }
         }
 
-        public BigDecimal ExpandFunction(int wantedRemainder, double x)
+        public BigDecimal ExpandFunction(int wantedRemainder, BigDecimal x)
         {
             RemainderResult remainderResult = EvaluateN(wantedRemainder, x);
             BigDecimal result = 0;

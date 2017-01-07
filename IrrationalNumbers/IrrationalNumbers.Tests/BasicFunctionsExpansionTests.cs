@@ -422,8 +422,8 @@ namespace IrrationalNumbers.Tests
             BigInteger mantissaBigInteger = BigInteger.Parse(mantissa);
             var expectedAnswer = new BigDecimal(mantissaBigInteger, exponent);
             //var expectedAnswer = Math.Pi;
-            //var exp = expansion.ExpandFunction(wantedRemainder, x);
-            Assert.That(BigDecimal.Abs(expansion.ExpandFunction(wantedRemainder + 20, x) - expectedAnswer) <
+            var exp = expansion.ExpandFunction(wantedRemainder, x);
+            Assert.That(BigDecimal.Abs(expansion.ExpandFunction(wantedRemainder, x) - expectedAnswer) <
                         BigDecimal.PowBig(10, wantedRemainder));
         }
         // arctg(x)

@@ -24,7 +24,7 @@ namespace IrrationalNumbers.Logic.Expansions
             }
         }
 
-        public BigDecimal ExpandFunction(int wantedRemainder, double x)
+        public BigDecimal ExpandFunction(int wantedRemainder, BigDecimal x)
         {
             var transformedX = TransformParameter(x, wantedRemainder);
 

@@ -14,9 +14,9 @@ namespace IrrationalNumbers.Logic.Expansions
             _logarithmBase = logarithmBase;
         }
 
-        public BigDecimal ExpandFunction(int wantedRemainder, double x)
+        public BigDecimal ExpandFunction(int wantedRemainder, BigDecimal x)
         {
-            if (Math.Abs(x - 1) < Math.Pow(10, wantedRemainder))
+            if (BigDecimal.Abs(x - 1) < Math.Pow(10, wantedRemainder))
                 return 0;
 
             var upperPart = _naturalLogarithmExpansion.ExpandFunction(wantedRemainder, x);

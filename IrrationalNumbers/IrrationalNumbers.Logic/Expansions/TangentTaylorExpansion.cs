@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace IrrationalNumbers.Logic.Expansions
+﻿namespace IrrationalNumbers.Logic.Expansions
 {
     public class TangentTaylorExpansion : IBasicFunctionExpansion
     {
-        public BigDecimal ExpandFunction(int wantedRemainder, double x)
+        public BigDecimal ExpandFunction(int wantedRemainder, BigDecimal x)
         {
             SineTaylorExpansion sine = new SineTaylorExpansion();
             CosineTaylorExpansion cosine = new CosineTaylorExpansion();

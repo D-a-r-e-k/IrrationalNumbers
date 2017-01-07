@@ -1,6 +1,4 @@
-﻿
-
-namespace IrrationalNumbers.Logic.Expansions
+﻿namespace IrrationalNumbers.Logic.Expansions
 {
     public class PiTaylorExpansion : IBasicFunctionExpansion
     {
@@ -18,11 +16,11 @@ namespace IrrationalNumbers.Logic.Expansions
             }
         }
 
-        public BigDecimal ExpandFunction(int wantedRemainder, double x = 0)
+        public BigDecimal ExpandFunction(int wantedRemainder, BigDecimal x)
         {
-            ArctangentTaylorExpansion tangent = new ArctangentTaylorExpansion();
-            return 20*tangent.ExpandFunction(wantedRemainder+1, 1.0/7) + 8*tangent.ExpandFunction(wantedRemainder+1, 3.0/79);
-            //return 176 * tangent.ExpandFunction(wantedRemainder+1, 74684.0 / 14967113) + 556 * tangent.ExpandFunction(wantedRemainder + 1, 1.0 / 239) - 48 * tangent.ExpandFunction(wantedRemainder + 1, 20138.0/15351991);
+            var tangent = new ArctangentTaylorExpansion();
+
+            return 20*tangent.ExpandFunction(wantedRemainder-1, (BigDecimal)1.0 / (BigDecimal)7) + 8*tangent.ExpandFunction(wantedRemainder-1, (BigDecimal)3.0/(BigDecimal)79);
         }
     }
 }
