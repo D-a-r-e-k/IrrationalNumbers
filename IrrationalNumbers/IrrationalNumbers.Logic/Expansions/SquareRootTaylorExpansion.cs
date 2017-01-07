@@ -1,5 +1,8 @@
 ﻿
 using System;
+using System.Collections.Concurrent;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace IrrationalNumbers.Logic.Expansions
 {
@@ -54,7 +57,7 @@ namespace IrrationalNumbers.Logic.Expansions
         {
             BigDecimal result = 1;
             var remainder = BigDecimal.PowBig(10, wantedRemainder);
-            for (int i = 1;; ++i)
+            for (int i = 1; ; ++i)
             {
                 var ith = BigDecimal.PowBig(_normalizationResult.NormalizedParameter, i) * Utils.CalculateBigDecimalFactorial(_alpha, i) / Utils.CalculateBigDecimalFactorial(i);
                 BigDecimal ithCoeficientBig = BigDecimal.Abs(ith);
@@ -65,9 +68,35 @@ namespace IrrationalNumbers.Logic.Expansions
                 }
                 result += ith;
 
-                if (i%40 == 0)
+                if (i % 40 == 0)
                     result = result.Truncate();
             }
+            //var resultList = new ConcurrentStack<BigDecimal>();
+
+            //Parallel.For(1, 1000, (i, loopState) =>
+            //{
+            //    var ith = BigDecimal.PowBig(_normalizationResult.NormalizedParameter, i) * Utils.CalculateBigDecimalFactorial(_alpha, i) / Utils.CalculateBigDecimalFactorial(i);
+            //    BigDecimal ithCoeficientBig = BigDecimal.Abs(ith);
+
+            //    if (ithCoeficientBig <= remainder)
+            //    {
+            //        loopState.Stop();
+            //        return;
+            //    }
+            //   // result += ith;
+
+            //   resultList.Push(ith);
+            //});
+
+            //var ind = 0;
+            //foreach (var bigDecimal in resultList)
+            //{
+            //    result += bigDecimal;
+            //    if (ind % 40 == 0)
+            //        result = result.Truncate();
+
+            //    ind++;
+            //}
 
             return _normalizationResult.FinalMultiplier * result;
         }
