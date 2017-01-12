@@ -14,7 +14,7 @@ namespace IrrationalNumbers.Logic.Expansions
         private readonly bool _isNegativeAlpha = false;
         private readonly BigDecimal _alpha;
 
-        private readonly ParameterNormalizationResult _normalizationResult;
+        private ParameterNormalizationResult _normalizationResult;
 
         public BinomicalMaclaurinExpansion(BigDecimal alpha, BigDecimal x)
         {
@@ -25,11 +25,16 @@ namespace IrrationalNumbers.Logic.Expansions
             }
 
             _alpha = alpha;
-            _normalizationResult = Utils.NormalizeParameter(x, _alpha);
         }
 
         public BigDecimal ExpandFunction(int wantedRemainder, BigDecimal x)
         {
+            if (BigDecimal.Abs(x) == 1)
+            {
+                return 1;
+            }
+            _normalizationResult = Utils.NormalizeParameter(x, _alpha, wantedRemainder);
+
             BigDecimal result = 1;
             var remainder = BigDecimal.PowBig(10, wantedRemainder);
             for (int i = 1; ; ++i)

@@ -1,10 +1,62 @@
 ﻿using System;
+using System.Linq;
+using System.Numerics;
 using IrrationalNumbers.Logic.Expansions;
 
 namespace IrrationalNumbers.Logic
 {
     public static class Utils
     {
+        public static char Delimiter { get; set; } = '.';
+        public static char Negative { get; set; } = '-';
+
+        public static BigDecimal PositiveStringToBig(string par)
+        {
+            if (IsInt(par))
+            {
+                return new BigDecimal(BigInteger.Parse(par), 0);
+            }
+
+            var splited = par.Split(Delimiter);
+
+            if (splited.Length > 2)
+            {
+                throw new Exception(); //TODO: Create custom ex
+            }
+            BigDecimal big;
+
+            if (splited[0].ToCharArray()[0] == '0')
+            {
+                if (splited.Length > 2)
+                {
+                    throw new Exception();
+                }
+
+                big = new BigDecimal(BigInteger.Parse(splited[1]), splited[1].Length);
+            }
+            else
+            {
+                var mantisa = splited[0] + splited[1];
+
+                big = new BigDecimal(BigInteger.Parse(mantisa), -splited[1].Length);
+            }
+
+            return big;
+        }
+
+        //public static BigDecimal StringToBig(string par)
+        //{
+        //    if (par[0] == Negative)
+        //    {
+        //        var big = PositiveStringToBig(par.Replace(Negative.ToString(), string.Empty));
+        //        big. = -1;
+        //    }
+        //}
+
+        private static bool IsInt(string par)
+        {
+            return !par.Contains(Delimiter.ToString());
+        }
         public static double CalculateFactorial(int n)
         {
             double result = 1;
@@ -29,11 +81,13 @@ namespace IrrationalNumbers.Logic
             return result;
         }
 
-        public static ParameterNormalizationResult NormalizeParameter(BigDecimal parameter, BigDecimal alpha)
+        public static ParameterNormalizationResult NormalizeParameter(BigDecimal parameter, BigDecimal alpha, int remainder)
         {
             var result = new ParameterNormalizationResult();
             var reciprocal = 1/alpha;
             var exponentWithAnyBase = new ExponentialWithAnyBaseExpansion(0);
+
+            parameter = BigDecimal.Abs(parameter);
 
             if (parameter < 2)
             {
@@ -45,7 +99,7 @@ namespace IrrationalNumbers.Logic
                 else
                 {
                     result.NormalizedParameter = parameter - 1;
-                    result.FinalMultiplier = 1;
+                    result.FinalMultiplier = 1 * FinalMultiPlyerSign(parameter, alpha);
                 }
                 return result;
             }
@@ -56,8 +110,9 @@ namespace IrrationalNumbers.Logic
                 for (int i = 2;; i+=10)
                 {
                     exponentWithAnyBase.SetBase(i);
-                    var powed = Math.Pow(i, Math.Floor((double)reciprocal)); // TODO: think about floor for BigDecimal
-
+                   // var powed = Math.Pow(i, Math.Floor((double)reciprocal)); // TODO: think about floor for BigDecimal
+                    exponentWithAnyBase.SetBase(i);
+                    var powed = exponentWithAnyBase.ExpandFunction(remainder - 1, reciprocal);
                     var parameterDivided = parameter/powed;
 
                     if (parameterDivided < 2)
@@ -71,7 +126,7 @@ namespace IrrationalNumbers.Logic
                         {
                             result.NormalizedParameter = parameterDivided - 1;
                         }
-                        result.FinalMultiplier = i;
+                        result.FinalMultiplier = i * FinalMultiPlyerSign(parameter, alpha);
                         break;
                     }
 
@@ -83,12 +138,27 @@ namespace IrrationalNumbers.Logic
                 var divisionResult = parameter / divideBy;
 
                 exponentWithAnyBase.SetBase(divideBy);
-                result.FinalMultiplier = exponentWithAnyBase.ExpandFunction(-7, alpha);
+                result.FinalMultiplier = exponentWithAnyBase.ExpandFunction(-7, alpha) * FinalMultiPlyerSign(parameter, alpha);
                 //result.FinalMultiplier = Math.Pow(divideBy, alpha);
                 result.NormalizedParameter = divisionResult - 1;
             }
 
             return result;
+        }
+
+        public static int FinalMultiPlyerSign(BigDecimal par, BigDecimal alpha)
+        {
+            if (par > 0)
+                return 1;
+            else
+            {
+                if (alpha.Mantissa.IsEven)
+                    return 1;
+                else
+                {
+                    return -1;
+                }
+            }
         }
 
 

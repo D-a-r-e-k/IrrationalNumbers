@@ -34,6 +34,15 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Ciloci.Flee">
+      <HintPath>..\..\..\..\..\Downloads\Flee-0.9.26.0\lib\Ciloci.Flee.dll</HintPath>
+    </Reference>
+    <Reference Include="Deveel.Math">
+      <HintPath>..\packages\dmath-x64.1.6.1.88\lib\net20\Deveel.Math.pdb\Deveel.Math.dll</HintPath>
+    </Reference>
+    <Reference Include="ExpressionEvaluator">
+      <HintPath>..\..\..\..\..\Downloads\ExpressionEvaluator\ExpressionEvaluator.dll</HintPath>
+    </Reference>
     <Reference Include="MathParser, Version=1.0.10.1, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\MathosParser.1.0.10.1\lib\MathParser.dll</HintPath>
       <Private>True</Private>
@@ -51,12 +60,17 @@
   <ItemGroup>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TestFunctions.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Evaluant.Calculator\NCalc.csproj">
+      <Project>{5f014003-50d8-49e0-8afe-91d38dccc97c}</Project>
+      <Name>NCalc</Name>
+    </ProjectReference>
     <ProjectReference Include="..\IrrationalNumbers.Core\IrrationalNumbers.Core.csproj">
       <Project>{0104b64f-bf46-444f-92cc-b08947f73fc9}</Project>
       <Name>IrrationalNumbers.Core</Name>

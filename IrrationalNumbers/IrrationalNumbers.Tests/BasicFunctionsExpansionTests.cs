@@ -159,7 +159,7 @@ namespace IrrationalNumbers.Tests
        [TestCase(-10, 5, 1 / 3d)]
        [TestCase(-3, -1, 2)]
        [TestCase(-3, -1, -2)]
-       //[TestCase(-3, -1, (-2/3d))] TODO: this case should be handled
+       [TestCase(-3, -1, (-2/3d))] // TODO: this case should be handled
         public void BinomicalExpansion_ResultDoesNotExceedGivenRemainder(int wantedRemainder, double x, double alpha)
         {
             IBasicFunctionExpansion expansion = new BinomicalMaclaurinExpansion(alpha, x);
@@ -494,6 +494,25 @@ namespace IrrationalNumbers.Tests
             Assert.That(BigDecimal.Abs(expansion.ExpandFunction(wantedRemainder, x) - expectedAnswer) <
                         BigDecimal.PowBig(10, wantedRemainder));
         }
+
+        [Test]
+        [TestCase(-4, 0)]
+        [TestCase(-5, 1)]
+        [TestCase(-6, -0.2)]
+        [TestCase(-10, 0.2)]
+        [TestCase(-6, -1)]
+        [TestCase(-5, 0.98)]
+        public void ArcCosineExpansion_SmallerCases_ResultDoesNotExceedGivenRemainder(int wantedRemainder, double x)
+        {
+            IBasicFunctionExpansion expansion = new ArccosineTaylorExpansion();
+
+            var expectedAnswer = Math.Acos(x);
+            var actualAnswer = expansion.ExpandFunction(wantedRemainder, x);
+
+            Assert.That(BigDecimal.Abs(actualAnswer - expectedAnswer) <
+                        BigDecimal.PowBig(10, wantedRemainder));
+        }
+
 
         [Test]
         [TestCase(-4, 3)]
