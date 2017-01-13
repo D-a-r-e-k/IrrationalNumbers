@@ -4,13 +4,6 @@ namespace IrrationalNumbers.Logic.Expansions
 {
     public class ExponentTaylorExpansion : IBasicFunctionExpansion
     {
-        private IBasicFunctionExpansion _anyBaseExpansion;
-
-        public ExponentTaylorExpansion()
-        {
-            _anyBaseExpansion = new ExponentialWithAnyBaseExpansion(3);
-        }
-
         public RemainderResult EvaluateN(int wantedRemainder, BigDecimal x)
         {
             BigDecimal c = 0;
@@ -18,7 +11,7 @@ namespace IrrationalNumbers.Logic.Expansions
                 c = x;
 
             BigDecimal absX = BigDecimal.Abs(x);
-            BigDecimal estimatedCoefficient = _anyBaseExpansion.ExpandFunction(wantedRemainder, c);
+            BigDecimal estimatedCoefficient = Math.Pow(3, (double)c);
 
             for (int i = 1; ; ++i)
             {

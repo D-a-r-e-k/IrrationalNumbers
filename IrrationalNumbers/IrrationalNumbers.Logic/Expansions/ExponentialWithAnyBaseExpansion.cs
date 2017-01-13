@@ -5,7 +5,7 @@ namespace IrrationalNumbers.Logic.Expansions
 {
     public class ExponentialWithAnyBaseExpansion : IBasicFunctionExpansion
     {
-        private readonly IBasicFunctionExpansion _naturalLogarithmExpansion;
+        private static IBasicFunctionExpansion _naturalLogarithmExpansion;
         private BigDecimal _exponentBase;
 
         public void SetBase(BigDecimal exponentBase)
@@ -15,7 +15,8 @@ namespace IrrationalNumbers.Logic.Expansions
 
         public ExponentialWithAnyBaseExpansion(BigDecimal exponentBase)
         {
-            _naturalLogarithmExpansion = new NaturalLogarithmExpansion();
+            if (_naturalLogarithmExpansion == null)
+                _naturalLogarithmExpansion = new NaturalLogarithmExpansion();
             _exponentBase = exponentBase;
         }
 
@@ -50,11 +51,11 @@ namespace IrrationalNumbers.Logic.Expansions
         public BigDecimal ExpandFunction(int wantedRemainder, BigDecimal x)
         {
             BigDecimal minus = 1;
-            if (x < 0)
+            if (_exponentBase < 0)
             {
                 minus = new BinomicalMaclaurinExpansion(x, -1).ExpandFunction(wantedRemainder, -1);
 
-                x = BigDecimal.Abs(x);
+                _exponentBase = BigDecimal.Abs(_exponentBase);
             }
 
             BigDecimal expandedLn = _naturalLogarithmExpansion.ExpandFunction(wantedRemainder * 2, _exponentBase);
