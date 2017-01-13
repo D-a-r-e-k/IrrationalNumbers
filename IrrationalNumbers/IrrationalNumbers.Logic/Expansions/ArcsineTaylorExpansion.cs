@@ -55,13 +55,11 @@ namespace IrrationalNumbers.Logic.Expansions
 
                 return result;
             }
-            else
-            {
-                if (x < 0)
-                    return -_piExpansion.ExpandFunction(wantedRemainder, 0)/2.0;
-                else
-                    return _piExpansion.ExpandFunction(wantedRemainder, 0)/2.0;
-            }
+
+            if (x < 0)
+                return -_piExpansion.ExpandFunction(wantedRemainder, 0)/2.0;
+            
+            return _piExpansion.ExpandFunction(wantedRemainder, 0)/2.0;
         }
     }
 }

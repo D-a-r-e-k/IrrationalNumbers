@@ -42,7 +42,7 @@ namespace IrrationalNumbers.Logic.Expansions
                 result += ithCoeficientBig;
             }
 
-            return result;
+            return result + remainderResult.Remainder;
         }
     }
 }
