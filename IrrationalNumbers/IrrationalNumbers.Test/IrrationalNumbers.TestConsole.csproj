@@ -34,9 +34,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Ciloci.Flee">
-      <HintPath>..\..\..\..\..\Downloads\Flee-0.9.26.0\lib\Ciloci.Flee.dll</HintPath>
-    </Reference>
     <Reference Include="Deveel.Math">
       <HintPath>..\packages\dmath-x64.1.6.1.88\lib\net20\Deveel.Math.pdb\Deveel.Math.dll</HintPath>
     </Reference>

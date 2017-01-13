@@ -2,9 +2,7 @@
 using System;
 using System.Diagnostics;
 using System.Linq;
-using Ciloci.Flee;
 using IrrationalNumbers.Logic;
-using Mathos.Parser;
 using NCalc;
 
 namespace IrrationalNumbers.Test
