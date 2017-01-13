@@ -287,9 +287,9 @@ namespace IrrationalNumbers.Tests
         [TestCase(-4, 1, 2)]
         [TestCase(-6, 4, 8)]
         [TestCase(-10, 2.2, 10.1)]
-        //[TestCase(-3, -1, 2)]
-        //[TestCase(-5, -1, -1)]
-        //[TestCase(-3, -2/3d, -3/8d)]
+        [TestCase(-3, -1, 2)]
+        [TestCase(-5, -1, -1)]
+        [TestCase(-3, -2/3d, -3/8d)]
         public void ExponentWithAnyPowerExpansion_SmallerCases_ResultDoesNotExceedGivenRemainder(int wantedRemainder, double x, double logBase)
         {
             IBasicFunctionExpansion expansion = new ExponentialWithAnyBaseExpansion(logBase);
