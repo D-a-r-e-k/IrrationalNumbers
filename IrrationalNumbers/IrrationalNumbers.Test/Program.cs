@@ -20,8 +20,8 @@ namespace IrrationalNumbers.Test
 
             int.TryParse(remainderString, out reminder);
 
-
-            Expression e = new Expression("SecretOperation(SIN(2), COS(6))");
+        
+            Expression e = new Expression("SIN(SIN(SIN(2) + COS(2) + 1)) + COS(6) +  SIN(2)");
             e.EvaluateFunction += delegate (string name, FunctionArgs arguments)
             {
                 if (name == "SecretOperation")
