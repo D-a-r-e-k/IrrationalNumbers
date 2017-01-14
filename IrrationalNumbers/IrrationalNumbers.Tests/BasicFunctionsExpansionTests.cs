@@ -159,7 +159,7 @@ namespace IrrationalNumbers.Tests
        [TestCase(-10, 5, 1 / 3d)]
        [TestCase(-3, -1, 2)]
        [TestCase(-3, -1, -2)]
-       [TestCase(-3, -1, (-2/3d))] // TODO: this case should be handled
+       [TestCase(-3, 1, (-2/3d))] // TODO: this case should be handled
         public void BinomicalExpansion_ResultDoesNotExceedGivenRemainder(int wantedRemainder, double x, double alpha)
         {
             IBasicFunctionExpansion expansion = new BinomicalMaclaurinExpansion(alpha, x);
@@ -289,7 +289,7 @@ namespace IrrationalNumbers.Tests
         [TestCase(-10, 2.2, 10.1)]
         [TestCase(-3, -1, 2)]
         [TestCase(-5, -1, -1)]
-        [TestCase(-3, -2/3d, -3/8d)]
+        [TestCase(-3, -2/3d, 3/8d)]
         public void ExponentWithAnyPowerExpansion_SmallerCases_ResultDoesNotExceedGivenRemainder(int wantedRemainder, double x, double logBase)
         {
             IBasicFunctionExpansion expansion = new ExponentialWithAnyBaseExpansion(logBase);

@@ -53,9 +53,16 @@ namespace IrrationalNumbers.Logic.Expansions
             BigDecimal minus = 1;
             if (_exponentBase < 0)
             {
-                minus = new BinomicalMaclaurinExpansion(x, -1).ExpandFunction(wantedRemainder, -1);
+                minus = Math.Pow(-1, (double) x);
 
                 _exponentBase = BigDecimal.Abs(_exponentBase);
+            }
+
+            bool negativeX = false;
+            if (x < 0)
+            {
+                negativeX = true;
+                x = BigDecimal.Abs(x);
             }
 
             BigDecimal expandedLn = _naturalLogarithmExpansion.ExpandFunction(wantedRemainder * 2, _exponentBase);
@@ -72,7 +79,10 @@ namespace IrrationalNumbers.Logic.Expansions
             for (int i = 1; i <= remainderResult.RemainderOrder; ++i)
                 result += preCalculation[i];
 
-            return result * minus;
+            if (negativeX)
+                return (BigDecimal)1 / (result * minus);
+
+            return result*minus;
         }
     }
 }
