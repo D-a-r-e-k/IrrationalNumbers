@@ -29,11 +29,6 @@ namespace IrrationalNumbers.Logic.Expansions
                 else
                     return pi;
             }
-            /*BigDecimal result;
-            ArctangentTaylorExpansion arctan = new ArctangentTaylorExpansion();
-
-            result = sine.ExpandFunction(wantedRemainder, x) / cosine.ExpandFunction(wantedRemainder, x);
-            return result;*/
         }
     }
 }
