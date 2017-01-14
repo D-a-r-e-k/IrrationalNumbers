@@ -31,11 +31,6 @@ namespace IrrationalNumbers.Logic.Expansions
 
                 return 0;
             }
-            /*BigDecimal result;
-            ArctangentTaylorExpansion arctan = new ArctangentTaylorExpansion();
-
-            result = sine.ExpandFunction(wantedRemainder, x) / cosine.ExpandFunction(wantedRemainder, x);
-            return result;*/
         }
     }
 }

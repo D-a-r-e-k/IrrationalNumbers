@@ -15,7 +15,7 @@ public struct BigDecimal : IComparable, IComparable<BigDecimal>
     ///     Sets the maximum precision of division operations.
     ///     If AlwaysTruncate is set to true all operations are affected.
     /// </summary>
-    public const int Precision = 115;
+    public const int Precision = 120;
 
     public BigDecimal(BigDecimal bigDecimal, Boolean alwaysTruncate = false) : this(bigDecimal.Mantissa, bigDecimal.Exponent, alwaysTruncate) { }
 

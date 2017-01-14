@@ -1,7 +1,7 @@
 ﻿using IrrationalNumbers.Logic.Expansions;
 using System;
 using System.Diagnostics;
-using System.Linq;
+using System.Numerics;
 using IrrationalNumbers.Logic;
 using NCalc;
 
@@ -59,7 +59,7 @@ namespace IrrationalNumbers.Test
             var result = (BigDecimal)e.Evaluate();
 
             Debug.Assert((BigDecimal.Abs(Math.Sin(2) + Math.Cos(6) - result)) <BigDecimal.PowBig(10, reminder) );
-
+            Console.ReadKey();
             //var b = new Expression("Sin(Cos(0))");
             //Console.WriteLine(b.Evaluate());            
             //Debug.Assert(9 == e.Evaluate());

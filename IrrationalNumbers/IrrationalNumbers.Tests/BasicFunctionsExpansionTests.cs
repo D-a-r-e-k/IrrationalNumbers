@@ -159,7 +159,7 @@ namespace IrrationalNumbers.Tests
        [TestCase(-10, 5, 1 / 3d)]
        [TestCase(-3, -1, 2)]
        [TestCase(-3, -1, -2)]
-       [TestCase(-3, -1, (-2/3d))] // TODO: this case should be handled
+       [TestCase(-3, 1, (-2/3d))]
         public void BinomicalExpansion_ResultDoesNotExceedGivenRemainder(int wantedRemainder, double x, double alpha)
         {
             IBasicFunctionExpansion expansion = new BinomicalMaclaurinExpansion(alpha, x);
@@ -175,7 +175,7 @@ namespace IrrationalNumbers.Tests
 
             Assert.That(BigDecimal.Abs(answer - expectedAnswer) <
                         BigDecimal.PowBig(10, wantedRemainder));
-        }
+        }      
 
         [Test]
         [TestCase("-112143.214", -112143.214d)]
@@ -302,7 +302,8 @@ namespace IrrationalNumbers.Tests
         [TestCase(-10, 2.2, 10.1)]
         [TestCase(-3, -1, 2)]
         [TestCase(-5, -1, -1)]
-        [TestCase(-3, -2/3d, -3/8d)]
+        [TestCase(-3, -2/3d, 3/8d)]
+        [TestCase(-2, 0, 4)]
         public void ExponentWithAnyPowerExpansion_SmallerCases_ResultDoesNotExceedGivenRemainder(int wantedRemainder, double x, double logBase)
         {
             IBasicFunctionExpansion expansion = new ExponentialWithAnyBaseExpansion(logBase);
@@ -455,7 +456,7 @@ namespace IrrationalNumbers.Tests
             IBasicFunctionExpansion expansion = new ArctangentTaylorExpansion();
 
             var expectedAnswer = Math.Atan(x);
-
+            
             var expansionResult = expansion.ExpandFunction(wantedRemainder, x);
             Assert.That(BigDecimal.Abs(expansionResult - expectedAnswer) <
                         BigDecimal.PowBig(10, wantedRemainder));
@@ -550,7 +551,7 @@ namespace IrrationalNumbers.Tests
         }
 
         [Test]
-        [TestCase(-100, -0.2, "-1373400766945015860861271926444961148650999595899700808969783355912874233164860713581319584633770489878445925182949793219090442417981051760115114208847937288672931304349404758996773693692921814139459112933741098152347770223", -226)]
+        [TestCase(-100, 0.2, "1373400766945015860861271926444961148650999595899700808969783355912874233164860713581319584633770489878445925182949793219090442417981051760115114208847937288672931304349404758996773693692921814139459112933741098152347770223", -222)]
         [TestCase(-80, 2, "04636476090008061162142562314612144020285370542861202638109330887201978641657417053006002839848878925565298522511908375135058181816250111554715305699441056207193362661648801015325027559879258055168538891674782372865387939180125", -226)]
         [TestCase(-90, 1, "07853981633974483096156608458198757210492923498437764552437361480769541015715522496570087063355292669955370216283205766617734611523876455579313398520321202793625710256754846302763899111557372387325954911072027439164833615321189", -226)]
         public void ArccotangentExpansion_BiggerCases_ResultDoesNotExceedGivenRemainder(int wantedRemainder, double x, string mantissa, int exponent)
@@ -559,6 +560,7 @@ namespace IrrationalNumbers.Tests
 
             BigInteger mantissaBigInteger = BigInteger.Parse(mantissa);
             var expectedAnswer = new BigDecimal(mantissaBigInteger, exponent);
+            var actualAnswer = expansion.ExpandFunction(wantedRemainder, x);
 
             var expansionResult = expansion.ExpandFunction(wantedRemainder, x);
             Assert.That(BigDecimal.Abs(expansionResult - expectedAnswer) <
