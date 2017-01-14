@@ -24,10 +24,12 @@ namespace IrrationalNumbers.Logic.Expansions
             }
             else
             {
-                if (x < 0)               
-                    return - pi;             
-                else
-                    return pi;
+                if (x == 1)               
+                    return 0;             
+                else if(x == -1)
+                    return pi * 2;
+
+                return 0;
             }
             /*BigDecimal result;
             ArctangentTaylorExpansion arctan = new ArctangentTaylorExpansion();

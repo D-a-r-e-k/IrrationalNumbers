@@ -31,7 +31,7 @@ namespace IrrationalNumbers.Logic.Expansions
         {
             if (BigDecimal.Abs(x) == 1)
             {
-                return 1;
+                return x;
             }
             _normalizationResult = Utils.NormalizeParameter(x, _alpha, wantedRemainder);
 

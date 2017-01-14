@@ -109,9 +109,9 @@ namespace IrrationalNumbers.Logic
             {
                 for (int i = 2;; i+=10)
                 {
-                    exponentWithAnyBase.SetBase(i);
                    // var powed = Math.Pow(i, Math.Floor((double)reciprocal)); // TODO: think about floor for BigDecimal
                     exponentWithAnyBase.SetBase(i);
+
                     var powed = exponentWithAnyBase.ExpandFunction(remainder - 1, reciprocal);
                     var parameterDivided = parameter/powed;
 

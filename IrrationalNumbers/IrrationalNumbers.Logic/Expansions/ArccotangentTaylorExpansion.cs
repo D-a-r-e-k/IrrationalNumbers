@@ -7,7 +7,9 @@ namespace IrrationalNumbers.Logic.Expansions
         {
             IBasicFunctionExpansion arctan = new ArctangentTaylorExpansion();
             IBasicFunctionExpansion pi = new PiTaylorExpansion();
-            var result = pi.ExpandFunction(wantedRemainder, 0) / 2 - arctan.ExpandFunction(wantedRemainder, x);
+            var tanExp = arctan.ExpandFunction(wantedRemainder, x).Truncate();
+            var piExp = pi.ExpandFunction(wantedRemainder, 0).Truncate();
+            var result = piExp / 2 - tanExp;
             return result;
         }
     }

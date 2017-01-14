@@ -164,13 +164,26 @@ namespace IrrationalNumbers.Tests
         {
             IBasicFunctionExpansion expansion = new BinomicalMaclaurinExpansion(alpha, x);
 
-            var expectedAnswer = Math.Pow(x,alpha);
+           double expectedAnswer;
+
+           if (alpha < 0)
+               expectedAnswer = 1/Math.Pow(x, -alpha);
+           else
+               expectedAnswer = Math.Pow(x, alpha);
 
             var answer = expansion.ExpandFunction(wantedRemainder - 1, x);
 
             Assert.That(BigDecimal.Abs(answer - expectedAnswer) <
                         BigDecimal.PowBig(10, wantedRemainder));
-        }      
+        }
+
+        [Test]
+        [TestCase("-112143.214", -112143.214d)]
+        public void StringtoBig_Negative(string big, double num)
+        {
+            var bigDec = Utils.PositiveStringToBig(big);
+            Assert.That(bigDec == new BigDecimal(num));
+        }
 
         [Test]
         [TestCase(-97, 7, 0.5d, "264575131106459059050161575363926042571025918308245018036833445920106882323028362776039288647454361", -98)]
@@ -430,6 +443,7 @@ namespace IrrationalNumbers.Tests
 
         [Test]
         [TestCase(-4, 3)]
+        [TestCase(-4, -0.2)]
         [TestCase(-5, 1.01)]
         [TestCase(-6, -0.2)]
         [TestCase(-10, 0.2)]
@@ -441,12 +455,14 @@ namespace IrrationalNumbers.Tests
             IBasicFunctionExpansion expansion = new ArctangentTaylorExpansion();
 
             var expectedAnswer = Math.Atan(x);
-            
-            Assert.That(BigDecimal.Abs(expansion.ExpandFunction(wantedRemainder, x) - expectedAnswer) <
+
+            var expansionResult = expansion.ExpandFunction(wantedRemainder, x);
+            Assert.That(BigDecimal.Abs(expansionResult - expectedAnswer) <
                         BigDecimal.PowBig(10, wantedRemainder));
         }
 
         [Test]
+        [TestCase(-108, -0.2, "-019739555984988075837004976519479029344758510378785210151768894024103396997824378573269782803728804411262811807", -110)]
         [TestCase(-100, 0.2, "01973955598498807583700497651947902934475851037878521015176889402410339699782437857326978280372880441126281180736913601044564798867942393557475654952163032700522107470015645015560061286185526633257318692806643896806189528405825", -226)]
         [TestCase(-80, 2, "11071487177940905030170654601785370400700476454014326466765392074337103389773627940134171286861706414345441910054503158100411041231502799603911491341201349380058057851860891590202770663235486719483370930469272505464279291462253", -226)]
         [TestCase(-90, 1, "07853981633974483096156608458198757210492923498437764552437361480769541015715522496570087063355292669955370216283205766617734611523876455579313398520321202793625710256754846302763899111557372387325954911072027439164833615321189", -226)]
@@ -457,7 +473,8 @@ namespace IrrationalNumbers.Tests
             BigInteger mantissaBigInteger = BigInteger.Parse(mantissa);
             var expectedAnswer = new BigDecimal(mantissaBigInteger, exponent);
 
-            Assert.That(BigDecimal.Abs(expansion.ExpandFunction(wantedRemainder, x) - expectedAnswer) <
+            var expansionResult = expansion.ExpandFunction(wantedRemainder, x);
+            Assert.That(BigDecimal.Abs(expansionResult - expectedAnswer) <
                         BigDecimal.PowBig(10, wantedRemainder));
         }
 
@@ -543,7 +560,8 @@ namespace IrrationalNumbers.Tests
             BigInteger mantissaBigInteger = BigInteger.Parse(mantissa);
             var expectedAnswer = new BigDecimal(mantissaBigInteger, exponent);
 
-            Assert.That(BigDecimal.Abs(expansion.ExpandFunction(wantedRemainder, x) - expectedAnswer) <
+            var expansionResult = expansion.ExpandFunction(wantedRemainder, x);
+            Assert.That(BigDecimal.Abs(expansionResult - expectedAnswer) <
                         BigDecimal.PowBig(10, wantedRemainder));
         }
     }
