@@ -1,11 +1,12 @@
-﻿using IrrationalNumbers.Core;
+﻿using System.Dynamic;
+using IrrationalNumbers.Core;
 using IrrationalNumbers.Logic.Expansions;
 using NCalc;
 
 
 namespace IrrationalNumbers.Logic.ExpressionParser
 {
-    public class Parser
+    public class ExpressionParser
     {
         private int _wantedRemainder;
 
@@ -13,10 +14,15 @@ namespace IrrationalNumbers.Logic.ExpressionParser
         {
             _wantedRemainder = remainder;
         }
-
+        public void ConfigureParser(Expression exp)
+        {
+            exp.Parameters["PI"] = new PiTaylorExpansion().ExpandFunction(_wantedRemainder, 1);
+            exp.Parameters["E"] = new ExponentTaylorExpansion().ExpandFunction(_wantedRemainder, 1);
+        }
         public BigDecimal Estimate(string expression)
         {
             var exp = new Expression(expression);
+            ConfigureParser(exp);
             exp.EvaluateFunction += TomoAprasytosFunkcijos;
             exp.EvaluateFunction += DovydoAprasytosFunkcijos;
             ConfigureParser(exp);
@@ -208,8 +214,8 @@ namespace IrrationalNumbers.Logic.ExpressionParser
             }
             else if (name == "LOG")
             {
-                var log_base = args.Parameters[0].Evaluate();
-                var log_value = args.Parameters[1].Evaluate();
+                var log_value = args.Parameters[0].Evaluate();
+                var log_base = args.Parameters[1].Evaluate();
                 if (log_base is BigDecimal && log_value is BigDecimal)
                 {
                     args.Result = new LogarithmExpansion((BigDecimal)log_base).ExpandFunction(_wantedRemainder, (BigDecimal)log_value);

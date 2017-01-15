@@ -12,7 +12,7 @@ namespace IrrationalNumbers.Tests
         [TestCase("SIN(SIN(2.2))", -10)]
         public void ComplexFunction_TwoSinesComposition_ResultDoesNotExceedGivenRemainder(string expressionString, int remainder)
         {
-            var parser = new Parser();
+            var parser = new ExpressionParser();
 
             parser.ConfigureParser(remainder);
 
@@ -26,7 +26,7 @@ namespace IrrationalNumbers.Tests
         [TestCase("SIN(2) + COS(3)", -10)]
         public void ComplexFunction_SumOfTwoFunctions_ResultDoesNotExceedGivenRemainder(string expressionString, int remainder)
         {
-            var parser = new Parser();
+            var parser = new ExpressionParser();
 
             parser.ConfigureParser(remainder);
 
@@ -40,7 +40,7 @@ namespace IrrationalNumbers.Tests
         [TestCase("SQRT(5) - SIN(2)", -10)]
         public void ComplexFunction_Subtraction_ResultDoesNotExceedGivenRemainder(string expressionString, int remainder)
         {
-            var parser = new Parser();
+            var parser = new ExpressionParser();
 
             parser.ConfigureParser(remainder-1);
 
@@ -54,7 +54,7 @@ namespace IrrationalNumbers.Tests
         [TestCase("5*SIN(7)", -10)]
         public void ComplexFunction_Multiplication_ResultDoesNotExceedGivenRemainder(string expressionString, int remainder)
         {
-            var parser = new Parser();
+            var parser = new ExpressionParser();
 
             parser.ConfigureParser(remainder);
 
@@ -68,7 +68,7 @@ namespace IrrationalNumbers.Tests
         [TestCase("SINH(0.5) / ARCCOT(0.3)", -10)]
         public void ComplexFunction_Division_ResultDoesNotExceedGivenRemainder(string expressionString, int remainder)
         {
-            var parser = new Parser();
+            var parser = new ExpressionParser();
 
             parser.ConfigureParser(remainder);
 
@@ -82,7 +82,7 @@ namespace IrrationalNumbers.Tests
         [TestCase("POW(2.2,9) * POW(2, 2.2) / POW(-2, 2) ", -10)]
         public void ComplexFunction_PowersDivision_ResultDoesNotExceedGivenRemainder(string expressionString, int remainder)
         {
-            var parser = new Parser();
+            var parser = new ExpressionParser();
 
             parser.ConfigureParser(remainder - 3);
 
@@ -96,7 +96,7 @@ namespace IrrationalNumbers.Tests
         [TestCase("LN(2.1) * LG(23.2) / LOG(2,3)", -10)]
         public void ComplexFunction_LogarithmsUsed_ResultDoesNotExceedGivenRemainder(string expressionString, int remainder)
         {
-            var parser = new Parser();
+            var parser = new ExpressionParser();
 
             parser.ConfigureParser(remainder);
 
@@ -110,12 +110,26 @@ namespace IrrationalNumbers.Tests
         [TestCase("PI * LOG(2,3) + COS(PI)", -10)]
         public void ComplexFunction_PiUsed_ResultDoesNotExceedGivenRemainder(string expressionString, int remainder)
         {
-            var parser = new Parser();
+            var parser = new ExpressionParser();
 
             parser.ConfigureParser(remainder);
 
             var actualResult = parser.Estimate(expressionString);
             var expectedResult = Math.PI * Math.Log(3, 2) + Math.Cos(Math.PI);
+
+            Assert.That(BigDecimal.Abs(actualResult - expectedResult) < Math.Pow(10, remainder));
+        }
+
+        [Test]
+        [TestCase("POW(PI,PI) * TAN(0.0005) + COTH(0.2)", -10)]
+        public void ComplexFunction_PiAndPowTogether_ResultDoesNotExceedGivenRemainder(string expressionString, int remainder)
+        {
+            var parser = new ExpressionParser();
+
+            parser.ConfigureParser(remainder);
+
+            var actualResult = parser.Estimate(expressionString);
+            var expectedResult = Math.Pow(Math.PI, Math.PI)*Math.Tan(0.0005);
 
             Assert.That(BigDecimal.Abs(actualResult - expectedResult) < Math.Pow(10, remainder));
         }
@@ -139,10 +153,11 @@ namespace IrrationalNumbers.Tests
         [TestCase("SIN(2) - SIN(0.2) + 2 + SIN(2) + SIN(0.2) - 2 + COS(0.2)+ SIN(0.2) + 2 - SIN(2) + SIN(0.2) + 2 + COS(0.2) + TAN(0.2)+ SIN(2) - SIN(0.2) + 2 + SIN(2) + SIN(0.2) - 2 + COS(0.2)+ SIN(0.2) + 2 - SIN(2) + SIN(0.2) + 2 + COS(0.2) + TAN(0.2)+ SIN(2) - SIN(0.2) + 2 + SIN(2) + SIN(0.2) - 2 + COS(0.2)+ SIN(0.2) + 2 - SIN(2) + SIN(0.2) + 2 + COS(0.2) + TAN(0.2)+ SIN(2) - SIN(0.2) + 2 + SIN(2) + SIN(0.2) - 2 + COS(0.2)+ SIN(0.2) + 2 - SIN(2) + SIN(0.2) + 2 + COS(0.2) + TAN(0.2)+ SIN(2) - SIN(0.2) + 2 + SIN(2) + SIN(0.2) - 2 + COS(0.2)+ SIN(0.2) + 2 - SIN(2) + SIN(0.2) + 2 + COS(0.2) + TAN(0.2)+ SIN(2) - SIN(0.2) + 2 + SIN(2) + SIN(0.2) - 2 + COS(0.2)+ SIN(0.2) + 2 - SIN(2) + SIN(0.2) + 2 + COS(0.2) + TAN(0.2)+ SIN(2) - SIN(0.2) + 2 + SIN(2) + SIN(0.2) - 2 + COS(0.2)+ SIN(0.2) + 2 - SIN(2) + SIN(0.2) + 2 + COS(0.2) + TAN(0.2)+ SIN(2) - SIN(0.2) + 2 + SIN(2) + SIN(0.2) - 2 + COS(0.2)+ SIN(0.2) + 2 - SIN(2) + SIN(0.2) + 2 + COS(0.2) + TAN(0.2)+ SIN(2) - SIN(0.2) + 2 + SIN(2) + SIN(0.2) - 2 + COS(0.2)+ SIN(0.2) + 2 - SIN(2) + SIN(0.2) + 2 + COS(0.2) + TAN(0.2)+ SIN(2) - SIN(0.2) + 2 + SIN(2) + SIN(0.2) - 2 + COS(0.2)+ SIN(0.2) + 2 - SIN(2) + SIN(0.2) + 2 + COS(0.2) + TAN(0.2)", -100, "74694792796069598718845964252923965808565928217930683945046815414696657590705849397337649608893638318548892626980", -111)]
 
         // joined use of various 10 functions - a^x, hyperbolic, trygonometric, LN
+        [TestCase("POW(2.2, COSH(0.2) * SINH(-0.2) + SIN(0.2)) * LN(2) + LN(23) - COTH(2.2) + TANH(0.1) + LN(0.2) + SIN(0.1)", -10, "13901892787696875176958123749041900686179532341658416679392575857116024058416082744000027752958180993675115015216997782961089162436803789752083623462654032868837226904114986480767746931438543430193665232995607620382243989312651", -226)]
         [TestCase("POW(2.2, COSH(0.2) * SINH(-0.2) + SIN(0.2)) * LN(2) + LN(23) - COTH(2.2) + TANH(0.1) + LN(0.2) + SIN(0.1)", -100, "13901892787696875176958123749041900686179532341658416679392575857116024058416082744000027752958180993675115015216997782961089162436803789752083623462654032868837226904114986480767746931438543430193665232995607620382243989312651", -226)]
         public void ComplexFunction_BiggerCases_ResultDoesNotExceedGivenRemainder(string expressionString, int remainder, string mantissa, int exponent)
         {
-            var parser = new Parser();
+            var parser = new ExpressionParser();
 
             parser.ConfigureParser(remainder - 5);
 
@@ -152,6 +167,130 @@ namespace IrrationalNumbers.Tests
             var expectedResult = new BigDecimal(mantissaBigInteger, exponent);
 
             Assert.That(BigDecimal.Abs(actualResult - expectedResult) < BigDecimal.PowBig(10, remainder));
+        }
+
+        [Test]
+        [TestCase("PI", -10)]
+        public void ComplexFunction_Pi_ResultDoesNotExceedGivenRemainder(string expressionString, int remainder)
+        {
+            var parser = new ExpressionParser();
+
+            parser.ConfigureParser(remainder);
+
+            var actualResult = parser.Estimate(expressionString);
+            var expectedResult = Math.PI;
+
+            Assert.That(BigDecimal.Abs(actualResult - expectedResult) < Math.Pow(10, remainder));
+        }
+
+        [Test]
+        [TestCase("E", -10)]
+        public void ComplexFunction_E_ResultDoesNotExceedGivenRemainder(string expressionString, int remainder)
+        {
+            var parser = new ExpressionParser();
+
+            parser.ConfigureParser(remainder);
+
+            var actualResult = parser.Estimate(expressionString);
+            var expectedResult = Math.E;
+
+            Assert.That(BigDecimal.Abs(actualResult - expectedResult) < Math.Pow(10, remainder));
+        }
+
+        [Test]
+        [TestCase("TANH(E)", -10)]
+        public void ComplexFunction_TANH_ResultDoesNotExceedGivenRemainder(string expressionString, int remainder)
+        {
+            var parser = new ExpressionParser();
+
+            parser.ConfigureParser(remainder);
+
+            var actualResult = parser.Estimate(expressionString);
+            var expectedResult = Math.Tanh(Math.E);
+
+            Assert.That(BigDecimal.Abs(actualResult - expectedResult) < Math.Pow(10, remainder));
+        }
+
+        [Test]
+        [TestCase("COTH(E)", -10)]
+        public void ComplexFunction_COTH_ResultDoesNotExceedGivenRemainder(string expressionString, int remainder)
+        {
+            var parser = new ExpressionParser();
+
+            parser.ConfigureParser(remainder);
+
+            var actualResult = parser.Estimate(expressionString);
+            var expectedResult = (Math.Exp(Math.E) + Math.Exp(-Math.E)) / (Math.Exp(Math.E) - Math.Exp(-Math.E));
+
+            Assert.That(BigDecimal.Abs(actualResult - expectedResult) < Math.Pow(10, remainder));
+        }
+
+        [Test]
+        [TestCase("LOG(2, E)", -10)]
+        public void ComplexFunction_LOG_ResultDoesNotExceedGivenRemainder(string expressionString, int remainder)
+        {
+            var parser = new ExpressionParser();
+
+            parser.ConfigureParser(remainder);
+
+            var actualResult = parser.Estimate(expressionString);
+            var expectedResult = Math.Log(2, Math.E);
+
+            Assert.That(BigDecimal.Abs(actualResult - expectedResult) < Math.Pow(10, remainder));
+        }
+
+        [Test]
+        [TestCase("LG(PI)", -10)]
+        public void ComplexFunction_LG_ResultDoesNotExceedGivenRemainder(string expressionString, int remainder)
+        {
+            var parser = new ExpressionParser();
+
+            parser.ConfigureParser(remainder);
+
+            var actualResult = parser.Estimate(expressionString);
+            var expectedResult = Math.Log10(Math.PI);
+
+            Assert.That(BigDecimal.Abs(actualResult - expectedResult) < Math.Pow(10, remainder));
+        }
+
+        [Test]
+        [TestCase("LN(PI/2 + E)", -10)]
+        public void ComplexFunction_LN_ResultDoesNotExceedGivenRemainder(string expressionString, int remainder)
+        {
+            var parser = new ExpressionParser();
+
+            parser.ConfigureParser(remainder);
+
+            var actualResult = parser.Estimate(expressionString);
+            var expectedResult = Math.Log(Math.PI/2 + Math.E, Math.E);
+
+            Assert.That(BigDecimal.Abs(actualResult - expectedResult) < Math.Pow(10, remainder));
+        }
+        [Test]
+        [TestCase("POW(E, POW(SIN(1.5), 2))", -10)]
+        public void ComplexFunction_POW_ResultDoesNotExceedGivenRemainder(string expressionString, int remainder)
+        {
+            var parser = new ExpressionParser();
+
+            parser.ConfigureParser(remainder);
+
+            var actualResult = parser.Estimate(expressionString);
+            var expectedResult = Math.Pow(Math.E, Math.Pow(Math.Sin(1.5), 2));
+
+            Assert.That(BigDecimal.Abs(actualResult - expectedResult) < Math.Pow(10, remainder));
+        }
+        [Test]
+        [TestCase("EXP(POW(SIN(7), 2))", -10)]
+        public void ComplexFunction_EXP_ResultDoesNotExceedGivenRemainder(string expressionString, int remainder)
+        {
+            var parser = new ExpressionParser();
+
+            parser.ConfigureParser(remainder);
+
+            var actualResult = parser.Estimate(expressionString);
+            var expectedResult = Math.Pow(Math.E, Math.Pow(Math.Sin(7), 2));
+
+            Assert.That(BigDecimal.Abs(actualResult - expectedResult) < Math.Pow(10, remainder));
         }
     }
 }
