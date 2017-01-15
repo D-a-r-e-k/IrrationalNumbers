@@ -1,4 +1,5 @@
-﻿using IrrationalNumbers.Core;
+﻿using System.Dynamic;
+using IrrationalNumbers.Core;
 using IrrationalNumbers.Logic.Expansions;
 using NCalc;
 
@@ -13,10 +14,15 @@ namespace IrrationalNumbers.Logic.ExpressionParser
         {
             _wantedRemainder = remainder;
         }
-
+        public void ConfigureParser(Expression exp)
+        {
+            exp.Parameters["PI"] = new PiTaylorExpansion().ExpandFunction(_wantedRemainder, 1);
+            exp.Parameters["E"] = new ExponentTaylorExpansion().ExpandFunction(_wantedRemainder, 1);
+        }
         public BigDecimal Estimate(string expression)
         {
             var exp = new Expression(expression);
+            ConfigureParser(exp);
             exp.EvaluateFunction += TomoAprasytosFunkcijos;
             exp.EvaluateFunction += DovydoAprasytosFunkcijos;
 
@@ -202,8 +208,8 @@ namespace IrrationalNumbers.Logic.ExpressionParser
             }
             else if (name == "LOG")
             {
-                var log_base = args.Parameters[0].Evaluate();
-                var log_value = args.Parameters[1].Evaluate();
+                var log_value = args.Parameters[0].Evaluate();
+                var log_base = args.Parameters[1].Evaluate();
                 if (log_base is BigDecimal && log_value is BigDecimal)
                 {
                     args.Result = new LogarithmExpansion((BigDecimal)log_base).ExpandFunction(_wantedRemainder, (BigDecimal)log_value);
@@ -284,19 +290,6 @@ namespace IrrationalNumbers.Logic.ExpressionParser
                 else
                 {
                     args.Result = new ExponentTaylorExpansion().ExpandFunction(_wantedRemainder,
-                        CoreUtils.PositiveStringToBig(parameter.ToString()));
-                }
-            }
-            else if (name == "PI")
-            {
-                var parameter = args.Parameters[0].Evaluate();
-                if (parameter is BigDecimal)
-                {
-                    args.Result = new PiTaylorExpansion().ExpandFunction(_wantedRemainder, (BigDecimal)parameter);
-                }
-                else
-                {
-                    args.Result = new PiTaylorExpansion().ExpandFunction(_wantedRemainder,
                         CoreUtils.PositiveStringToBig(parameter.ToString()));
                 }
             }
