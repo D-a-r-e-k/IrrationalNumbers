@@ -152,6 +152,7 @@ namespace IrrationalNumbers.Tests
         [TestCase("SIN(2) - SIN(0.2) + 2 + SIN(2) + SIN(0.2) - 2 + COS(0.2)+ SIN(0.2) + 2 - SIN(2) + SIN(0.2) + 2 + COS(0.2) + TAN(0.2)+ SIN(0.2) + 2 + SIN(2) + SIN(0.2) + 2 + COS(0.2) + TAN(0.2)+ SIN(0.2) + 2 + SIN(2) + SIN(0.2) + 2 + COS(0.2) + TAN(0.2) + SIN(2) + SIN(0.2) + 2 + SIN(2) + SIN(0.2) + 2 + COS(0.2)+ SIN(0.2) + 2 + SIN(2) + SIN(0.2) + 2 + COS(0.2) + TAN(0.2)+ SIN(0.2) + 2 + SIN(2) + SIN(0.2) + 2 + COS(0.2) + TAN(0.2)+ SIN(0.2) + 2 + SIN(2) + SIN(0.2) + 2 + COS(0.2) + TAN(0.2)+ SIN(2) + SIN(0.2) + 2 + SIN(2) + SIN(0.2) + 2 + COS(0.2)+ SIN(0.2) + 2 + SIN(2) + SIN(0.2) + 2 + COS(0.2) + TAN(0.2)+ SIN(0.2) + 2 + SIN(2) + SIN(0.2) + 2 + COS(0.2) + TAN(0.2)+ SIN(0.2) + 2 + SIN(2) + SIN(0.2) + 2 + COS(0.2) + TAN(0.2)+ SIN(2) + SIN(0.2) + 2 + SIN(2) + SIN(0.2) + 2 + COS(0.2)+ SIN(0.2) + 2 + SIN(2) + SIN(0.2) + 2 + COS(0.2) + TAN(0.2)+ SIN(0.2) + 2 + SIN(2) + SIN(0.2) + 2 + COS(0.2) + TAN(0.2)+ SIN(0.2) + 2 + SIN(2) + SIN(0.2) + 2 + COS(0.2) + TAN(0.2)+ SIN(2) + SIN(0.2) + 2 + SIN(2) + SIN(0.2) + 2 + COS(0.2)+ SIN(0.2) + 2 + SIN(2) + SIN(0.2) + 2 + COS(0.2) + TAN(0.2)+ SIN(0.2) + 2 + SIN(2) + SIN(0.2) + 2 + COS(0.2) + TAN(0.2)+ SIN(0.2) + 2 + SIN(2) + SIN(0.2) + 2 + COS(0.2) + TAN(0.2)", -10, "170669", -4)]
 
         // joined use of various 10 functions - a^x, hyperbolic, trygonometric, LN
+        [TestCase("POW(2.2, COSH(0.2) * SINH(-0.2) + SIN(0.2)) * LN(2) + LN(23) - COTH(2.2) + TANH(0.1) + LN(0.2) + SIN(0.1)", -10, "13901892787696875176958123749041900686179532341658416679392575857116024058416082744000027752958180993675115015216997782961089162436803789752083623462654032868837226904114986480767746931438543430193665232995607620382243989312651", -226)]
         [TestCase("POW(2.2, COSH(0.2) * SINH(-0.2) + SIN(0.2)) * LN(2) + LN(23) - COTH(2.2) + TANH(0.1) + LN(0.2) + SIN(0.1)", -100, "13901892787696875176958123749041900686179532341658416679392575857116024058416082744000027752958180993675115015216997782961089162436803789752083623462654032868837226904114986480767746931438543430193665232995607620382243989312651", -226)]
         public void ComplexFunction_BiggerCases_ResultDoesNotExceedGivenRemainder(string expressionString, int remainder, string mantissa, int exponent)
         {
@@ -166,6 +167,7 @@ namespace IrrationalNumbers.Tests
 
             Assert.That(BigDecimal.Abs(actualResult - expectedResult) < BigDecimal.PowBig(10, remainder));
         }
+
         [Test]
         [TestCase("PI", -10)]
         public void ComplexFunction_Pi_ResultDoesNotExceedGivenRemainder(string expressionString, int remainder)
@@ -179,6 +181,7 @@ namespace IrrationalNumbers.Tests
 
             Assert.That(BigDecimal.Abs(actualResult - expectedResult) < Math.Pow(10, remainder));
         }
+
         [Test]
         [TestCase("E", -10)]
         public void ComplexFunction_E_ResultDoesNotExceedGivenRemainder(string expressionString, int remainder)
@@ -192,6 +195,7 @@ namespace IrrationalNumbers.Tests
 
             Assert.That(BigDecimal.Abs(actualResult - expectedResult) < Math.Pow(10, remainder));
         }
+
         [Test]
         [TestCase("TANH(E)", -10)]
         public void ComplexFunction_TANH_ResultDoesNotExceedGivenRemainder(string expressionString, int remainder)
@@ -205,6 +209,7 @@ namespace IrrationalNumbers.Tests
 
             Assert.That(BigDecimal.Abs(actualResult - expectedResult) < Math.Pow(10, remainder));
         }
+
         [Test]
         [TestCase("COTH(E)", -10)]
         public void ComplexFunction_COTH_ResultDoesNotExceedGivenRemainder(string expressionString, int remainder)
@@ -218,6 +223,7 @@ namespace IrrationalNumbers.Tests
 
             Assert.That(BigDecimal.Abs(actualResult - expectedResult) < Math.Pow(10, remainder));
         }
+
         [Test]
         [TestCase("LOG(2, E)", -10)]
         public void ComplexFunction_LOG_ResultDoesNotExceedGivenRemainder(string expressionString, int remainder)
@@ -231,6 +237,7 @@ namespace IrrationalNumbers.Tests
 
             Assert.That(BigDecimal.Abs(actualResult - expectedResult) < Math.Pow(10, remainder));
         }
+
         [Test]
         [TestCase("LG(PI)", -10)]
         public void ComplexFunction_LG_ResultDoesNotExceedGivenRemainder(string expressionString, int remainder)
@@ -244,6 +251,7 @@ namespace IrrationalNumbers.Tests
 
             Assert.That(BigDecimal.Abs(actualResult - expectedResult) < Math.Pow(10, remainder));
         }
+
         [Test]
         [TestCase("LN(PI/2 + E)", -10)]
         public void ComplexFunction_LN_ResultDoesNotExceedGivenRemainder(string expressionString, int remainder)
