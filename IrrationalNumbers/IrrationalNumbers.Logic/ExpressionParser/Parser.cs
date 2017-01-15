@@ -14,7 +14,7 @@ namespace IrrationalNumbers.Logic.ExpressionParser
         {
             _wantedRemainder = remainder;
         }
-        public void ConfigureParser(Expression exp)
+        public void ConfigureParameters(Expression exp)
         {
             exp.Parameters["PI"] = new PiTaylorExpansion().ExpandFunction(_wantedRemainder, 1);
             exp.Parameters["E"] = new ExponentTaylorExpansion().ExpandFunction(_wantedRemainder, 1);
@@ -22,18 +22,12 @@ namespace IrrationalNumbers.Logic.ExpressionParser
         public BigDecimal Estimate(string expression)
         {
             var exp = new Expression(expression);
-            ConfigureParser(exp);
+
+            ConfigureParameters(exp);
             exp.EvaluateFunction += TomoAprasytosFunkcijos;
             exp.EvaluateFunction += DovydoAprasytosFunkcijos;
-            ConfigureParser(exp);
+
             return (BigDecimal) exp.Evaluate();
-
-        }
-
-        public void ConfigureParser(Expression exp)
-        {
-            exp.Parameters["PI"] = new PiTaylorExpansion().ExpandFunction(_wantedRemainder, 1);
-            exp.Parameters["E"] = new ExponentTaylorExpansion().ExpandFunction(_wantedRemainder, 1);
         }
 
         public void TomoAprasytosFunkcijos(string name, FunctionArgs args)

@@ -85,6 +85,7 @@ namespace IrrationalNumbers.Tests
             var parser = new ExpressionParser();
 
             parser.ConfigureParser(remainder);
+            parser.ConfigureParser(remainder - 3);
 
             var actualResult = parser.Estimate(expressionString);
             var expectedResult = Math.Pow(2.2, 9)*Math.Pow(2, 2.2)/Math.Pow(-2, 2);
@@ -115,7 +116,7 @@ namespace IrrationalNumbers.Tests
             parser.ConfigureParser(remainder);
 
             var actualResult = parser.Estimate(expressionString);
-            var expectedResult = Math.PI * Math.Log(3, 2);
+            var expectedResult = Math.PI * Math.Log(2, 3) + Math.Cos(Math.PI);
 
             Assert.That(BigDecimal.Abs(actualResult - expectedResult) < Math.Pow(10, remainder));
         }
@@ -169,7 +170,7 @@ namespace IrrationalNumbers.Tests
         {
             var parser = new ExpressionParser();
 
-            parser.ConfigureParser(remainder - 5);
+            parser.ConfigureParser(remainder);
 
             var actualResult = parser.Estimate(expressionString);
 
