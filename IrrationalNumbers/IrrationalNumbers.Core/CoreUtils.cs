@@ -30,7 +30,7 @@ namespace IrrationalNumbers.Core
                     throw new Exception();
                 }
 
-                big = new BigDecimal(BigInteger.Parse(splited[1]), splited[1].Length);
+                big = new BigDecimal(BigInteger.Parse(splited[1]), -splited[1].Length);
             }
             else
             {
