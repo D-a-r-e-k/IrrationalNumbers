@@ -2,6 +2,7 @@
 using System;
 using System.Diagnostics;
 using System.Numerics;
+using IrrationalNumbers.Core;
 using IrrationalNumbers.Logic;
 using NCalc;
 
@@ -39,7 +40,7 @@ namespace IrrationalNumbers.Test
                     else
                     {
                         arguments.Result = new SineTaylorExpansion().ExpandFunction(reminder,
-                            Utils.PositiveStringToBig(arguments.Parameters[0].Evaluate().ToString()));
+                            CoreUtils.PositiveStringToBig(arguments.Parameters[0].Evaluate().ToString()));
                     }
                 }
                 else if (name == "COS")
@@ -52,7 +53,7 @@ namespace IrrationalNumbers.Test
                     else
                     {
                         arguments.Result = new CosineTaylorExpansion().ExpandFunction(reminder,
-                            Utils.PositiveStringToBig(arguments.Parameters[0].Evaluate().ToString()));
+                            CoreUtils.PositiveStringToBig(arguments.Parameters[0].Evaluate().ToString()));
                     }
                 }
             };

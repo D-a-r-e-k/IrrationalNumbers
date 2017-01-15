@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Numerics;
+using IrrationalNumbers.Core;
 using IrrationalNumbers.Logic;
 using IrrationalNumbers.Logic.Expansions;
 using NUnit.Framework;
@@ -181,7 +182,7 @@ namespace IrrationalNumbers.Tests
         [TestCase("-112143.214", -112143.214d)]
         public void StringtoBig_Negative(string big, double num)
         {
-            var bigDec = Utils.PositiveStringToBig(big);
+            var bigDec = CoreUtils.PositiveStringToBig(big);
             Assert.That(bigDec == new BigDecimal(num));
         }
 

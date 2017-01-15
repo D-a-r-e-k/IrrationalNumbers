@@ -74,10 +74,6 @@
       <Project>{0104b64f-bf46-444f-92cc-b08947f73fc9}</Project>
       <Name>IrrationalNumbers.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\IrrationalNumbers.Logic\IrrationalNumbers.Logic.csproj">
-      <Project>{98cc9f7e-270e-4761-82f4-49b0da1ef811}</Project>
-      <Name>IrrationalNumbers.Logic</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

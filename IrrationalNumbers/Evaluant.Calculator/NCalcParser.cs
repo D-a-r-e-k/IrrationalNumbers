@@ -16,6 +16,7 @@ using Stack 		= Antlr.Runtime.Collections.StackList;
 
 
 using Antlr.Runtime.Tree;
+using IrrationalNumbers.Core;
 using IrrationalNumbers.Logic;
 
 public class NCalcParser : Parser 
@@ -2201,7 +2202,7 @@ public class NCalcParser : Parser
                             try
                             {
                                 //retval.value = new ValueExpression(int.Parse(((INTEGER35 != null) ? INTEGER35.Text : null)));
-                                retval.value = INTEGER35.Text == null ? new ValueExpression(null) : new ValueExpression(Utils.PositiveStringToBig(INTEGER35.Text));
+                                retval.value = INTEGER35.Text == null ? new ValueExpression(null) : new ValueExpression(CoreUtils.PositiveStringToBig(INTEGER35.Text));
 
                         }
                         catch (System.OverflowException)
@@ -2219,7 +2220,7 @@ public class NCalcParser : Parser
                     	FLOAT36=(IToken)Match(input,FLOAT,FOLLOW_FLOAT_in_value884); 
                     		FLOAT36_tree = (CommonTree)adaptor.Create(FLOAT36);
                     		adaptor.AddChild(root_0, FLOAT36_tree);
-                        retval.value = FLOAT36.Text == null ? new ValueExpression(null) : new ValueExpression(Utils.PositiveStringToBig(FLOAT36.Text));
+                        retval.value = FLOAT36.Text == null ? new ValueExpression(null) : new ValueExpression(CoreUtils.PositiveStringToBig(FLOAT36.Text));
                     	// retval.value =  new ValueExpression((FLOAT36.Text != null) ? Utils.PositiveStringToBig(FLOAT36.Text) : null);
                          //retval.value = new ValueExpression(double.Parse(((FLOAT36 != null) ? FLOAT36.Text : null), NumberStyles.Float, numberFormatInfo));
 
