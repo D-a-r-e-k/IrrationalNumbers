@@ -12,7 +12,7 @@ namespace IrrationalNumbers.Tests
         [TestCase("SIN(SIN(2.2))", -10)]
         public void ComplexFunction_TwoSinesComposition_ResultDoesNotExceedGivenRemainder(string expressionString, int remainder)
         {
-            var parser = new Parser();
+            var parser = new ExpressionParser();
 
             parser.ConfigureParser(remainder);
 
@@ -26,7 +26,7 @@ namespace IrrationalNumbers.Tests
         [TestCase("SIN(2) + COS(3)", -10)]
         public void ComplexFunction_SumOfTwoFunctions_ResultDoesNotExceedGivenRemainder(string expressionString, int remainder)
         {
-            var parser = new Parser();
+            var parser = new ExpressionParser();
 
             parser.ConfigureParser(remainder);
 
@@ -40,7 +40,7 @@ namespace IrrationalNumbers.Tests
         [TestCase("SQRT(5) - SIN(2)", -10)]
         public void ComplexFunction_Subtraction_ResultDoesNotExceedGivenRemainder(string expressionString, int remainder)
         {
-            var parser = new Parser();
+            var parser = new ExpressionParser();
 
             parser.ConfigureParser(remainder-1);
 
@@ -54,7 +54,7 @@ namespace IrrationalNumbers.Tests
         [TestCase("5*SIN(7)", -10)]
         public void ComplexFunction_Multiplication_ResultDoesNotExceedGivenRemainder(string expressionString, int remainder)
         {
-            var parser = new Parser();
+            var parser = new ExpressionParser();
 
             parser.ConfigureParser(remainder);
 
@@ -68,7 +68,7 @@ namespace IrrationalNumbers.Tests
         [TestCase("SINH(0.5) / ARCCOT(0.3)", -10)]
         public void ComplexFunction_Division_ResultDoesNotExceedGivenRemainder(string expressionString, int remainder)
         {
-            var parser = new Parser();
+            var parser = new ExpressionParser();
 
             parser.ConfigureParser(remainder);
 
@@ -82,7 +82,7 @@ namespace IrrationalNumbers.Tests
         [TestCase("POW(2.2,9) * POW(2, 2.2) / POW(-2, 2) ", -10)]
         public void ComplexFunction_PowersDivision_ResultDoesNotExceedGivenRemainder(string expressionString, int remainder)
         {
-            var parser = new Parser();
+            var parser = new ExpressionParser();
 
             parser.ConfigureParser(remainder);
 
@@ -96,7 +96,7 @@ namespace IrrationalNumbers.Tests
         [TestCase("LN(2.1) * LG(23.2) / LOG(2,3)", -10)]
         public void ComplexFunction_LogarithmsUsed_ResultDoesNotExceedGivenRemainder(string expressionString, int remainder)
         {
-            var parser = new Parser();
+            var parser = new ExpressionParser();
 
             parser.ConfigureParser(remainder);
 
@@ -110,7 +110,7 @@ namespace IrrationalNumbers.Tests
         [TestCase("PI * LOG(2,3) + COS(PI)", -10)]
         public void ComplexFunction_PiUsed_ResultDoesNotExceedGivenRemainder(string expressionString, int remainder)
         {
-            var parser = new Parser();
+            var parser = new ExpressionParser();
 
             parser.ConfigureParser(remainder);
 
@@ -124,7 +124,7 @@ namespace IrrationalNumbers.Tests
         [TestCase("POW(PI,PI) * TAN(0.0005) + COTH(0.2)", -10)]
         public void ComplexFunction_PiAndPowTogether_ResultDoesNotExceedGivenRemainder(string expressionString, int remainder)
         {
-            var parser = new Parser();
+            var parser = new ExpressionParser();
 
             parser.ConfigureParser(remainder);
 
@@ -156,7 +156,7 @@ namespace IrrationalNumbers.Tests
         [TestCase("POW(2.2, COSH(0.2) * SINH(-0.2) + SIN(0.2)) * LN(2) + LN(23) - COTH(2.2) + TANH(0.1) + LN(0.2) + SIN(0.1)", -100, "13901892787696875176958123749041900686179532341658416679392575857116024058416082744000027752958180993675115015216997782961089162436803789752083623462654032868837226904114986480767746931438543430193665232995607620382243989312651", -226)]
         public void ComplexFunction_BiggerCases_ResultDoesNotExceedGivenRemainder(string expressionString, int remainder, string mantissa, int exponent)
         {
-            var parser = new Parser();
+            var parser = new ExpressionParser();
 
             parser.ConfigureParser(remainder - 5);
 
@@ -172,7 +172,7 @@ namespace IrrationalNumbers.Tests
         [TestCase("PI", -10)]
         public void ComplexFunction_Pi_ResultDoesNotExceedGivenRemainder(string expressionString, int remainder)
         {
-            var parser = new Parser();
+            var parser = new ExpressionParser();
 
             parser.ConfigureParser(remainder);
 
@@ -186,7 +186,7 @@ namespace IrrationalNumbers.Tests
         [TestCase("E", -10)]
         public void ComplexFunction_E_ResultDoesNotExceedGivenRemainder(string expressionString, int remainder)
         {
-            var parser = new Parser();
+            var parser = new ExpressionParser();
 
             parser.ConfigureParser(remainder);
 
@@ -200,7 +200,7 @@ namespace IrrationalNumbers.Tests
         [TestCase("TANH(E)", -10)]
         public void ComplexFunction_TANH_ResultDoesNotExceedGivenRemainder(string expressionString, int remainder)
         {
-            var parser = new Parser();
+            var parser = new ExpressionParser();
 
             parser.ConfigureParser(remainder);
 
@@ -214,7 +214,7 @@ namespace IrrationalNumbers.Tests
         [TestCase("COTH(E)", -10)]
         public void ComplexFunction_COTH_ResultDoesNotExceedGivenRemainder(string expressionString, int remainder)
         {
-            var parser = new Parser();
+            var parser = new ExpressionParser();
 
             parser.ConfigureParser(remainder);
 
@@ -228,7 +228,7 @@ namespace IrrationalNumbers.Tests
         [TestCase("LOG(2, E)", -10)]
         public void ComplexFunction_LOG_ResultDoesNotExceedGivenRemainder(string expressionString, int remainder)
         {
-            var parser = new Parser();
+            var parser = new ExpressionParser();
 
             parser.ConfigureParser(remainder);
 
@@ -242,7 +242,7 @@ namespace IrrationalNumbers.Tests
         [TestCase("LG(PI)", -10)]
         public void ComplexFunction_LG_ResultDoesNotExceedGivenRemainder(string expressionString, int remainder)
         {
-            var parser = new Parser();
+            var parser = new ExpressionParser();
 
             parser.ConfigureParser(remainder);
 
@@ -256,7 +256,7 @@ namespace IrrationalNumbers.Tests
         [TestCase("LN(PI/2 + E)", -10)]
         public void ComplexFunction_LN_ResultDoesNotExceedGivenRemainder(string expressionString, int remainder)
         {
-            var parser = new Parser();
+            var parser = new ExpressionParser();
 
             parser.ConfigureParser(remainder);
 
@@ -269,7 +269,7 @@ namespace IrrationalNumbers.Tests
         [TestCase("POW(E, POW(SIN(1.5), 2))", -10)]
         public void ComplexFunction_POW_ResultDoesNotExceedGivenRemainder(string expressionString, int remainder)
         {
-            var parser = new Parser();
+            var parser = new ExpressionParser();
 
             parser.ConfigureParser(remainder);
 
@@ -282,7 +282,7 @@ namespace IrrationalNumbers.Tests
         [TestCase("EXP(POW(SIN(7), 2))", -10)]
         public void ComplexFunction_EXP_ResultDoesNotExceedGivenRemainder(string expressionString, int remainder)
         {
-            var parser = new Parser();
+            var parser = new ExpressionParser();
 
             parser.ConfigureParser(remainder);
 

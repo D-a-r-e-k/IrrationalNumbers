@@ -6,7 +6,7 @@ using NCalc;
 
 namespace IrrationalNumbers.Logic.ExpressionParser
 {
-    public class Parser
+    public class ExpressionParser
     {
         private int _wantedRemainder;
 

@@ -10,7 +10,7 @@ namespace IrrationalNumbers.Test
             Console.WriteLine("Expressions estimation program");
             Console.WriteLine("------------------------------");
 
-            var parser = new Parser();
+            var parser = new ExpressionParser();
 
             do
             {
