@@ -12,7 +12,7 @@ namespace IrrationalNumbers.Logic.ExpressionParser
 
         public void ConfigureParser(int remainder)
         {
-            _wantedRemainder = remainder - 10;
+            _wantedRemainder = remainder - 5;
         }
         public void ConfigureParameters(Expression exp)
         {
