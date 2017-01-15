@@ -1,16 +1,13 @@
 ﻿using IrrationalNumbers.Core;
 using IrrationalNumbers.Logic.Expansions;
-using Mathos.Parser;
 using NCalc;
+
+
 namespace IrrationalNumbers.Logic.ExpressionParser
 {
     public class Parser
     {
         private int _wantedRemainder;
-
-        public Parser()
-        {
-        }
 
         public void ConfigureParser(int remainder)
         {
