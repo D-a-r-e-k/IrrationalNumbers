@@ -1,5 +1,4 @@
-﻿using Mathos.Parser;
-using NCalc;
+﻿using NCalc;
 namespace IrrationalNumbers.Logic.ExpressionParser
 {
     public class Parser
@@ -10,7 +9,7 @@ namespace IrrationalNumbers.Logic.ExpressionParser
         {
         }
 
-        private void ConfigureParser(int remainder)
+        public void ConfigureParser(int remainder)
         {
             _wantedRemainder = remainder;
         }
