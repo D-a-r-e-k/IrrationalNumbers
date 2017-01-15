@@ -102,7 +102,7 @@ namespace IrrationalNumbers.Tests
             parser.ConfigureParser(remainder);
 
             var actualResult = parser.Estimate(expressionString);
-            var expectedResult = Math.Log(2.1, Math.E)*Math.Log10(23.2)/Math.Log(3, 2);
+            var expectedResult = Math.Log(2.1, Math.E)*Math.Log10(23.2)/Math.Log(2,3);
 
             Assert.That(BigDecimal.Abs(actualResult - expectedResult) < Math.Pow(10, remainder));
         }
@@ -130,7 +130,7 @@ namespace IrrationalNumbers.Tests
             parser.ConfigureParser(remainder);
 
             var actualResult = parser.Estimate(expressionString);
-            var expectedResult = Math.Pow(Math.PI, Math.PI)*Math.Tan(0.0005);
+            var expectedResult = Math.Pow(Math.PI, Math.PI)*Math.Tan(0.0005) + ((Math.Exp(0.2) + Math.Exp(-0.2)) / (Math.Exp(0.2) - Math.Exp(-0.2)));
 
             Assert.That(BigDecimal.Abs(actualResult - expectedResult) < Math.Pow(10, remainder));
         }
@@ -168,10 +168,15 @@ namespace IrrationalNumbers.Tests
                   "SIN(2) + SIN(0.2) + 2 + SIN(2) + SIN(0.2) + 2 + COS(0.2) + SIN(0.2) + 2 + SIN(2) + SIN(0.2) + 2 + COS(0.2) + TAN(0.2) + SIN(0.2) + 2 + SIN(2) + SIN(0.2) + 2 + COS(0.2) + TAN(0.2) + SIN(0.2) + 2 + SIN(2) + SIN(0.2) + 2 + COS(0.2) + TAN(0.2) +" +
                   "SIN(2) + SIN(0.2) + 2 + SIN(2) + SIN(0.2) + 2 + COS(0.2) + SIN(0.2) + 2 + SIN(2) + SIN(0.2) + 2 + COS(0.2) + TAN(0.2) + SIN(0.2) + 2 + SIN(2) + SIN(0.2) + 2 + COS(0.2) + TAN(0.2) + SIN(0.2) + 2 + SIN(2) + SIN(0.2) + 2 + COS(0.2) + TAN(0.2) +" +
                   "SIN(2) + SIN(0.2) + 2 + SIN(2) + SIN(0.2) + 2 + COS(0.2) + SIN(0.2) + 2 + SIN(2) + SIN(0.2) + 2 + COS(0.2) + TAN(0.2) + SIN(0.2) + 2 + SIN(2) + SIN(0.2) + 2 + COS(0.2) + TAN(0.2) + SIN(0.2) + 2 + SIN(2) + SIN(0.2) + 2 + COS(0.2) + TAN(0.2)", -10, "10665695279351952870046504491376448469571061258296904216055874420005799408516078719953566596277031951594111943706628746024479062648484788595451594859150713486673427280232026612840439514728903536306817347326882908208276582585831", -224)]
-        [TestCase("2 *SIN(2) + 2*SIN(0.2) + 6 + COS(0.2)+ 2*SIN(0.2)+ 2*SIN(2) + 2 + COS(0.2) + TAN(0.2)+ SIN(0.2) + 2 + SIN(0.2) + 2 + TAN(0.2)+ SIN(0.2) + 4 + SIN(2) + SIN(0.2) + 2*COS(0.2) + TAN(0.2)+" +
-                  "SIN(2) + SIN(0.2) + 2 + SIN(2) + SIN(0.2) + 2 + COS(0.2) + SIN(0.2) + 2 + SIN(2) + SIN(0.2) + 2 + COS(0.2) + TAN(0.2) + SIN(0.2) + 2 + SIN(2) + SIN(0.2) + 2 + COS(0.2) + TAN(0.2) + SIN(0.2) + 2 + SIN(2) + SIN(0.2) + 2 + COS(0.2) + TAN(0.2) +" +
-                  "SIN(2) + SIN(0.2) + 2 + SIN(2) + SIN(0.2) + 2 + COS(0.2) + SIN(0.2) + 2 + SIN(2) + SIN(0.2) + 2 + COS(0.2) + TAN(0.2) + SIN(0.2) + 2 + SIN(2) + SIN(0.2) + 2 + COS(0.2) + TAN(0.2) + SIN(0.2) + 2 + SIN(2) + SIN(0.2) + 2 + COS(0.2) + TAN(0.2) +" +
-                  "SIN(2) + SIN(0.2) + 2 + SIN(2) + SIN(0.2) + 2 + COS(0.2) + SIN(0.2) + 2 + SIN(2) + SIN(0.2) + 2 + COS(0.2) + TAN(0.2) + SIN(0.2) + 2 + SIN(2) + SIN(0.2) + 2 + COS(0.2) + TAN(0.2) + SIN(0.2) + 2 + SIN(2) + SIN(0.2) + 2 + COS(0.2) + TAN(0.2)", -100, "10665695279351952870046504491376448469571061258296904216055874420005799408516078719953566596277031951594111943706628746024479062648484788595451594859150713486673427280232026612840439514728903536306817347326882908208276582585831", -224)]
+        [TestCase("2 *SIN(2) + 2*SIN(0.2) + 6 + COS(0.2)+ 2*SIN(0.2)+ 2*SIN(2) + 2 + COS(0.2) + TAN(0.2)+ SIN(0.2) +" + 
+                  " 2 + SIN(0.2) + 2 + TAN(0.2)+ SIN(0.2) + 4 + SIN(2) + SIN(0.2) + 2*COS(0.2) + TAN(0.2)+" +
+                  "SIN(2) + SIN(0.2) + 2 + SIN(2) + SIN(0.2) + 2 + COS(0.2) + SIN(0.2) + 2 + SIN(2) + SIN(0.2) + 2 +" + 
+                  " COS(0.2) + TAN(0.2) + SIN(0.2) + 2 + SIN(2) + SIN(0.2) + 2 + COS(0.2) + TAN(0.2) + SIN(0.2) + 2 +" + 
+                  " SIN(2) + SIN(0.2) + 2 + COS(0.2) + TAN(0.2) +" +
+                  "SIN(2) + SIN(0.2) + 2 + SIN(2) + SIN(0.2) + 2 + COS(0.2) + SIN(0.2) + 2 + SIN(2) + SIN(0.2) + 2 + COS(0.2) " + 
+                  "+ TAN(0.2) + SIN(0.2) + 2 + SIN(2) + SIN(0.2) + 2 + COS(0.2) + TAN(0.2) + SIN(0.2) + 2 + SIN(2) + SIN(0.2) + 2 + COS(0.2) + TAN(0.2) +" +
+                  "SIN(2) + SIN(0.2) + 2 + SIN(2) + SIN(0.2) + 2 + COS(0.2) + SIN(0.2) + 2 + SIN(2) + SIN(0.2) + 2 + COS(0.2) + TAN(0.2)" + 
+                  " + SIN(0.2) + 2 + SIN(2) + SIN(0.2) + 2 + COS(0.2) + TAN(0.2) + SIN(0.2) + 2 + SIN(2) + SIN(0.2) + 2 + COS(0.2) + TAN(0.2)", -100, "10665695279351952870046504491376448469571061258296904216055874420005799408516078719953566596277031951594111943706628746024479062648484788595451594859150713486673427280232026612840439514728903536306817347326882908208276582585831", -224)]
 
         // joined use of various 10 functions - a^x, hyperbolic, trygonometric, LN
         [TestCase("POW(2.2, COSH(0.2) * SINH(-0.2) + SIN(0.2)) * LN(2) + LN(23) - COTH(2.2) + TANH(0.1) + LN(0.2) + SIN(0.1)", -10, "13901892787696875176958123749041900686179532341658416679392575857116024058416082744000027752958180993675115015216997782961089162436803789752083623462654032868837226904114986480767746931438543430193665232995607620382243989312651", -226)]
