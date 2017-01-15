@@ -121,6 +121,20 @@ namespace IrrationalNumbers.Tests
         }
 
         [Test]
+        [TestCase("POW(PI,PI) * TAN(0.0005) + COTH(0.2)", -10)]
+        public void ComplexFunction_PiAndPowTogether_ResultDoesNotExceedGivenRemainder(string expressionString, int remainder)
+        {
+            var parser = new Parser();
+
+            parser.ConfigureParser(remainder);
+
+            var actualResult = parser.Estimate(expressionString);
+            var expectedResult = Math.Pow(Math.PI, Math.PI)*Math.Tan(0.0005);
+
+            Assert.That(BigDecimal.Abs(actualResult - expectedResult) < Math.Pow(10, remainder));
+        }
+
+        [Test]
         [TestCase("SIN(COS(0.5) * SIN(0.3)) + SINH(0.2)", -100,
             "0457781948121772847994020054489694244722289061763648855462307667324187406737329624864517378998434620430723552718174782796239716845410301349486227087882361188127754925265991971764678971365690343480091211405211045913314541710190", -225)]
         [TestCase("SIN(COS(0.5) * SIN(0.3)) + SIN(0.2)", -100,
