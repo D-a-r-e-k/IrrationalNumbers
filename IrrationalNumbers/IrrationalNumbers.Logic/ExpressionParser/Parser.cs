@@ -164,12 +164,12 @@ namespace IrrationalNumbers.Logic.ExpressionParser
                 var parameter = args.Parameters[0].Evaluate();
                 if (parameter is BigDecimal)
                 {
-                    args.Result = new BinomicalMaclaurinExpansion(1/2d, (BigDecimal) parameter).ExpandFunction(_wantedRemainder, (BigDecimal)parameter);
+                    args.Result = new BinomicalMaclaurinExpansion(1/2d).ExpandFunction(_wantedRemainder, (BigDecimal)parameter);
                 }
                 else
                 {
-                    args.Result = new BinomicalMaclaurinExpansion(1 / 2d, CoreUtils.PositiveStringToBig(args.Parameters[0].Evaluate().ToString())).ExpandFunction(_wantedRemainder,
-                        CoreUtils.PositiveStringToBig(args.Parameters[0].Evaluate().ToString()));
+                    args.Result = new BinomicalMaclaurinExpansion(1 / 2d).ExpandFunction(_wantedRemainder,
+                        CoreUtils.PositiveStringToBig(parameter.ToString()));
                 }
             }
 
@@ -300,19 +300,6 @@ namespace IrrationalNumbers.Logic.ExpressionParser
                 else
                 {
                     args.Result = new PiTaylorExpansion().ExpandFunction(_wantedRemainder,
-                        CoreUtils.PositiveStringToBig(parameter.ToString()));
-                }
-            }
-            else if (name == "SQRT")
-            {
-                var parameter = args.Parameters[0].Evaluate();
-                if (parameter is BigDecimal)
-                {
-                    args.Result = new BinomicalMaclaurinExpansion(1 / 2).ExpandFunction(_wantedRemainder, (BigDecimal)parameter);
-                }
-                else
-                {
-                    args.Result = new BinomicalMaclaurinExpansion(1 / 2).ExpandFunction(_wantedRemainder,
                         CoreUtils.PositiveStringToBig(parameter.ToString()));
                 }
             }
