@@ -17,7 +17,6 @@ using Stack 		= Antlr.Runtime.Collections.StackList;
 
 using Antlr.Runtime.Tree;
 using IrrationalNumbers.Core;
-using IrrationalNumbers.Logic;
 
 public class NCalcParser : Parser 
 {
