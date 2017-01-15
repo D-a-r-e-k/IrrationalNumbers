@@ -255,6 +255,11 @@ namespace NCalc
             TypeCode typeCodeA = Type.GetTypeCode(a.GetType());
             TypeCode typeCodeB = Type.GetTypeCode(b.GetType());
 
+            if (a is BigDecimal || b is BigDecimal)
+            {
+                return (BigDecimal)a - (BigDecimal)b;
+            }
+
             switch (typeCodeA)
             {
                 case TypeCode.Boolean:
@@ -460,10 +465,7 @@ namespace NCalc
                     }
                     break;
             }
-            if (a is BigDecimal || b is BigDecimal)
-            {
-                return (BigDecimal)a - (BigDecimal)b;
-            }
+
             return null;
         }
         public static object Multiply(object a, object b)

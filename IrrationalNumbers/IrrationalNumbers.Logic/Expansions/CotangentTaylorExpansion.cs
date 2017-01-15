@@ -5,6 +5,8 @@ namespace IrrationalNumbers.Logic.Expansions
     {
         public BigDecimal ExpandFunction(int wantedRemainder, BigDecimal x)
         {
+            x = x.Truncate();
+
             SineTaylorExpansion sine = new SineTaylorExpansion();
             CosineTaylorExpansion cosine = new CosineTaylorExpansion();
 

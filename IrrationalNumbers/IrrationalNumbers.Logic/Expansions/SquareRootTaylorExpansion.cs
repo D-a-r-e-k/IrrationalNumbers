@@ -24,6 +24,8 @@ namespace IrrationalNumbers.Logic.Expansions
 
         public BigDecimal ExpandFunction(int wantedRemainder, BigDecimal x)
         {
+            x = x.Truncate();
+
             _normalizationResult = Utils.NormalizeParameter(x, _alpha, wantedRemainder);
 
             BigDecimal result = 1;

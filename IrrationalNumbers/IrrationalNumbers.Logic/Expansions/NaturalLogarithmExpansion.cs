@@ -42,6 +42,8 @@ namespace IrrationalNumbers.Logic.Expansions
 
         public BigDecimal ExpandFunction(int wantedRemainder, BigDecimal x)
         {
+            x = x.Truncate();
+
             var transformedX = TransformParameter(x, wantedRemainder);
 
             RemainderResult remainderResult = EvaluateN(wantedRemainder, transformedX.Remainder);

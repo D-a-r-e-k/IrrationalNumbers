@@ -12,6 +12,8 @@ namespace IrrationalNumbers.Logic.Expansions
 
         public BigDecimal ExpandFunction(int wantedRemainder, BigDecimal x)
         {
+            x = x.Truncate();
+
             var upperPart = _exponentExpansion.ExpandFunction(wantedRemainder, x) + 
                             _exponentExpansion.ExpandFunction(wantedRemainder, -x);
 

@@ -16,6 +16,8 @@ namespace IrrationalNumbers.Logic.Expansions
 
         public BigDecimal ExpandFunction(int wantedRemainder, BigDecimal x)
         {
+            x = x.Truncate();
+
             if (BigDecimal.Abs(x - 1) < Math.Pow(10, wantedRemainder))
                 return 0;
 

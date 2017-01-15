@@ -216,7 +216,7 @@ namespace NCalc.Domain
                     break;
 
                 case UnaryExpressionType.Negate:
-                    Result = Numbers.Soustract(0, Result);
+                    Result = Numbers.Soustract(new BigDecimal(0), Result);
                     break;
 
                 case UnaryExpressionType.BitwiseNot:
