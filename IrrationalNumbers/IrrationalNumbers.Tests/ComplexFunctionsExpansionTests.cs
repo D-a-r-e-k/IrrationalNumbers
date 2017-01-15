@@ -42,7 +42,7 @@ namespace IrrationalNumbers.Tests
         {
             var parser = new Parser();
 
-            parser.ConfigureParser(remainder);
+            parser.ConfigureParser(remainder-1);
 
             var actualResult = parser.Estimate(expressionString);
             var expectedResult = Math.Sqrt(5) - Math.Sin(2);
