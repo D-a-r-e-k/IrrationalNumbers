@@ -211,8 +211,8 @@ namespace IrrationalNumbers.Logic.ExpressionParser
             }
             else if (name == "LOG")
             {
-                var log_base = args.Parameters[0].Evaluate();
-                var log_value = args.Parameters[1].Evaluate();
+                var log_value = args.Parameters[0].Evaluate();
+                var log_base = args.Parameters[1].Evaluate();
                 if (log_base is BigDecimal && log_value is BigDecimal)
                 {
                     args.Result = new LogarithmExpansion((BigDecimal)log_base).ExpandFunction(_wantedRemainder, (BigDecimal)log_value);

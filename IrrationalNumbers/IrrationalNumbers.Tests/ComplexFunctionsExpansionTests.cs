@@ -96,5 +96,96 @@ namespace IrrationalNumbers.Tests
 
             Assert.That(BigDecimal.Abs(actualResult - expectedResult) < BigDecimal.PowBig(10, remainder));
         }
+        [Test]
+        [TestCase("PI", -10)]
+        public void ComplexFunction_Pi_ResultDoesNotExceedGivenRemainder(string expressionString, int remainder)
+        {
+            var parser = new Parser();
+
+            parser.ConfigureParser(remainder);
+
+            var actualResult = parser.Estimate(expressionString);
+            var expectedResult = Math.PI;
+
+            Assert.That(BigDecimal.Abs(actualResult - expectedResult) < Math.Pow(10, remainder));
+        }
+        [Test]
+        [TestCase("E", -10)]
+        public void ComplexFunction_E_ResultDoesNotExceedGivenRemainder(string expressionString, int remainder)
+        {
+            var parser = new Parser();
+
+            parser.ConfigureParser(remainder);
+
+            var actualResult = parser.Estimate(expressionString);
+            var expectedResult = Math.E;
+
+            Assert.That(BigDecimal.Abs(actualResult - expectedResult) < Math.Pow(10, remainder));
+        }
+        [Test]
+        [TestCase("TANH(E)", -10)]
+        public void ComplexFunction_TANH_ResultDoesNotExceedGivenRemainder(string expressionString, int remainder)
+        {
+            var parser = new Parser();
+
+            parser.ConfigureParser(remainder);
+
+            var actualResult = parser.Estimate(expressionString);
+            var expectedResult = Math.Tanh(Math.E);
+
+            Assert.That(BigDecimal.Abs(actualResult - expectedResult) < Math.Pow(10, remainder));
+        }
+        [Test]
+        [TestCase("COTH(E)", -10)]
+        public void ComplexFunction_COTH_ResultDoesNotExceedGivenRemainder(string expressionString, int remainder)
+        {
+            var parser = new Parser();
+
+            parser.ConfigureParser(remainder);
+
+            var actualResult = parser.Estimate(expressionString);
+            var expectedResult = (Math.Exp(Math.E) + Math.Exp(-Math.E)) / (Math.Exp(Math.E) - Math.Exp(-Math.E));
+
+            Assert.That(BigDecimal.Abs(actualResult - expectedResult) < Math.Pow(10, remainder));
+        }
+        [Test]
+        [TestCase("LOG(2, E)", -10)]
+        public void ComplexFunction_LOG_ResultDoesNotExceedGivenRemainder(string expressionString, int remainder)
+        {
+            var parser = new Parser();
+
+            parser.ConfigureParser(remainder);
+
+            var actualResult = parser.Estimate(expressionString);
+            var expectedResult = Math.Log(2, Math.E);
+
+            Assert.That(BigDecimal.Abs(actualResult - expectedResult) < Math.Pow(10, remainder));
+        }
+        [Test]
+        [TestCase("LG(PI)", -10)]
+        public void ComplexFunction_LG_ResultDoesNotExceedGivenRemainder(string expressionString, int remainder)
+        {
+            var parser = new Parser();
+
+            parser.ConfigureParser(remainder);
+
+            var actualResult = parser.Estimate(expressionString);
+            var expectedResult = Math.Log10(Math.PI);
+
+            Assert.That(BigDecimal.Abs(actualResult - expectedResult) < Math.Pow(10, remainder));
+        }
+        [Test]
+        [TestCase("LN(PI)", -10)]
+        public void ComplexFunction_LN_ResultDoesNotExceedGivenRemainder(string expressionString, int remainder)
+        {
+            var parser = new Parser();
+
+            parser.ConfigureParser(remainder);
+
+            var actualResult = parser.Estimate(expressionString);
+            var expectedResult = Math.Log(Math.PI, Math.E);
+
+            Assert.That(BigDecimal.Abs(actualResult - expectedResult) < Math.Pow(10, remainder));
+        }
     }
 }
