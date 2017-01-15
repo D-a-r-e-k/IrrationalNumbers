@@ -12,7 +12,7 @@ namespace IrrationalNumbers.Logic.ExpressionParser
 
         public void ConfigureParser(int remainder)
         {
-            _wantedRemainder = remainder - 5;
+            _wantedRemainder = remainder - 10;
         }
         public void ConfigureParameters(Expression exp)
         {
@@ -24,13 +24,12 @@ namespace IrrationalNumbers.Logic.ExpressionParser
             var exp = new Expression(expression);
 
             ConfigureParameters(exp);
-            exp.EvaluateFunction += TomoAprasytosFunkcijos;
-            exp.EvaluateFunction += DovydoAprasytosFunkcijos;
+            exp.EvaluateFunction += CustomEvaluateFunction;
 
             return (BigDecimal) exp.Evaluate();
         }
 
-        public void TomoAprasytosFunkcijos(string name, FunctionArgs args)
+        public void CustomEvaluateFunction(string name, FunctionArgs args)
         {
             if (name == "SIN")
             {
@@ -167,7 +166,7 @@ namespace IrrationalNumbers.Logic.ExpressionParser
                 var parameter = args.Parameters[0].Evaluate();
                 if (parameter is BigDecimal)
                 {
-                    args.Result = new BinomicalMaclaurinExpansion(1/2d).ExpandFunction(_wantedRemainder, (BigDecimal)parameter);
+                    args.Result = new BinomicalMaclaurinExpansion(1 / 2d).ExpandFunction(_wantedRemainder, (BigDecimal)parameter);
                 }
                 else
                 {
@@ -175,12 +174,7 @@ namespace IrrationalNumbers.Logic.ExpressionParser
                         CoreUtils.PositiveStringToBig(parameter.ToString()));
                 }
             }
-
-        }
-
-        public void DovydoAprasytosFunkcijos(string name, FunctionArgs args)
-        {
-            if (name == "TANH")
+            else if (name == "TANH")
             {
                 var parameter = args.Parameters[0].Evaluate();
                 if (parameter is BigDecimal)

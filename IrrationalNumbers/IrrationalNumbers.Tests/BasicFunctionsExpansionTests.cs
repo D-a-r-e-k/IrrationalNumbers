@@ -318,6 +318,20 @@ namespace IrrationalNumbers.Tests
                         BigDecimal.PowBig(10, wantedRemainder));
         }
 
+        [Test]
+        [TestCase(-100, 30.13, 4, "24565643839098692277855520446699519478212670024205625182277228395120156440347897729660158177498673823756267998075667961880286413701863203567284077852295371249469236475460902514636914739526960013445212825451947471393416064299965", -89)]
+        public void ExponentWithAnyPowerExpansion_BiggerCases_ResultDoesNotExceedGivenRemainder(int wantedRemainder, double x, double logBase, string mantissa, int exponent)
+        {
+            IBasicFunctionExpansion expansion = new ExponentialWithAnyBaseExpansion(exponent);
+
+            BigInteger mantissaBigInteger = BigInteger.Parse(mantissa);
+            var expectedAnswer = new BigDecimal(mantissaBigInteger, exponent);
+            var actualAnswer = expansion.ExpandFunction(wantedRemainder, x);
+
+            Assert.That(BigDecimal.Abs(actualAnswer - expectedAnswer) <
+                        BigDecimal.PowBig(10, wantedRemainder));
+        }
+
         // sin(x)
 
         [Test]
