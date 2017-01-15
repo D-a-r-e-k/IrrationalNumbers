@@ -28,6 +28,8 @@ namespace IrrationalNumbers.Logic.Expansions
 
         public BigDecimal ExpandFunction(int wantedRemainder, BigDecimal x)
         {
+            x = x.Truncate();
+
             if (BigDecimal.Abs(x) < 1)
             {
                 RemainderResult remainderResult = EvaluateN(wantedRemainder, x);

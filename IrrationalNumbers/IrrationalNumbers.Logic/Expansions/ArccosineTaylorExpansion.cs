@@ -16,6 +16,7 @@ namespace IrrationalNumbers.Logic.Expansions
 
         public BigDecimal ExpandFunction(int wantedRemainder, BigDecimal x)
         {
+            x = x.Truncate();
             var pi = _piTaylorExpansion.ExpandFunction(wantedRemainder - 1, 0) / 2.0;
 
             if (BigDecimal.Abs(x) < 1)

@@ -22,6 +22,7 @@ namespace IrrationalNumbers.Logic.Expansions
 
         public RemainderResult EvaluateN(int wantedRemainder, BigDecimal x, BigDecimal expandedLn)
         {
+
             BigDecimal calculatedWantedRemainder = BigDecimal.PowBig(10, wantedRemainder);
 
             int lo = 1;
@@ -50,6 +51,8 @@ namespace IrrationalNumbers.Logic.Expansions
 
         public BigDecimal ExpandFunction(int wantedRemainder, BigDecimal x)
         {
+            x = x.Truncate();
+
             BigDecimal minus = 1;
             if (_exponentBase < 0)
             {

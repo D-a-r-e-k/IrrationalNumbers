@@ -6,7 +6,7 @@ using NCalc;
 
 namespace IrrationalNumbers.Logic.ExpressionParser
 {
-    public class Parser
+    public class ExpressionParser
     {
         private int _wantedRemainder;
 
@@ -25,9 +25,15 @@ namespace IrrationalNumbers.Logic.ExpressionParser
             ConfigureParser(exp);
             exp.EvaluateFunction += TomoAprasytosFunkcijos;
             exp.EvaluateFunction += DovydoAprasytosFunkcijos;
-
+            ConfigureParser(exp);
             return (BigDecimal) exp.Evaluate();
 
+        }
+
+        public void ConfigureParser(Expression exp)
+        {
+            exp.Parameters["PI"] = new PiTaylorExpansion().ExpandFunction(_wantedRemainder, 1);
+            exp.Parameters["E"] = new ExponentTaylorExpansion().ExpandFunction(_wantedRemainder, 1);
         }
 
         public void TomoAprasytosFunkcijos(string name, FunctionArgs args)
@@ -262,7 +268,7 @@ namespace IrrationalNumbers.Logic.ExpressionParser
                 var power = args.Parameters[1].Evaluate();
                 if (power is BigDecimal && pow_value is BigDecimal)
                 {
-                    args.Result = new BinomicalMaclaurinExpansion((BigDecimal)power).ExpandFunction(_wantedRemainder, (BigDecimal)pow_value);
+                    args.Result = new ExponentialWithAnyBaseExpansion((BigDecimal)pow_value).ExpandFunction(_wantedRemainder, (BigDecimal)power);
                 }
                 else if (power is BigDecimal)
                 {
