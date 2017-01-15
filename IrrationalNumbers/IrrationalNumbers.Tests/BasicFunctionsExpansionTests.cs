@@ -163,7 +163,7 @@ namespace IrrationalNumbers.Tests
        [TestCase(-3, 1, (-2/3d))]
         public void BinomicalExpansion_ResultDoesNotExceedGivenRemainder(int wantedRemainder, double x, double alpha)
         {
-            IBasicFunctionExpansion expansion = new BinomicalMaclaurinExpansion(alpha, x);
+            IBasicFunctionExpansion expansion = new BinomicalMaclaurinExpansion(alpha);
 
            double expectedAnswer;
 
@@ -192,7 +192,7 @@ namespace IrrationalNumbers.Tests
         [TestCase(-97, 7, 0.5d, "264575131106459059050161575363926042571025918308245018036833445920106882323028362776039288647454361", -98)]
         public void Binomial_BiggerCases_ResultDoesNotExceedGivenRemainder(int wantedRemainder, double x, double alpha, string mantissa, int exponent)
         {
-            IBasicFunctionExpansion expansion = new BinomicalMaclaurinExpansion(alpha, x);
+            IBasicFunctionExpansion expansion = new BinomicalMaclaurinExpansion(alpha);
 
             BigInteger mantissaBigInteger = BigInteger.Parse(mantissa);
             var expectedAnswer = new BigDecimal(mantissaBigInteger, exponent);

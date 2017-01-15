@@ -6,9 +6,9 @@ namespace IrrationalNumbers.Logic.Expansions
     public class LogarithmExpansion : IBasicFunctionExpansion
     {
         private readonly IBasicFunctionExpansion _naturalLogarithmExpansion;
-        private readonly double _logarithmBase;
+        private readonly BigDecimal _logarithmBase;
 
-        public LogarithmExpansion(double logarithmBase)
+        public LogarithmExpansion(BigDecimal logarithmBase)
         {
             _naturalLogarithmExpansion = new NaturalLogarithmExpansion();
             _logarithmBase = logarithmBase;
