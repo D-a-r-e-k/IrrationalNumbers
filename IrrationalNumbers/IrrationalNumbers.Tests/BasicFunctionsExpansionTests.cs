@@ -544,7 +544,7 @@ namespace IrrationalNumbers.Tests
         {
             IBasicFunctionExpansion expansion = new ArccotangentTaylorExpansion();
 
-            var expectedAnswer = Math.PI / 2 - Math.Atan(x);
+            var expectedAnswer = Math.Atan(1 / x);
 
             Assert.That(BigDecimal.Abs(expansion.ExpandFunction(wantedRemainder, x) - expectedAnswer) <
                         BigDecimal.PowBig(10, wantedRemainder));

@@ -29,10 +29,6 @@ namespace IrrationalNumbers.Logic.Expansions
 
         public BigDecimal ExpandFunction(int wantedRemainder, BigDecimal x)
         {
-            if (BigDecimal.Abs(x) == 1)
-            {
-                return x;
-            }
             _normalizationResult = Utils.NormalizeParameter(x, _alpha, wantedRemainder);
 
             BigDecimal result = 1;
@@ -51,32 +47,6 @@ namespace IrrationalNumbers.Logic.Expansions
                 if (i % 40 == 0)
                     result = result.Truncate();
             }
-            //var resultList = new ConcurrentStack<BigDecimal>();
-
-            //Parallel.For(1, 1000, (i, loopState) =>
-            //{
-            //    var ith = BigDecimal.PowBig(_normalizationResult.NormalizedParameter, i) * Utils.CalculateBigDecimalFactorial(_alpha, i) / Utils.CalculateBigDecimalFactorial(i);
-            //    BigDecimal ithCoeficientBig = BigDecimal.Abs(ith);
-
-            //    if (ithCoeficientBig <= remainder)
-            //    {
-            //        loopState.Stop();
-            //        return;
-            //    }
-            //   // result += ith;
-
-            //   resultList.Push(ith);
-            //});
-
-            //var ind = 0;
-            //foreach (var bigDecimal in resultList)
-            //{
-            //    result += bigDecimal;
-            //    if (ind % 40 == 0)
-            //        result = result.Truncate();
-
-            //    ind++;
-            //}
 
             if (_isNegativeAlpha)
                 return 1 / _normalizationResult.FinalMultiplier * result;
