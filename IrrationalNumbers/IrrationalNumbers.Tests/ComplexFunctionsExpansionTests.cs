@@ -115,7 +115,7 @@ namespace IrrationalNumbers.Tests
             parser.ConfigureParser(remainder);
 
             var actualResult = parser.Estimate(expressionString);
-            var expectedResult = Math.PI * Math.Log(3, 2) + Math.Cos(Math.PI);
+            var expectedResult = Math.PI * Math.Log(2, 3) + Math.Cos(Math.PI);
 
             Assert.That(BigDecimal.Abs(actualResult - expectedResult) < Math.Pow(10, remainder));
         }
