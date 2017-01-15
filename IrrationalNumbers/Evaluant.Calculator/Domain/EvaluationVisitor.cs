@@ -121,7 +121,7 @@ namespace NCalc.Domain
                 case BinaryExpressionType.Div:
                     Result = IsReal(left()) || IsReal(right())
                                  ? Numbers.Divide(left(), right())
-                                 : Numbers.Divide(Convert.ToDouble(left()), right());
+                                 : Numbers.Divide(left(), right());
                     break;
 
                 case BinaryExpressionType.Equal:

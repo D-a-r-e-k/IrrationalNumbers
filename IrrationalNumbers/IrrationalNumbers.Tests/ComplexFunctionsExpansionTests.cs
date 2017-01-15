@@ -157,7 +157,7 @@ namespace IrrationalNumbers.Tests
         {
             var parser = new Parser();
 
-            parser.ConfigureParser(remainder);
+            parser.ConfigureParser(remainder - 5);
 
             var actualResult = parser.Estimate(expressionString);
 
