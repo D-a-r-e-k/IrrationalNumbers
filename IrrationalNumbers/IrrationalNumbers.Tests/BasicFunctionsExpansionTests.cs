@@ -180,6 +180,8 @@ namespace IrrationalNumbers.Tests
 
         [Test]
         [TestCase("-112143.214", -112143.214d)]
+        [TestCase("0.3", 0.3d)]
+
         public void StringtoBig_Negative(string big, double num)
         {
             var bigDec = CoreUtils.PositiveStringToBig(big);
