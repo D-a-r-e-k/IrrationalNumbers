@@ -22,7 +22,6 @@ namespace IrrationalNumbers.Logic.Expansions
 
         public RemainderResult EvaluateN(int wantedRemainder, BigDecimal x, BigDecimal expandedLn)
         {
-
             BigDecimal calculatedWantedRemainder = BigDecimal.PowBig(10, wantedRemainder);
 
             int lo = 1;
@@ -61,13 +60,6 @@ namespace IrrationalNumbers.Logic.Expansions
                 _exponentBase = BigDecimal.Abs(_exponentBase);
             }
 
-            bool negativeX = false;
-            if (x < 0)
-            {
-                negativeX = true;
-                x = BigDecimal.Abs(x);
-            }
-
             BigDecimal expandedLn = _naturalLogarithmExpansion.ExpandFunction(wantedRemainder * 2, _exponentBase);
             RemainderResult remainderResult = EvaluateN(wantedRemainder, x, expandedLn);
            
@@ -81,9 +73,6 @@ namespace IrrationalNumbers.Logic.Expansions
             BigDecimal result = 1;
             for (int i = 1; i <= remainderResult.RemainderOrder; ++i)
                 result += preCalculation[i];
-
-            if (negativeX)
-                return (BigDecimal)1 / (result * minus);
 
             return result*minus;
         }
