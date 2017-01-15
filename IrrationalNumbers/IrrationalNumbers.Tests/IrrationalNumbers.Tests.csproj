@@ -57,9 +57,14 @@
   </Choose>
   <ItemGroup>
     <Compile Include="BasicFunctionsExpansionTests.cs" />
+    <Compile Include="ComplexFunctionsExpansionTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Evaluant.Calculator\NCalc.csproj">
+      <Project>{5f014003-50d8-49e0-8afe-91d38dccc97c}</Project>
+      <Name>NCalc</Name>
+    </ProjectReference>
     <ProjectReference Include="..\IrrationalNumbers.Core\IrrationalNumbers.Core.csproj">
       <Project>{0104b64f-bf46-444f-92cc-b08947f73fc9}</Project>
       <Name>IrrationalNumbers.Core</Name>
