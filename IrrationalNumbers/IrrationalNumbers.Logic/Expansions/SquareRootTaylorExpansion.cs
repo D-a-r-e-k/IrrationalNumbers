@@ -11,7 +11,7 @@ namespace IrrationalNumbers.Logic.Expansions
 
         private ParameterNormalizationResult _normalizationResult;
 
-        public BinomicalMaclaurinExpansion(BigDecimal alpha, BigDecimal x)
+        public BinomicalMaclaurinExpansion(BigDecimal alpha)
         {
             if (alpha < 0)
             {
