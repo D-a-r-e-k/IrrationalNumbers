@@ -17,7 +17,7 @@ namespace IrrationalNumbers.Logic.Expansions
             BigDecimal calculatedWantedRemainder = BigDecimal.PowBig(10, wantedRemainder);
 
             int lo = 1;
-            int hi = 1000;
+            int hi = 10000;
 
             while (lo < hi)
             {
